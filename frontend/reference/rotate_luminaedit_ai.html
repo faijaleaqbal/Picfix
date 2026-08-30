@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rotate Image - LuminaEdit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#e2e2e2",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "tertiary": "#ffffff",
+                      "on-surface": "#e5e1e4",
+                      "surface-container-low": "#1c1b1d",
+                      "surface-container-lowest": "#0e0e10",
+                      "on-primary-container": "#636565",
+                      "surface-container": "#201f22",
+                      "inverse-on-surface": "#313032",
+                      "primary-fixed": "#e2e2e2",
+                      "on-error": "#690005",
+                      "on-primary-fixed": "#1a1c1c",
+                      "muted": "#18181B",
+                      "on-primary-fixed-variant": "#454747",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "inverse-surface": "#e5e1e4",
+                      "border": "#27272A",
+                      "on-tertiary-container": "#646464",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#dcb8ff",
+                      "secondary-container": "#5c3783",
+                      "error-container": "#93000a",
+                      "primary": "#ffffff",
+                      "on-primary": "#2f3131",
+                      "accent-lavender": "#B48CDE",
+                      "on-secondary-container": "#d0a7fb",
+                      "secondary": "#dcb8ff",
+                      "on-secondary-fixed": "#2b0052",
+                      "primary-container": "#e2e2e2",
+                      "on-tertiary": "#303030",
+                      "inverse-primary": "#5d5f5f",
+                      "outline-variant": "#444748",
+                      "outline": "#8e9192",
+                      "error": "#ffb4ab",
+                      "surface-tint": "#c6c6c7",
+                      "text-secondary": "#A1A1AA",
+                      "on-surface-variant": "#c4c7c8",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "surface-container-high": "#2a2a2c",
+                      "tertiary-container": "#e2e2e2",
+                      "background": "#131315",
+                      "surface-dim": "#131315",
+                      "surface-bright": "#39393b",
+                      "surface": "#131315",
+                      "surface-variant": "#353437",
+                      "on-secondary-fixed-variant": "#593580",
+                      "surface-container-highest": "#353437",
+                      "secondary-fixed": "#efdbff",
+                      "primary-fixed-dim": "#c6c6c7",
+                      "on-secondary": "#421c68",
+                      "on-background": "#e5e1e4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "stack-lg": "32px",
+                      "stack-md": "16px",
+                      "margin-mobile": "16px",
+                      "stack-sm": "8px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Geist"],
+                      "headline-xl": ["Geist"],
+                      "headline-md": ["Geist"],
+                      "headline-xl-mobile": ["Geist"],
+                      "body-lg": ["Geist"],
+                      "body-md": ["Geist"],
+                      "label-md": ["Geist"],
+                      "label-sm": ["Geist"]
+              },
+              "fontSize": {
+                      "headline-lg": ["36px", { "lineHeight": "1.2", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+                      "headline-xl": ["60px", { "lineHeight": "1.1", "letterSpacing": "-0.05em", "fontWeight": "700" }],
+                      "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+                      "headline-xl-mobile": ["40px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                      "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+                      "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                      "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                      "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .slider-thumb::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            border: 2px solid #B48CDE;
+        }
+        .slider-thumb::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            border: 2px solid #B48CDE;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background h-screen overflow-hidden flex flex-col selection:bg-accent-lavender selection:text-background">
+<!-- TopNavBar -->
+<header class="bg-background/80 backdrop-blur-md font-body-md text-body-md full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center h-16 px-gutter w-full max-w-container-max mx-auto shrink-0 z-50">
+<div class="flex items-center gap-stack-lg">
+<a class="font-headline-md text-headline-md font-bold text-primary tracking-tighter" href="#">LuminaEdit</a>
+<nav class="hidden md:flex gap-stack-md">
+<a class="text-primary font-bold border-b-2 border-accent-lavender pb-1 scale-95 active:scale-90 transition-transform hover:bg-muted transition-all duration-200 px-2 rounded-t-sm" href="#">Editor</a>
+<a class="text-text-secondary hover:text-primary transition-colors scale-95 active:scale-90 transition-transform hover:bg-muted transition-all duration-200 px-2 py-1 rounded-sm" href="#">Templates</a>
+<a class="text-text-secondary hover:text-primary transition-colors scale-95 active:scale-90 transition-transform hover:bg-muted transition-all duration-200 px-2 py-1 rounded-sm" href="#">Pricing</a>
+<a class="text-text-secondary hover:text-primary transition-colors scale-95 active:scale-90 transition-transform hover:bg-muted transition-all duration-200 px-2 py-1 rounded-sm" href="#">Resources</a>
+</nav>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="text-text-secondary hover:text-primary transition-colors font-label-md text-label-md px-4 py-2 rounded-full border border-transparent hover:border-outline-variant">Sign In</button>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-full hover:opacity-90 transition-opacity">Get Started</button>
+</div>
+</header>
+<!-- Main Workspace -->
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SideNavBar (Tools) -->
+<aside class="bg-surface font-label-md text-label-md docked left-0 h-full w-64 border-r border-outline-variant flat no shadows flex flex-col py-stack-md gap-stack-sm shrink-0 z-40">
+<div class="px-gutter mb-stack-sm">
+<h2 class="font-headline-sm text-headline-sm font-black text-accent-lavender">Workbench</h2>
+<p class="text-text-secondary text-label-sm mt-1">v2.4 Pro</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto px-2">
+<a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 flex items-center gap-3 px-3 py-2 transition-all duration-200 ease-in-out hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="tune" style="font-variation-settings: 'FILL' 1;">tune</span>
+<span>Adjust</span>
+</a>
+<a class="text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg flex items-center gap-3 px-3 py-2 transition-all duration-200 ease-in-out hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="auto_fix_high">auto_fix_high</span>
+<span>Filters</span>
+</a>
+<a class="text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg flex items-center gap-3 px-3 py-2 transition-all duration-200 ease-in-out hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="face">face</span>
+<span>Retouch</span>
+</a>
+<a class="text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg flex items-center gap-3 px-3 py-2 transition-all duration-200 ease-in-out hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+<span>Layers</span>
+</a>
+<a class="text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg flex items-center gap-3 px-3 py-2 transition-all duration-200 ease-in-out hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+<span>Export</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pb-4 border-t border-outline-variant pt-4 flex flex-col gap-2">
+<button class="w-full border border-accent-lavender text-accent-lavender rounded-full py-2 font-label-md text-label-md hover:bg-accent-lavender/10 transition-colors mb-2">Upgrade Plan</button>
+<a class="text-text-secondary hover:text-on-surface flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="text-text-secondary hover:text-on-surface flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Help</span>
+</a>
+</div>
+</aside>
+<!-- Canvas Area -->
+<main class="flex-1 bg-[#000000] relative flex items-center justify-center p-gutter overflow-hidden">
+<!-- Grid Pattern overlay -->
+<div class="absolute inset-0 pointer-events-none opacity-20" style="background-image: radial-gradient(#27272A 1px, transparent 1px); background-size: 24px 24px;"></div>
+<!-- Image Container -->
+<div class="relative max-w-4xl max-h-full aspect-video rounded-xl border border-border bg-surface shadow-2xl overflow-hidden flex items-center justify-center group" id="canvas-container">
+<img class="w-full h-full object-cover transition-transform duration-300 ease-out" data-alt="A high-resolution, professional architectural photograph of a modern, minimalist concrete and glass building exterior. Shot during golden hour with long shadows, showcasing stark geometric lines and pristine white and deep black contrasts. The overall aesthetic is sleek, sophisticated, and professional, fitting for a high-end editing software demo." id="target-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJRASYqOy3Os8plJrcVyF2hDHx_ON_27pdf3dfz_JwvxV4K1C_9oAk9udNk5HT3dDWC8vM0Bf3PGxYyteXHBt9mLwAWODbtLFL1ENuadKGEum8_WaqlCQPlo9GE6qVbEWTN90bxydAw29fmz-z_VbNn93IrDHeHApRvcBzFrIXyjaYTN1ajGrQe9HehGV0c5e3JtTjbaF2YGp-9RGqIU0EpLi6De9-BR2Uk15YTCOJLbXlqZzDM63N" style="transform: rotate(0deg);"/>
+<!-- Canvas Overlay UI -->
+<div class="absolute inset-0 pointer-events-none border border-transparent group-hover:border-accent-lavender/30 transition-colors rounded-xl"></div>
+<!-- Grid Helper (Visible during rotation) -->
+<div class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-200 border border-accent-lavender/50" id="grid-helper">
+<div class="w-full h-full border-x border-accent-lavender/20 ml-[33.33%]"></div>
+<div class="w-full h-full border-x border-accent-lavender/20 -ml-[33.33%] absolute top-0"></div>
+<div class="w-full h-full border-y border-accent-lavender/20 mt-[33.33%] absolute top-0"></div>
+<div class="w-full h-full border-y border-accent-lavender/20 -mt-[33.33%] absolute top-0"></div>
+</div>
+</div>
+<!-- Floating Canvas Actions -->
+<div class="absolute bottom-gutter left-1/2 -translate-x-1/2 flex items-center gap-2 bg-surface-container-high/80 backdrop-blur-md p-1 rounded-full border border-border shadow-soft-md">
+<button aria-label="Undo" class="p-2 rounded-full text-text-secondary hover:text-primary hover:bg-muted transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">undo</span>
+</button>
+<button aria-label="Redo" class="p-2 rounded-full text-text-secondary hover:text-primary hover:bg-muted transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">redo</span>
+</button>
+<div class="w-px h-6 bg-border mx-1"></div>
+<button aria-label="Zoom Out" class="p-2 rounded-full text-text-secondary hover:text-primary hover:bg-muted transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">zoom_out</span>
+</button>
+<span class="text-label-sm font-label-sm text-text-secondary px-2">100%</span>
+<button aria-label="Zoom In" class="p-2 rounded-full text-text-secondary hover:text-primary hover:bg-muted transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+</div>
+</main>
+<!-- Right Tool Panel (Rotate Settings) -->
+<aside class="w-80 bg-surface border-l border-border h-full flex flex-col shrink-0 z-40 overflow-y-auto">
+<!-- Panel Header -->
+<div class="p-stack-md border-b border-border flex items-center justify-between sticky top-0 bg-surface z-10">
+<div>
+<h3 class="font-headline-sm text-headline-md font-semibold text-primary">Rotate</h3>
+<p class="font-label-sm text-label-sm text-text-secondary mt-1">Turn images clockwise or counter-clockwise.</p>
+</div>
+<button class="text-text-secondary hover:text-primary transition-colors flex items-center justify-center p-1 rounded-md hover:bg-muted">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Panel Content -->
+<div class="p-stack-md flex flex-col gap-stack-lg">
+<!-- Presets -->
+<div class="flex flex-col gap-stack-sm">
+<label class="font-label-md text-label-md text-primary">Presets</label>
+<div class="grid grid-cols-2 gap-2">
+<button class="bg-surface-container-high hover:bg-muted border border-border hover:border-outline-variant rounded-lg p-3 flex flex-col items-center gap-2 transition-colors group" onclick="setRotation(-90)">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">rotate_left</span>
+<span class="font-label-sm text-label-sm text-text-secondary group-hover:text-primary transition-colors">-90°</span>
+</button>
+<button class="bg-surface-container-high hover:bg-muted border border-border hover:border-outline-variant rounded-lg p-3 flex flex-col items-center gap-2 transition-colors group" onclick="setRotation(90)">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">rotate_right</span>
+<span class="font-label-sm text-label-sm text-text-secondary group-hover:text-primary transition-colors">+90°</span>
+</button>
+<button class="col-span-2 bg-surface-container-high hover:bg-muted border border-border hover:border-outline-variant rounded-lg p-3 flex flex-col items-center gap-2 transition-colors group" onclick="setRotation(180)">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">sync</span>
+<span class="font-label-sm text-label-sm text-text-secondary group-hover:text-primary transition-colors">180° Flip</span>
+</button>
+</div>
+</div>
+<!-- Fine-tune Slider -->
+<div class="flex flex-col gap-stack-sm">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-primary">Angle</label>
+<div class="flex items-center gap-1 bg-surface-container-high border border-border rounded-md px-2 py-1">
+<input class="bg-transparent border-none text-right w-12 text-primary font-label-md focus:ring-0 p-0 m-0" id="angle-input" max="45" min="-45" type="number" value="0"/>
+<span class="text-text-secondary font-label-md">°</span>
+</div>
+</div>
+<div class="relative pt-4 pb-2">
+<!-- Custom Slider Track -->
+<div class="absolute inset-0 flex items-center pointer-events-none">
+<div class="w-full h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-accent-lavender w-1/2" id="slider-progress"></div>
+</div>
+<!-- Zero marker -->
+<div class="absolute left-1/2 w-0.5 h-3 bg-border -translate-x-1/2"></div>
+</div>
+<input class="w-full appearance-none bg-transparent slider-thumb relative z-10" id="angle-slider" max="45" min="-45" type="range" value="0"/>
+</div>
+<div class="flex justify-between text-label-sm font-label-sm text-text-secondary px-1">
+<span>-45°</span>
+<span>0°</span>
+<span>45°</span>
+</div>
+</div>
+<!-- Crop Options (Contextual to rotation) -->
+<div class="flex flex-col gap-stack-sm pt-stack-sm border-t border-border">
+<label class="font-label-md text-label-md text-primary">Edge Handling</label>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center justify-center">
+<input class="peer appearance-none w-4 h-4 rounded-full border border-outline-variant checked:border-accent-lavender bg-transparent transition-colors focus:ring-2 focus:ring-accent-lavender/50 focus:ring-offset-1 focus:ring-offset-surface" name="crop_mode" type="radio"/>
+<div class="absolute w-2 h-2 rounded-full bg-accent-lavender opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary group-hover:text-primary transition-colors">Auto Crop (Constrain)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center justify-center">
+<input checked="" class="peer appearance-none w-4 h-4 rounded-full border border-outline-variant checked:border-accent-lavender bg-transparent transition-colors focus:ring-2 focus:ring-accent-lavender/50 focus:ring-offset-1 focus:ring-offset-surface" name="crop_mode" type="radio"/>
+<div class="absolute w-2 h-2 rounded-full bg-accent-lavender opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary group-hover:text-primary transition-colors">Keep Original Size (Fill)</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Panel Footer Actions -->
+<div class="mt-auto p-stack-md border-t border-border flex gap-3 bg-surface z-10 sticky bottom-0">
+<button class="flex-1 py-2 px-4 rounded-full border border-outline-variant text-primary font-label-md text-label-md hover:bg-muted transition-colors" onclick="setRotation(0)">Reset</button>
+<button class="flex-1 py-2 px-4 rounded-full bg-primary text-on-primary font-label-md text-label-md hover:opacity-90 transition-opacity">Apply</button>
+</div>
+</aside>
+</div>
+<!-- Script for interactive rotation -->
+<script>
+        const image = document.getElementById('target-image');
+        const slider = document.getElementById('angle-slider');
+        const input = document.getElementById('angle-input');
+        const progress = document.getElementById('slider-progress');
+        const gridHelper = document.getElementById('grid-helper');
+        
+        let currentRotation = 0;
+
+        function updateRotation(angle, isScrubbing = false) {
+            currentRotation = parseFloat(angle);
+            image.style.transform = `rotate(${currentRotation}deg)`;
+            
+            // Limit bounds for display
+            let displayAngle = currentRotation % 360;
+            if(displayAngle > 180) displayAngle -= 360;
+            if(displayAngle < -180) displayAngle += 360;
+            
+            // Only update slider/input if within normal -45 to 45 fine-tune range
+            if (currentRotation >= -45 && currentRotation <= 45) {
+                slider.value = currentRotation;
+                input.value = currentRotation;
+                
+                // Update custom slider track
+                const percentage = ((currentRotation + 45) / 90) * 100;
+                progress.style.width = `${percentage}%`;
+                
+                if (currentRotation === 0) {
+                    progress.style.backgroundColor = 'transparent';
+                } else {
+                    progress.style.backgroundColor = '#B48CDE'; // accent-lavender
+                }
+            }
+
+            // Show grid helper while scrubbing
+            if(isScrubbing) {
+                gridHelper.classList.remove('opacity-0');
+            } else {
+                setTimeout(() => {
+                    gridHelper.classList.add('opacity-0');
+                }, 300);
+            }
+        }
+
+        function setRotation(presetAngle) {
+            // For presets, we usually just set absolute or add. Let's do absolute for simplicity in this demo.
+            updateRotation(presetAngle);
+        }
+
+        slider.addEventListener('input', (e) => {
+            updateRotation(e.target.value, true);
+        });
+        
+        slider.addEventListener('change', (e) => {
+             updateRotation(e.target.value, false);
+        });
+
+        input.addEventListener('change', (e) => {
+            let val = parseFloat(e.target.value);
+            if(isNaN(val)) val = 0;
+            if(val > 45) val = 45;
+            if(val < -45) val = -45;
+            updateRotation(val);
+        });
+        
+        // Initialize
+        updateRotation(0);
+    </script>
+</body></html>

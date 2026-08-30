@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   LuminaEdit AI — global styles
+   The site chrome is permanently dark (Stitch exports ship `class="dark"`),
+   so the palette is declared once at :root.
+   ------------------------------------------------------------------ */
+
+:root {
+  /* shadcn/ui semantic tokens, mapped onto the Stitch design palette */
+  --background: #131315;
+  --foreground: #e5e1e4;
+  --card: #131315;
+  --card-foreground: #e5e1e4;
+  --popover: #201f22;
+  --popover-foreground: #e5e1e4;
+  --primary: #ffffff;
+  --primary-foreground: #2f3131;
+  --secondary: #dcb8ff;
+  --secondary-foreground: #421c68;
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
+  --accent: #b48cde;
+  --accent-foreground: #131315;
+  --destructive: #ffb4ab;
+  --destructive-foreground: #690005;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #b48cde;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-background font-body-md;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom scrollbars (used by the workspace-style tool pages) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #131315;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444748;
+}
+
+/* Glass panel used on several tool canvases */
+.glass-panel {
+  background: rgba(9, 9, 11, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #27272a;
+}
+
+/* Lavender-accent range slider shared by the tool settings panels */
+input[type="range"].slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: #2a2a2c;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"].slider-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  border: 2px solid #b48cde;
+}
+input[type="range"].slider-thumb::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  border: 2px solid #b48cde;
+}
+
+/* Checkerboard used to indicate transparency on editor canvases */
+.checkerboard-bg {
+  background-image:
+    linear-gradient(45deg, #18181b 25%, transparent 25%),
+    linear-gradient(-45deg, #18181b 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #18181b 75%),
+    linear-gradient(-45deg, transparent 75%, #18181b 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  background-color: #131315;
+}
+
+/* Dotted workspace grid pattern */
+.pattern-grid {
+  background-image:
+    linear-gradient(to right, #18181b 1px, transparent 1px),
+    linear-gradient(to bottom, #18181b 1px, transparent 1px);
+  background-size: 24px 24px;
+}

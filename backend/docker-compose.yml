@@ -1,0 +1,54 @@
+services:
+  backend:
+    build: .
+    container_name: image-editor-backend
+    ports:
+      - "4001:4000"
+    env_file:
+      - .env
+    environment:
+      # TEMP_DIR inside container — mount as volume for host cleanup visibility
+      - TEMP_DIR=/tmp/image-uploads
+    volumes:
+      # Persist temp uploads on host so cron cleanup can also run there if needed
+      - image-uploads:/tmp/image-uploads
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1536M
+    networks:
+      - backend-net
+
+  # Redis for future queue/rate-limiting — intentionally NOT wired to code yet.
+  redis:
+    image: redis:7-alpine
+    container_name: image-editor-redis
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    restart: unless-stopped
+    networks:
+      - backend-net
+    # No ports exposed to host — internal only for now
+
+  # ---------------------------------------------------------------------
+  # FUTURE: Python AI microservice (FastAPI).
+  # ---------------------------------------------------------------------
+  ai-service:
+    build: ../ai-service          # Python FastAPI service (separate team)
+    container_name: ai-service
+    environment:
+      - BACKEND_URL=http://backend:3000
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 3072M
+    networks:
+      - backend-net
+
+networks:
+  backend-net:
+    driver: bridge
+
+volumes:
+  image-uploads:

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Passport Size Photo - LuminaEdit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#e2e2e2",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "tertiary": "#ffffff",
+                      "on-surface": "#e5e1e4",
+                      "surface-container-low": "#1c1b1d",
+                      "surface-container-lowest": "#0e0e10",
+                      "on-primary-container": "#636565",
+                      "surface-container": "#201f22",
+                      "inverse-on-surface": "#313032",
+                      "primary-fixed": "#e2e2e2",
+                      "on-error": "#690005",
+                      "on-primary-fixed": "#1a1c1c",
+                      "muted": "#18181B",
+                      "on-primary-fixed-variant": "#454747",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "inverse-surface": "#e5e1e4",
+                      "border": "#27272A",
+                      "on-tertiary-container": "#646464",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#dcb8ff",
+                      "secondary-container": "#5c3783",
+                      "error-container": "#93000a",
+                      "primary": "#ffffff",
+                      "on-primary": "#2f3131",
+                      "accent-lavender": "#B48CDE",
+                      "on-secondary-container": "#d0a7fb",
+                      "secondary": "#dcb8ff",
+                      "on-secondary-fixed": "#2b0052",
+                      "primary-container": "#e2e2e2",
+                      "on-tertiary": "#303030",
+                      "inverse-primary": "#5d5f5f",
+                      "outline-variant": "#444748",
+                      "outline": "#8e9192",
+                      "error": "#ffb4ab",
+                      "surface-tint": "#c6c6c7",
+                      "text-secondary": "#A1A1AA",
+                      "on-surface-variant": "#c4c7c8",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "surface-container-high": "#2a2a2c",
+                      "tertiary-container": "#e2e2e2",
+                      "background": "#131315",
+                      "surface-dim": "#131315",
+                      "surface-bright": "#39393b",
+                      "surface": "#131315",
+                      "surface-variant": "#353437",
+                      "on-secondary-fixed-variant": "#593580",
+                      "surface-container-highest": "#353437",
+                      "secondary-fixed": "#efdbff",
+                      "primary-fixed-dim": "#c6c6c7",
+                      "on-secondary": "#421c68",
+                      "on-background": "#e5e1e4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "stack-lg": "32px",
+                      "stack-md": "16px",
+                      "margin-mobile": "16px",
+                      "stack-sm": "8px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "headline-xl": [
+                              "Geist"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "headline-xl-mobile": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "label-sm": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl": [
+                              "60px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.03em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap');
+        body { font-family: 'Geist', sans-serif; }
+        
+        .upload-area.dragover {
+            border-color: #B48CDE;
+            background-color: rgba(180, 140, 222, 0.05);
+        }
+        
+        .face-guide {
+            position: absolute;
+            border: 1px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            display: none;
+        }
+        .face-guide.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-50 bg-background/80 backdrop-blur-md w-full">
+<div class="flex justify-between items-center h-16 px-gutter w-full max-w-container-max mx-auto border-b border-outline-variant">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<a class="font-headline-md text-headline-md font-bold text-primary tracking-tighter" href="#">LuminaEdit</a>
+</div>
+<!-- Links (Desktop) -->
+<div class="hidden md:flex items-center gap-stack-lg">
+<a class="font-body-md text-body-md text-text-secondary hover:text-primary transition-colors hover:bg-muted duration-200 px-3 py-2 rounded-md" href="#">Editor</a>
+<a class="font-body-md text-body-md text-text-secondary hover:text-primary transition-colors hover:bg-muted duration-200 px-3 py-2 rounded-md" href="#">Templates</a>
+<a class="font-body-md text-body-md text-text-secondary hover:text-primary transition-colors hover:bg-muted duration-200 px-3 py-2 rounded-md" href="#">Pricing</a>
+<a class="font-body-md text-body-md text-text-secondary hover:text-primary transition-colors hover:bg-muted duration-200 px-3 py-2 rounded-md" href="#">Resources</a>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-stack-md">
+<button class="font-label-md text-label-md text-primary bg-transparent border border-outline-variant hover:bg-surface-container-high px-4 py-2 rounded-full transition-colors hidden md:block">Sign In</button>
+<button class="font-label-md text-label-md bg-primary text-on-primary px-4 py-2 rounded-full hover:bg-tertiary-fixed transition-colors">Get Started</button>
+</div>
+</div>
+</nav>
+<!-- Main Workspace -->
+<main class="flex-1 flex w-full max-w-container-max mx-auto">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col py-stack-md gap-stack-sm bg-surface w-64 border-r border-outline-variant shrink-0 min-h-[calc(100vh-64px)]">
+<div class="px-gutter mb-stack-md">
+<h2 class="font-headline-sm text-headline-sm font-black text-accent-lavender">Workbench</h2>
+<p class="font-label-sm text-label-sm text-text-secondary">v2.4 Pro</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 font-label-md text-label-md bg-secondary-container text-on-secondary-container rounded-lg mx-2 px-4 py-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">tune</span>
+                    Adjust
+                </a>
+<a class="flex items-center gap-3 font-label-md text-label-md text-text-secondary hover:text-on-surface hover:bg-surface-container-high mx-2 rounded-lg px-4 py-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">auto_fix_high</span>
+                    Filters
+                </a>
+<a class="flex items-center gap-3 font-label-md text-label-md text-text-secondary hover:text-on-surface hover:bg-surface-container-high mx-2 rounded-lg px-4 py-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">face</span>
+                    Retouch
+                </a>
+<a class="flex items-center gap-3 font-label-md text-label-md text-text-secondary hover:text-on-surface hover:bg-surface-container-high mx-2 rounded-lg px-4 py-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">layers</span>
+                    Layers
+                </a>
+<a class="flex items-center gap-3 font-label-md text-label-md text-text-secondary hover:text-on-surface hover:bg-surface-container-high mx-2 rounded-lg px-4 py-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">ios_share</span>
+                    Export
+                </a>
+</nav>
+<div class="px-gutter mb-stack-md mt-auto">
+<button class="w-full font-label-md text-label-md bg-transparent border border-accent-lavender text-accent-lavender rounded-full py-2 hover:bg-secondary-container/20 transition-colors">Upgrade Plan</button>
+</div>
+<div class="flex flex-col gap-2 border-t border-outline-variant pt-stack-sm">
+<a class="flex items-center gap-3 font-label-md text-label-md text-text-secondary hover:text-on-surface hover:bg-surface-container-high mx-2 rounded-lg px-4 py-2 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-3 font-label-md text-label-md text-text-secondary hover:text-on-surface hover:bg-surface-container-high mx-2 rounded-lg px-4 py-2 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Help
+                </a>
+</div>
+</aside>
+<!-- Tool Content Area -->
+<section class="flex-1 flex flex-col p-gutter md:p-stack-lg bg-background overflow-y-auto">
+<header class="mb-stack-lg">
+<h1 class="font-headline-lg text-headline-lg md:font-headline-xl md:text-headline-xl text-primary mb-2">Passport Size Photo</h1>
+<p class="font-body-md text-body-md text-text-secondary max-w-2xl">Format photos for official documents with standard dimensions and alignment guides.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-lg">
+<!-- Canvas Area -->
+<div class="lg:col-span-8 flex flex-col gap-stack-md">
+<div class="upload-area relative flex flex-col items-center justify-center w-full min-h-[500px] bg-surface border border-dashed border-outline rounded-xl transition-all duration-300 overflow-hidden cursor-pointer" id="upload-zone">
+<div class="text-center p-stack-lg flex flex-col items-center">
+<span class="material-symbols-outlined text-6xl text-text-secondary mb-4">upload_file</span>
+<p class="font-body-lg text-body-lg text-primary mb-2">Drag &amp; drop your photo here</p>
+<p class="font-body-md text-body-md text-text-secondary mb-6">or click to browse from your device</p>
+<button class="font-label-md text-label-md bg-surface-container-high text-primary px-6 py-3 rounded-full hover:bg-surface-variant transition-colors border border-border">Select Image</button>
+</div>
+<!-- Preview Image (Hidden initially) -->
+<div class="hidden absolute inset-0 w-full h-full flex items-center justify-center bg-surface-container-lowest" id="image-preview">
+<img class="max-w-full max-h-full object-contain" data-alt="A sample placeholder portrait of a professional individual looking straight ahead, suitable for a passport photo, shot against a neutral white background with flat, even lighting. The mood is formal and precise, fitting a professional document tool." id="preview-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdYeoDIJAmKO_bH_WsgnKyTeVjnmywOrc4JiLUH1I1ORJWrDeXWkT_GnAgoRTv3ig2LXRywmLd2ry3n1gcppD9hNcwjFRELRyM7mM9WovLbl_VV2HSipph84BFjgdDJCrCClJwnrotl4Wt2bt6T-X6WX9bcYpuaLWJZQkKU3xVOt3VHeOfHFooU6hzL8y3DecK-vemTQKkBJw49y0nhBOcB-Bu197OI3WQSa8HqiSFmaiaOB3bdCpH"/>
+<!-- Overlay Guides -->
+<div class="face-guide absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40%] h-[60%] active" id="guide-overlay">
+<div class="absolute top-[30%] left-0 w-full border-t border-dashed border-accent-lavender/70"></div>
+<div class="absolute bottom-[20%] left-0 w-full border-t border-dashed border-accent-lavender/70"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 border-2 border-accent-lavender rounded-full"></div>
+</div>
+</div>
+<input accept="image/*" class="hidden" id="file-input" type="file"/>
+</div>
+<div class="flex justify-between items-center bg-surface p-stack-md rounded-xl border border-border">
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-md hover:bg-surface-variant text-text-secondary hover:text-primary transition-colors" title="Zoom In">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+<button class="p-2 rounded-md hover:bg-surface-variant text-text-secondary hover:text-primary transition-colors" title="Zoom Out">
+<span class="material-symbols-outlined">zoom_out</span>
+</button>
+<div class="w-px h-6 bg-border mx-2"></div>
+<button class="p-2 rounded-md hover:bg-surface-variant text-text-secondary hover:text-primary transition-colors" title="Rotate Left">
+<span class="material-symbols-outlined">rotate_left</span>
+</button>
+<button class="p-2 rounded-md hover:bg-surface-variant text-text-secondary hover:text-primary transition-colors" title="Rotate Right">
+<span class="material-symbols-outlined">rotate_right</span>
+</button>
+</div>
+<button class="font-label-md text-label-md bg-primary text-on-primary px-6 py-2 rounded-full hover:bg-tertiary-fixed transition-colors">Apply Crop</button>
+</div>
+</div>
+<!-- Settings Sidebar -->
+<div class="lg:col-span-4 flex flex-col gap-stack-md">
+<!-- Presets Card -->
+<div class="bg-surface rounded-xl p-stack-md border border-border">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-stack-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-lavender">public</span>
+                            Country Presets
+                        </h3>
+<p class="font-label-sm text-label-sm text-text-secondary mb-stack-md">Select standard dimensions based on official requirements.</p>
+<div class="space-y-3">
+<label class="flex items-center justify-between p-3 rounded-lg bg-surface-container-high border border-transparent hover:border-accent-lavender/50 cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<input checked="" class="form-radio text-accent-lavender focus:ring-accent-lavender bg-surface-lowest border-border" name="country" type="radio"/>
+<span class="font-label-md text-label-md text-primary">USA (2" x 2")</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary">51x51 mm</span>
+</label>
+<label class="flex items-center justify-between p-3 rounded-lg bg-surface-container-high border border-transparent hover:border-accent-lavender/50 cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<input class="form-radio text-accent-lavender focus:ring-accent-lavender bg-surface-lowest border-border" name="country" type="radio"/>
+<span class="font-label-md text-label-md text-primary">UK / Europe</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary">35x45 mm</span>
+</label>
+<label class="flex items-center justify-between p-3 rounded-lg bg-surface-container-high border border-transparent hover:border-accent-lavender/50 cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<input class="form-radio text-accent-lavender focus:ring-accent-lavender bg-surface-lowest border-border" name="country" type="radio"/>
+<span class="font-label-md text-label-md text-primary">India</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary">35x45 mm</span>
+</label>
+<label class="flex items-center justify-between p-3 rounded-lg bg-surface-container-high border border-transparent hover:border-accent-lavender/50 cursor-pointer transition-colors">
+<div class="flex items-center gap-3">
+<input class="form-radio text-accent-lavender focus:ring-accent-lavender bg-surface-lowest border-border" name="country" type="radio"/>
+<span class="font-label-md text-label-md text-primary">Custom Size</span>
+</div>
+<span class="material-symbols-outlined text-text-secondary text-sm">edit</span>
+</label>
+</div>
+</div>
+<!-- Alignment Guides Card -->
+<div class="bg-surface rounded-xl p-stack-md border border-border">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-stack-md flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-lavender">center_focus_strong</span>
+                            Alignment Guides
+                        </h3>
+<div class="flex items-center justify-between py-2 border-b border-border mb-2">
+<span class="font-label-md text-label-md text-primary">Show Face Guide</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-guide" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent-lavender"></div>
+</label>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-border mb-2">
+<span class="font-label-md text-label-md text-primary">Auto Center Face</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent-lavender"></div>
+</label>
+</div>
+<div class="flex items-center justify-between py-2">
+<span class="font-label-md text-label-md text-primary">Remove Background</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent-lavender"></div>
+</label>
+</div>
+<p class="font-label-sm text-label-sm text-text-secondary mt-2">Replaces original background with pure white or light grey.</p>
+</div>
+<!-- Output Options -->
+<div class="bg-surface rounded-xl p-stack-md border border-border mt-auto">
+<h3 class="font-label-md text-label-md text-text-secondary mb-3 uppercase tracking-wider">Output</h3>
+<div class="grid grid-cols-2 gap-3 mb-4">
+<button class="font-label-md text-label-md py-2 border border-border rounded-lg text-primary hover:bg-surface-variant transition-colors bg-surface-container-high">Single Photo</button>
+<button class="font-label-md text-label-md py-2 border border-accent-lavender rounded-lg text-accent-lavender bg-accent-lavender/10 hover:bg-accent-lavender/20 transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-sm">grid_view</span>
+                                Print Sheet
+                            </button>
+</div>
+<button class="w-full font-label-md text-label-md bg-primary text-on-primary py-3 rounded-lg hover:bg-tertiary-fixed transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">download</span>
+                            Download Result
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant full-width w-full">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-stack-lg px-gutter py-stack-lg max-w-container-max mx-auto">
+<div class="col-span-2 md:col-span-4 lg:col-span-1 mb-4 lg:mb-0">
+<span class="font-headline-md text-headline-md text-primary font-bold">LuminaEdit</span>
+<p class="font-label-sm text-label-sm text-text-secondary mt-2">© 2024 LuminaEdit AI. All rights reserved.</p>
+</div>
+<a class="font-label-sm text-label-sm text-text-secondary hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-text-secondary hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-text-secondary hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Cookie Settings</a>
+<a class="font-label-sm text-label-sm text-text-secondary hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Contact Support</a>
+<a class="font-label-sm text-label-sm text-text-secondary hover:text-primary transition-colors opacity-80 hover:opacity-100 lg:hidden" href="#">API Docs</a> <!-- Hidden on extra large if it wraps weirdly, but keeping as per array length -->
+</div>
+</footer>
+<script>
+        // Simple drag and drop interaction simulation
+        const dropZone = document.getElementById('upload-zone');
+        const fileInput = document.getElementById('file-input');
+        const previewArea = document.getElementById('image-preview');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            dropZone.classList.add('dragover');
+        }
+
+        function unhighlight(e) {
+            dropZone.classList.remove('dragover');
+        }
+        
+        // Click to upload simulation
+        dropZone.addEventListener('click', () => {
+            if(previewArea.classList.contains('hidden')) {
+                // Simulate showing image on first click
+                previewArea.classList.remove('hidden');
+            }
+        });
+
+        // Guide toggle
+        const toggleGuide = document.getElementById('toggle-guide');
+        const guideOverlay = document.getElementById('guide-overlay');
+        
+        toggleGuide.addEventListener('change', function() {
+            if(this.checked) {
+                guideOverlay.classList.add('active');
+            } else {
+                guideOverlay.classList.remove('active');
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,71 @@
+{
+  "2x2-inch": {
+    "label": "2 x 2 inch (US visa/photo)",
+    "width": 600,
+    "height": 600,
+    "dpi": 300,
+    "notes": "Standard US passport/visa photo"
+  },
+  "35mm-45mm": {
+    "label": "35 x 45 mm (India/EU standard)",
+    "width": 413,
+    "height": 531,
+    "dpi": 300,
+    "notes": "Indian passport / most EU countries"
+  },
+  "pan-card": {
+    "label": "PAN card photo (India)",
+    "width": 213,
+    "height": 213,
+    "dpi": 300,
+    "notes": "3.5 x 2.35 cm; square crop, head-and-shoulders"
+  },
+  "upsc": {
+    "label": "UPSC exam photo",
+    "width": 350,
+    "height": 450,
+    "dpi": 300,
+    "notes": "350 x 450 px recommended by UPSC"
+  },
+  "india-visa-us": {
+    "label": "India visa photo (US applicants)",
+    "width": 531,
+    "height": 531,
+    "notes": "2 x 2 inch at 300 DPI, printed"
+  },
+  "schengen-visa": {
+    "label": "Schengen visa photo",
+    "width": 413,
+    "height": 531,
+    "dpi": 300,
+    "notes": "35 x 45 mm"
+  },
+  "china-visa": {
+    "label": "China visa photo",
+    "width": 362,
+    "height": 483,
+    "dpi": 300,
+    "notes": "33 x 44 mm"
+  },
+  "canada-visa": {
+    "label": "Canada visa photo",
+    "width": 420,
+    "height": 540,
+    "dpi": 300,
+    "notes": "35 x 45 mm at 420x540 final"
+  },
+  "passport-uk": {
+    "label": "UK passport photo",
+    "width": 825,
+    "height": 1074,
+    "dpi": 300,
+    "notes": "35 x 45 mm printed at higher resolution"
+  },
+  "id-1-card": {
+    "label": "ID-1 card photo (85.6 x 54 mm)",
+    "width": 1012,
+    "height": 638,
+    "dpi": 300,
+    "notes": "Landscape"
+  }
+}

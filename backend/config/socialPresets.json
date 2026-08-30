@@ -1,0 +1,78 @@
+{
+  "instagram-post": {
+    "label": "Instagram Post (square)",
+    "width": 1080,
+    "height": 1080
+  },
+  "instagram-story": {
+    "label": "Instagram Story / Reels",
+    "width": 1080,
+    "height": 1920
+  },
+  "instagram-portrait": {
+    "label": "Instagram Portrait (4:5)",
+    "width": 1080,
+    "height": 1350
+  },
+  "instagram-thumbnail": {
+    "label": "Instagram Profile / Thumbnail",
+    "width": 320,
+    "height": 320
+  },
+  "whatsapp-dp": {
+    "label": "WhatsApp DP (Profile)",
+    "width": 500,
+    "height": 500
+  },
+  "whatsapp-status": {
+    "label": "WhatsApp Status",
+    "width": 1080,
+    "height": 1920
+  },
+  "youtube-banner": {
+    "label": "YouTube Channel Banner",
+    "width": 2560,
+    "height": 1440
+  },
+  "youtube-thumbnail": {
+    "label": "YouTube Video Thumbnail",
+    "width": 1280,
+    "height": 720
+  },
+  "facebook-cover": {
+    "label": "Facebook Cover",
+    "width": 820,
+    "height": 312
+  },
+  "facebook-post": {
+    "format": "facebook-post",
+    "label": "Facebook Post (square)",
+    "width": 1080,
+    "height": 1080
+  },
+  "twitter-post": {
+    "label": "X (Twitter) Post",
+    "width": 1600,
+    "height": 900
+  },
+  "twitter-header": {
+    "label": "X (Twitter) Header",
+    "width": 1500,
+    "height": 500
+  },
+  "linkedin-banner": {
+    "label": "LinkedIn Banner (background)",
+    "width": 1584,
+    "height": 396
+  },
+  "linkedin-post-square": {
+    "label": "LinkedIn Square Post",
+    "width": 1080,
+    "height": 1080
+  },
+  "pinterest-pin": {
+    "label": "Pinterest Pin",
+    "width": 1000,
+    "height": 1500
+  }
+}

@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-multipart
+rembg[cpu]
+Pillow
+numpy
+opencv-python-headless
+easyocr
+mediapipe==0.10.14

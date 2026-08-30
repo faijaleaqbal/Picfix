@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Grayscale Image - LuminaEdit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "tertiary": "#ffffff",
+                        "on-surface": "#e5e1e4",
+                        "surface-container-low": "#1c1b1d",
+                        "surface-container-lowest": "#0e0e10",
+                        "on-primary-container": "#636565",
+                        "surface-container": "#201f22",
+                        "inverse-on-surface": "#313032",
+                        "primary-fixed": "#e2e2e2",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#1a1c1c",
+                        "muted": "#18181B",
+                        "on-primary-fixed-variant": "#454747",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "inverse-surface": "#e5e1e4",
+                        "border": "#27272A",
+                        "on-tertiary-container": "#646464",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#dcb8ff",
+                        "secondary-container": "#5c3783",
+                        "error-container": "#93000a",
+                        "primary": "#ffffff",
+                        "on-primary": "#2f3131",
+                        "accent-lavender": "#B48CDE",
+                        "on-secondary-container": "#d0a7fb",
+                        "secondary": "#dcb8ff",
+                        "on-secondary-fixed": "#2b0052",
+                        "primary-container": "#e2e2e2",
+                        "on-tertiary": "#303030",
+                        "inverse-primary": "#5d5f5f",
+                        "outline-variant": "#444748",
+                        "outline": "#8e9192",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#c6c6c7",
+                        "text-secondary": "#A1A1AA",
+                        "on-surface-variant": "#c4c7c8",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "surface-container-high": "#2a2a2c",
+                        "tertiary-container": "#e2e2e2",
+                        "background": "#131315",
+                        "surface-dim": "#131315",
+                        "surface-bright": "#39393b",
+                        "surface": "#131315",
+                        "surface-variant": "#353437",
+                        "on-secondary-fixed-variant": "#593580",
+                        "surface-container-highest": "#353437",
+                        "secondary-fixed": "#efdbff",
+                        "primary-fixed-dim": "#c6c6c7",
+                        "on-secondary": "#421c68",
+                        "on-background": "#e5e1e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Geist"],
+                        "headline-xl": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "headline-xl-mobile": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "body-md": ["Geist"],
+                        "label-md": ["Geist"],
+                        "label-sm": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["36px", { "lineHeight": "1.2", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+                        "headline-xl": ["60px", { "lineHeight": "1.1", "letterSpacing": "-0.05em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+                        "headline-xl-mobile": ["40px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+        
+        /* Custom Slider Range Input styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            margin-top: -6px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+            border: 1px solid #B48CDE;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #B48CDE;
+            border-radius: 2px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-primary antialiased h-screen flex overflow-hidden">
+<!-- TopNavBar (Hidden on this specific tool view per semantic shell mandate, as this is a focused task, but kept available if needed as a top-level tool. Given the prompt asks for standard tool template, we will integrate it closely with the side nav). Actually, the prompt says "Layout: Standard tool template" which implies a workspace layout. -->
+<!-- SideNavBar -->
+<nav class="bg-surface docked left-0 h-screen w-64 border-r border-outline-variant flat no shadows flex flex-col py-stack-md gap-stack-sm flex-shrink-0 z-10 hidden md:flex">
+<div class="px-gutter mb-stack-md flex items-center justify-between">
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-accent-lavender tracking-tighter">Workbench</h1>
+<p class="font-label-sm text-label-sm text-text-secondary">v2.4 Pro</p>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md rounded-full px-4 py-1 hover:bg-tertiary-fixed transition-colors">
+                Upgrade
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="flex flex-col gap-1">
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+                        Adjust
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg mx-2 transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="auto_fix_high" style="font-variation-settings: 'FILL' 1;">auto_fix_high</span>
+                        Filters
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="face">face</span>
+                        Retouch
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+                        Layers
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+                        Export
+                    </a>
+</li>
+</ul>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-stack-sm mx-gutter">
+<ul class="flex flex-col gap-1">
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                        Help
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col h-full bg-background overflow-hidden relative">
+<!-- Header area for tool context -->
+<header class="h-16 flex items-center justify-between px-gutter border-b border-outline-variant bg-surface/80 backdrop-blur-md z-10 flex-shrink-0">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Grayscale Image</h2>
+<p class="font-label-sm text-label-sm text-text-secondary">Convert photos to striking black and white.</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-text-secondary hover:text-primary transition-colors flex items-center gap-2 font-label-md text-label-md">
+<span class="material-symbols-outlined" data-icon="undo">undo</span>
+</button>
+<button class="text-text-secondary hover:text-primary transition-colors flex items-center gap-2 font-label-md text-label-md">
+<span class="material-symbols-outlined" data-icon="redo">redo</span>
+</button>
+<button class="bg-primary text-on-primary rounded-full px-6 py-2 font-label-md text-label-md hover:bg-tertiary-fixed transition-colors">
+                    Apply
+                </button>
+</div>
+</header>
+<!-- Editor Canvas & Settings Split -->
+<div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
+<!-- Canvas Area (Center) -->
+<div class="flex-1 bg-surface-container-lowest flex items-center justify-center p-stack-lg relative overflow-hidden">
+<!-- Grid pattern background for transparency indication -->
+<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, #8e9192 1px, transparent 0); background-size: 24px 24px;"></div>
+<!-- The Image being edited -->
+<div class="relative max-w-full max-h-full rounded-xl overflow-hidden shadow-2xl border border-border group">
+<img class="object-contain max-h-[716px] w-auto h-auto transition-all duration-300 filter grayscale contrast-125 brightness-95" data-alt="A highly detailed close-up portrait of a young woman with intense eyes, converted to a striking high-contrast black and white. The lighting is dramatic, casting deep black shadows on one side of her face while brightly illuminating the other with pristine white light. The aesthetic is modern, professional studio photography, emphasizing texture and raw emotion within a dark minimalist context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuoToDVWLKHOhfi95sss3crGLk_8zVgc-IZYYInCNt0e2iQtfRFih-PnokmnH43qHwwmZeu47XbBUhppR_XALM0C8ij2vSaRvjN-pDvdkrPbxaJbz15DTHyh-3U5N2skMPiP1-NvtRpfx1HiwVCV1W2E3TXSs6JdtKnHqM1ZTLwh3uCoOUcHIsKsUxbL6YCXCUbVedGUKAfH7xExaThMvEqF3TzLeaP_dQioCuy6epcY4dgWvxlRu8"/>
+<!-- Overlay controls -->
+<div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-surface/90 backdrop-blur-md rounded-full px-4 py-2 border border-border opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-text-secondary hover:text-primary p-1"><span class="material-symbols-outlined text-sm">zoom_out</span></button>
+<span class="font-label-sm text-label-sm text-primary w-12 text-center">Fit</span>
+<button class="text-text-secondary hover:text-primary p-1"><span class="material-symbols-outlined text-sm">zoom_in</span></button>
+</div>
+</div>
+</div>
+<!-- Settings Panel (Right) -->
+<aside class="w-full lg:w-80 bg-surface border-l border-outline-variant flex flex-col h-full overflow-y-auto flex-shrink-0 z-10">
+<div class="p-gutter flex flex-col gap-stack-lg">
+<!-- Filter Presets Section -->
+<section>
+<h3 class="font-label-md text-label-md text-primary mb-stack-sm flex items-center justify-between">
+                            Presets
+                            <span class="material-symbols-outlined text-text-secondary text-sm">auto_awesome</span>
+</h3>
+<div class="grid grid-cols-3 gap-2">
+<!-- Modern -->
+<button class="flex flex-col items-center gap-2 p-2 rounded-lg border border-accent-lavender bg-muted transition-all">
+<div class="w-full h-12 rounded bg-surface-container-high border border-border flex items-center justify-center overflow-hidden relative">
+<img class="object-cover w-full h-full opacity-80 filter grayscale" data-alt="A small thumbnail preview showing a modern, balanced black and white architectural detail with clean lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnUBP47T4Xaeba3N4qafMaVLHdvOkKHXwz5bOdED2Cr9ijBvcIHXVyHB6L-Fl2gdjL1XHzlLOAWr-KkaLKDoyB0vO-zcqnhgTIVRsMxtZ332DqO6V9M8bwrjG06H0poDEC2J7y3u2sjIKbQ6rLnODgNVcI3skTlqCCs4ZZRmIsR0QIGItDjeGWbTjebKzBMoSAyZABjo8Bd5o6dZ9pDQwjex-iWstS8FfeKunNCh8MgxkVAUWAYsMY"/>
+</div>
+<span class="font-label-sm text-label-sm text-accent-lavender">Modern</span>
+</button>
+<!-- Classic -->
+<button class="flex flex-col items-center gap-2 p-2 rounded-lg border border-border hover:border-text-secondary hover:bg-surface-container-high transition-all">
+<div class="w-full h-12 rounded bg-surface-container-high border border-border flex items-center justify-center overflow-hidden relative">
+<img class="object-cover w-full h-full opacity-60 filter grayscale contrast-75 sepia-[.2]" data-alt="A small thumbnail preview showing a classic, slightly soft black and white vintage portrait style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9l1NQz-OKr0JpOHQp5c2KFL0rWuJjVKpaAU2X-LAs6Ljvh-zV1MnECFiOWGkXTP2fkdl_hXGp7DNgXTMJPWNeoB6u04Ari7-kWSRwBqnLp_TFu1yBuGpXISocGNR8Cj9fRolIHVNc3B6x7hGQhBTtZ-dm6cSBeJ9KYSzjH-66qnumXyXNawdTnWUra7jNeypDqqHZfl-V-AP-p1xBJ92PblEgQVynBbjKXp6fy1oiGUMZp0F484-q"/>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary">Classic</span>
+</button>
+<!-- Dramatic -->
+<button class="flex flex-col items-center gap-2 p-2 rounded-lg border border-border hover:border-text-secondary hover:bg-surface-container-high transition-all">
+<div class="w-full h-12 rounded bg-surface-container-high border border-border flex items-center justify-center overflow-hidden relative">
+<img class="object-cover w-full h-full opacity-80 filter grayscale contrast-150" data-alt="A small thumbnail preview showing a dramatic, high-contrast black and white landscape with deep shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkVE6Vzst6TxAONcEE3YHR9Er62_sNtDmQFNZ7L16Vt94GmWkYECP6SIo4ezEw9fFFuM68O62hbm7LNBYeXVk5-DclDWcistbxWkAmOOU-_NnGC8vV3y7pRSXIuK3ujLX0pg-qAOKMjHUftIZkPi5-4nUYdudPjnOLoiyIP3QPmeHZJXCZW5_nZVZ8Ln7cZAMny6Z3b6FFOSguczfWoIZAD0LwXgzTth4UTUzm_4tePErNukwhKF_d"/>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary">Dramatic</span>
+</button>
+</div>
+</section>
+<!-- Adjustments Section -->
+<section class="flex flex-col gap-stack-md">
+<div class="flex items-center justify-between mb-2 border-b border-outline-variant pb-2">
+<h3 class="font-label-md text-label-md text-primary">Adjustments</h3>
+<button class="text-text-secondary hover:text-primary font-label-sm text-label-sm transition-colors">Reset</button>
+</div>
+<!-- Contrast Slider -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<label class="font-label-sm text-label-sm text-text-secondary" for="contrast">Contrast</label>
+<span class="font-label-sm text-label-sm text-primary bg-muted px-2 py-1 rounded border border-border text-xs w-10 text-center">+25</span>
+</div>
+<input class="w-full" id="contrast" max="100" min="-100" type="range" value="25"/>
+</div>
+<!-- Brightness Slider -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<label class="font-label-sm text-label-sm text-text-secondary" for="brightness">Brightness</label>
+<span class="font-label-sm text-label-sm text-primary bg-muted px-2 py-1 rounded border border-border text-xs w-10 text-center">-5</span>
+</div>
+<input class="w-full" id="brightness" max="100" min="-100" type="range" value="-5"/>
+</div>
+</section>
+<!-- Color Mix (Advanced) -->
+<section class="flex flex-col gap-stack-md opacity-50 hover:opacity-100 transition-opacity">
+<div class="flex items-center justify-between mb-2 border-b border-outline-variant pb-2">
+<h3 class="font-label-md text-label-md text-primary flex items-center gap-2">
+                                B&amp;W Mix
+                                <span class="material-symbols-outlined text-[14px]">lock</span>
+</h3>
+<span class="font-label-sm text-label-sm text-accent-lavender text-[10px] uppercase tracking-widest border border-accent-lavender/30 px-1.5 py-0.5 rounded-full">Pro</span>
+</div>
+<p class="font-body-md text-body-md text-text-secondary text-sm">Fine-tune the grayscale conversion by adjusting the luminance of individual color channels.</p>
+</section>
+</div>
+</aside>
+</div>
+</main>
+</body></html>

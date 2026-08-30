@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Logo to Image - LuminaEdit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#e2e2e2",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "tertiary": "#ffffff",
+                      "on-surface": "#e5e1e4",
+                      "surface-container-low": "#1c1b1d",
+                      "surface-container-lowest": "#0e0e10",
+                      "on-primary-container": "#636565",
+                      "surface-container": "#201f22",
+                      "inverse-on-surface": "#313032",
+                      "primary-fixed": "#e2e2e2",
+                      "on-error": "#690005",
+                      "on-primary-fixed": "#1a1c1c",
+                      "muted": "#18181B",
+                      "on-primary-fixed-variant": "#454747",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "inverse-surface": "#e5e1e4",
+                      "border": "#27272A",
+                      "on-tertiary-container": "#646464",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#dcb8ff",
+                      "secondary-container": "#5c3783",
+                      "error-container": "#93000a",
+                      "primary": "#ffffff",
+                      "on-primary": "#2f3131",
+                      "accent-lavender": "#B48CDE",
+                      "on-secondary-container": "#d0a7fb",
+                      "secondary": "#dcb8ff",
+                      "on-secondary-fixed": "#2b0052",
+                      "primary-container": "#e2e2e2",
+                      "on-tertiary": "#303030",
+                      "inverse-primary": "#5d5f5f",
+                      "outline-variant": "#444748",
+                      "outline": "#8e9192",
+                      "error": "#ffb4ab",
+                      "surface-tint": "#c6c6c7",
+                      "text-secondary": "#A1A1AA",
+                      "on-surface-variant": "#c4c7c8",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "surface-container-high": "#2a2a2c",
+                      "tertiary-container": "#e2e2e2",
+                      "background": "#131315",
+                      "surface-dim": "#131315",
+                      "surface-bright": "#39393b",
+                      "surface": "#131315",
+                      "surface-variant": "#353437",
+                      "on-secondary-fixed-variant": "#593580",
+                      "surface-container-highest": "#353437",
+                      "secondary-fixed": "#efdbff",
+                      "primary-fixed-dim": "#c6c6c7",
+                      "on-secondary": "#421c68",
+                      "on-background": "#e5e1e4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "stack-lg": "32px",
+                      "stack-md": "16px",
+                      "margin-mobile": "16px",
+                      "stack-sm": "8px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "headline-xl": [
+                              "Geist"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "headline-xl-mobile": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "label-sm": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl": [
+                              "60px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.03em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #131315;
+            color: #e5e1e4;
+        }
+        
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131315;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444748;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background h-screen flex flex-col overflow-hidden">
+<!-- TopNavBar -->
+<nav class="bg-background/80 backdrop-blur-md text-primary font-body-md text-body-md flex justify-between items-center h-16 px-gutter w-full max-w-container-max mx-auto border-b border-outline-variant z-50 sticky top-0">
+<div class="flex items-center gap-gutter">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-tighter">
+                LuminaEdit
+            </div>
+<div class="hidden md:flex gap-stack-md">
+<a class="text-text-secondary hover:text-primary transition-colors hover:bg-muted transition-all duration-200 px-3 py-2 rounded-md" href="#">Editor</a>
+<a class="text-primary font-bold border-b-2 border-accent-lavender pb-1 px-3 py-2" href="#">Tools</a>
+<a class="text-text-secondary hover:text-primary transition-colors hover:bg-muted transition-all duration-200 px-3 py-2 rounded-md" href="#">Pricing</a>
+<a class="text-text-secondary hover:text-primary transition-colors hover:bg-muted transition-all duration-200 px-3 py-2 rounded-md" href="#">Resources</a>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="hidden md:flex text-text-secondary hover:text-primary transition-colors hover:bg-muted transition-all duration-200 px-4 py-2 rounded-full border border-outline-variant scale-95 active:scale-90 transition-transform">
+                Sign In
+            </button>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-full hover:opacity-90 scale-95 active:scale-90 transition-transform">
+                Get Started
+            </button>
+</div>
+</nav>
+<!-- Main Workspace -->
+<div class="flex flex-1 overflow-hidden w-full max-w-container-max mx-auto">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col py-stack-md gap-stack-sm bg-surface text-primary font-label-md text-label-md border-r border-outline-variant w-64 h-full overflow-y-auto shrink-0">
+<div class="px-gutter mb-4">
+<h2 class="font-headline-sm text-headline-sm font-black text-accent-lavender">Workbench</h2>
+<p class="text-text-secondary font-label-sm text-label-sm">v2.4 Pro</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg p-3 flex items-center gap-3 transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+                    Adjust
+                </a>
+<a class="text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg p-3 flex items-center gap-3 transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="auto_fix_high">auto_fix_high</span>
+                    Filters
+                </a>
+<a class="text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg p-3 flex items-center gap-3 transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="face">face</span>
+                    Retouch
+                </a>
+<a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 p-3 flex items-center gap-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+                    Add Logo
+                </a>
+<a class="text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg p-3 flex items-center gap-3 transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+                    Export
+                </a>
+</nav>
+<div class="mt-auto px-gutter py-4 border-t border-outline-variant/50">
+<button class="w-full bg-surface-container-high text-primary hover:bg-muted transition-colors rounded-full py-2 font-label-md text-label-md border border-outline-variant mb-4">
+                    Upgrade Plan
+                </button>
+<div class="flex flex-col gap-2">
+<a class="text-text-secondary hover:text-on-surface flex items-center gap-2 font-label-sm text-label-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span> Settings
+                    </a>
+<a class="text-text-secondary hover:text-on-surface flex items-center gap-2 font-label-sm text-label-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span> Help
+                    </a>
+</div>
+</div>
+</aside>
+<!-- Canvas Area -->
+<main class="flex-1 relative bg-surface-dim flex items-center justify-center overflow-hidden p-gutter">
+<!-- Checkerboard background for transparency context -->
+<div class="absolute inset-0 z-0" style="background-image: linear-gradient(45deg, #1c1b1d 25%, transparent 25%), linear-gradient(-45deg, #1c1b1d 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1c1b1d 75%), linear-gradient(-45deg, transparent 75%, #1c1b1d 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px; opacity: 0.5;"></div>
+<!-- Image Container -->
+<div class="relative z-10 max-w-full max-h-full rounded-lg shadow-2xl border border-border bg-black overflow-hidden flex items-center justify-center">
+<img class="object-contain max-w-full max-h-full h-[614px] w-auto" data-alt="A high-resolution photograph of a serene, minimalist modern living room interior. The room features a dark color palette with charcoal grey walls, a sleek black leather sofa, and dark oak flooring. A large window lets in soft, diffused natural daylight, creating subtle shadows. The aesthetic is sophisticated, professional, and contemporary, perfectly suited as a backdrop for brand assets in a dark-mode UI context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVK526EI1Ws_Uj1fE7IW1xvFqSLNmBPc1uGC5xJc22GbymEQ0o46jE-9d3FRhxh5s2xtkXb1JeF45RSokaEn0DbdQmOB-pM7l2OyVC3hIpSP9DvBgb_jPA14A_t_hpqhQ_JtkwHe5QhCfbxhtdKU6jVcUklYg1xRELgerDXcx5kQW2Ze-NNBDGixn31TQlfCkW07gnGATPcCLBv9iPWUZMDtnelXFemxbdsGG6ZYkJG55PmKg5deE_"/>
+<!-- Simulated Logo Overlay -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-32 h-32 border-2 border-dashed border-accent-lavender flex items-center justify-center bg-black/40 backdrop-blur-sm rounded-md shadow-lg pointer-events-auto cursor-move">
+<span class="material-symbols-outlined text-white text-4xl opacity-80" data-icon="image">image</span>
+</div>
+</div>
+</div>
+<!-- Top Floating Tools (Zoom/Pan) -->
+<div class="absolute top-gutter right-gutter z-20 flex bg-surface-container-low border border-border rounded-full p-1 shadow-lg">
+<button class="p-2 text-text-secondary hover:text-primary rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="zoom_in">zoom_in</span>
+</button>
+<div class="w-px h-6 bg-border my-auto mx-1"></div>
+<button class="p-2 text-text-secondary hover:text-primary rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="zoom_out">zoom_out</span>
+</button>
+<div class="w-px h-6 bg-border my-auto mx-1"></div>
+<button class="p-2 text-text-secondary hover:text-primary rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="fit_screen">fit_screen</span>
+</button>
+</div>
+</main>
+<!-- Right Tool Panel (Settings) -->
+<aside class="w-80 bg-surface border-l border-border h-full flex flex-col shrink-0 z-30">
+<!-- Panel Header -->
+<div class="p-gutter border-b border-border">
+<h3 class="font-headline-md text-headline-md font-semibold text-primary">Add Logo</h3>
+<p class="text-text-secondary font-body-md text-body-md mt-1">Embed your brand mark with precision.</p>
+</div>
+<!-- Settings Content -->
+<div class="flex-1 overflow-y-auto p-gutter flex flex-col gap-stack-lg">
+<!-- Upload Section -->
+<div>
+<label class="block font-label-md text-label-md text-primary mb-2">Logo Image</label>
+<div class="border-2 border-dashed border-border rounded-xl p-6 flex flex-col items-center justify-center text-center hover:border-accent-lavender hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-text-secondary text-3xl mb-2 group-hover:text-accent-lavender transition-colors" data-icon="upload_file">upload_file</span>
+<span class="font-label-md text-label-md text-primary block">Click to upload</span>
+<span class="font-label-sm text-label-sm text-text-secondary mt-1">SVG, PNG, or JPG (max 5MB)</span>
+</div>
+</div>
+<!-- Position Grid -->
+<div>
+<label class="block font-label-md text-label-md text-primary mb-2 flex justify-between">
+<span>Position</span>
+</label>
+<div class="grid grid-cols-3 gap-2 bg-surface-container-low p-2 rounded-xl border border-border">
+<button class="aspect-square bg-surface border border-border rounded-md hover:border-accent-lavender hover:bg-surface-variant transition-colors flex items-center justify-center text-text-secondary hover:text-primary focus:border-accent-lavender focus:bg-surface-variant focus:text-primary"><span class="w-2 h-2 rounded-full bg-current"></span></button>
+<button class="aspect-square bg-surface border border-border rounded-md hover:border-accent-lavender hover:bg-surface-variant transition-colors flex items-center justify-center text-text-secondary hover:text-primary focus:border-accent-lavender focus:bg-surface-variant focus:text-primary"><span class="w-2 h-2 rounded-full bg-current"></span></button>
+<button class="aspect-square bg-surface border border-border rounded-md hover:border-accent-lavender hover:bg-surface-variant transition-colors flex items-center justify-center text-text-secondary hover:text-primary focus:border-accent-lavender focus:bg-surface-variant focus:text-primary"><span class="w-2 h-2 rounded-full bg-current"></span></button>
+<button class="aspect-square bg-surface border border-border rounded-md hover:border-accent-lavender hover:bg-surface-variant transition-colors flex items-center justify-center text-text-secondary hover:text-primary focus:border-accent-lavender focus:bg-surface-variant focus:text-primary"><span class="w-2 h-2 rounded-full bg-current"></span></button>
+<button class="aspect-square bg-surface border border-accent-lavender bg-surface-variant rounded-md flex items-center justify-center text-primary"><span class="w-2 h-2 rounded-full bg-current shadow-[0_0_8px_rgba(180,140,222,0.6)]"></span></button>
+<button class="aspect-square bg-surface border border-border rounded-md hover:border-accent-lavender hover:bg-surface-variant transition-colors flex items-center justify-center text-text-secondary hover:text-primary focus:border-accent-lavender focus:bg-surface-variant focus:text-primary"><span class="w-2 h-2 rounded-full bg-current"></span></button>
+<button class="aspect-square bg-surface border border-border rounded-md hover:border-accent-lavender hover:bg-surface-variant transition-colors flex items-center justify-center text-text-secondary hover:text-primary focus:border-accent-lavender focus:bg-surface-variant focus:text-primary"><span class="w-2 h-2 rounded-full bg-current"></span></button>
+<button class="aspect-square bg-surface border border-border rounded-md hover:border-accent-lavender hover:bg-surface-variant transition-colors flex items-center justify-center text-text-secondary hover:text-primary focus:border-accent-lavender focus:bg-surface-variant focus:text-primary"><span class="w-2 h-2 rounded-full bg-current"></span></button>
+<button class="aspect-square bg-surface border border-border rounded-md hover:border-accent-lavender hover:bg-surface-variant transition-colors flex items-center justify-center text-text-secondary hover:text-primary focus:border-accent-lavender focus:bg-surface-variant focus:text-primary"><span class="w-2 h-2 rounded-full bg-current"></span></button>
+</div>
+</div>
+<!-- Sliders Section -->
+<div class="space-y-6">
+<!-- Scale -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="font-label-md text-label-md text-primary">Scale</label>
+<span class="font-label-sm text-label-sm text-text-secondary bg-surface-container-low px-2 py-1 rounded-md border border-border">25%</span>
+</div>
+<input class="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-accent-lavender focus:outline-none focus:ring-2 focus:ring-accent-lavender/50" max="100" min="1" type="range" value="25"/>
+</div>
+<!-- Opacity -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="font-label-md text-label-md text-primary">Opacity</label>
+<span class="font-label-sm text-label-sm text-text-secondary bg-surface-container-low px-2 py-1 rounded-md border border-border">100%</span>
+</div>
+<input class="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-accent-lavender focus:outline-none focus:ring-2 focus:ring-accent-lavender/50" max="100" min="0" type="range" value="100"/>
+</div>
+<!-- Margin -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="font-label-md text-label-md text-primary flex items-center gap-1">
+                                Margin
+                                <span class="material-symbols-outlined text-[14px] text-text-secondary cursor-help" title="Distance from edge">info</span>
+</label>
+<span class="font-label-sm text-label-sm text-text-secondary bg-surface-container-low px-2 py-1 rounded-md border border-border">24px</span>
+</div>
+<input class="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-accent-lavender focus:outline-none focus:ring-2 focus:ring-accent-lavender/50" max="100" min="0" type="range" value="24"/>
+</div>
+</div>
+<!-- Blend Mode (Advanced) -->
+<div>
+<label class="block font-label-md text-label-md text-primary mb-2">Blend Mode</label>
+<select class="w-full bg-surface-container-low border border-border text-primary rounded-md font-label-md text-label-md py-2 px-3 focus:ring-2 focus:ring-accent-lavender focus:border-accent-lavender outline-none appearance-none cursor-pointer">
+<option value="normal">Normal</option>
+<option value="multiply">Multiply</option>
+<option value="screen">Screen</option>
+<option value="overlay">Overlay</option>
+<option value="soft-light">Soft Light</option>
+</select>
+</div>
+</div>
+<!-- Panel Footer Actions -->
+<div class="p-gutter border-t border-border flex gap-stack-md bg-surface">
+<button class="flex-1 py-2 px-4 rounded-full border border-border text-primary font-label-md text-label-md hover:bg-surface-variant transition-colors">
+                    Reset
+                </button>
+<button class="flex-1 py-2 px-4 rounded-full bg-primary text-on-primary font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+<span class="material-symbols-outlined text-[18px]" data-icon="check">check</span>
+                    Apply
+                </button>
+</div>
+</aside>
+</div>
+</body></html>

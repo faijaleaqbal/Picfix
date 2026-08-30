@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compress Image - LuminaEdit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#e2e2e2",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "tertiary": "#ffffff",
+                      "on-surface": "#e5e1e4",
+                      "surface-container-low": "#1c1b1d",
+                      "surface-container-lowest": "#0e0e10",
+                      "on-primary-container": "#636565",
+                      "surface-container": "#201f22",
+                      "inverse-on-surface": "#313032",
+                      "primary-fixed": "#e2e2e2",
+                      "on-error": "#690005",
+                      "on-primary-fixed": "#1a1c1c",
+                      "muted": "#18181B",
+                      "on-primary-fixed-variant": "#454747",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "inverse-surface": "#e5e1e4",
+                      "border": "#27272A",
+                      "on-tertiary-container": "#646464",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#dcb8ff",
+                      "secondary-container": "#5c3783",
+                      "error-container": "#93000a",
+                      "primary": "#ffffff",
+                      "on-primary": "#2f3131",
+                      "accent-lavender": "#B48CDE",
+                      "on-secondary-container": "#d0a7fb",
+                      "secondary": "#dcb8ff",
+                      "on-secondary-fixed": "#2b0052",
+                      "primary-container": "#e2e2e2",
+                      "on-tertiary": "#303030",
+                      "inverse-primary": "#5d5f5f",
+                      "outline-variant": "#444748",
+                      "outline": "#8e9192",
+                      "error": "#ffb4ab",
+                      "surface-tint": "#c6c6c7",
+                      "text-secondary": "#A1A1AA",
+                      "on-surface-variant": "#c4c7c8",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "surface-container-high": "#2a2a2c",
+                      "tertiary-container": "#e2e2e2",
+                      "background": "#131315",
+                      "surface-dim": "#131315",
+                      "surface-bright": "#39393b",
+                      "surface": "#131315",
+                      "surface-variant": "#353437",
+                      "on-secondary-fixed-variant": "#593580",
+                      "surface-container-highest": "#353437",
+                      "secondary-fixed": "#efdbff",
+                      "primary-fixed-dim": "#c6c6c7",
+                      "on-secondary": "#421c68",
+                      "on-background": "#e5e1e4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "stack-lg": "32px",
+                      "stack-md": "16px",
+                      "margin-mobile": "16px",
+                      "stack-sm": "8px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "headline-xl": [
+                              "Geist"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "headline-xl-mobile": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "label-sm": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl": [
+                              "60px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.03em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant w-full">
+<div class="flex justify-between items-center h-16 px-gutter w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-stack-md">
+<a class="font-headline-md text-headline-md font-bold text-primary tracking-tighter" href="#">LuminaEdit</a>
+</div>
+<nav class="hidden md:flex items-center gap-stack-md">
+<a class="text-text-secondary hover:text-primary transition-colors font-body-md text-body-md" href="#">Editor</a>
+<a class="text-primary font-bold border-b-2 border-accent-lavender pb-1 font-body-md text-body-md" href="#">Resources</a>
+<a class="text-text-secondary hover:text-primary transition-colors font-body-md text-body-md" href="#">Templates</a>
+<a class="text-text-secondary hover:text-primary transition-colors font-body-md text-body-md" href="#">Pricing</a>
+</nav>
+<div class="flex items-center gap-stack-sm">
+<button class="hidden md:block px-4 py-2 rounded-full border border-border text-primary hover:bg-muted transition-all duration-200 font-label-md text-label-md">Sign In</button>
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary hover:bg-tertiary-fixed-dim transition-all duration-200 scale-95 active:scale-90 font-label-md text-label-md">Get Started</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg space-y-stack-lg">
+<!-- Header Section -->
+<section class="text-center max-w-2xl mx-auto space-y-stack-sm">
+<h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary">Compress Image</h1>
+<p class="font-body-lg text-body-lg text-text-secondary">Reduce file size without losing quality. Optimized for web and performance.</p>
+</section>
+<!-- Bento Grid Layout for Tool -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-md">
+<!-- Upload & Preview Area (Left / Main) -->
+<div class="lg:col-span-8 flex flex-col gap-stack-md">
+<!-- Drag and Drop Zone -->
+<div class="border border-dashed border-outline-variant rounded-xl bg-surface-container-low p-stack-lg flex flex-col items-center justify-center min-h-[300px] text-center transition-colors hover:border-accent-lavender cursor-pointer group">
+<span class="material-symbols-outlined text-4xl text-text-secondary group-hover:text-accent-lavender mb-stack-sm transition-colors" data-icon="cloud_upload">cloud_upload</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Drag &amp; Drop Image Here</h3>
+<p class="font-body-md text-body-md text-text-secondary mb-stack-md">or click to browse from your computer (JPG, PNG, WebP)</p>
+<button class="px-6 py-2 rounded-full bg-surface-variant text-primary border border-border hover:bg-muted transition-colors font-label-md text-label-md">Select Image</button>
+</div>
+<!-- Live Preview Area (Hidden by default, shown when image uploaded in real app) -->
+<div class="rounded-xl border border-border bg-surface p-stack-md hidden">
+<div class="flex justify-between items-center mb-stack-sm">
+<h4 class="font-label-md text-label-md text-primary">Live Preview</h4>
+<div class="flex gap-stack-sm">
+<span class="px-2 py-1 bg-surface-container rounded-md font-label-sm text-label-sm text-text-secondary">Original: 2.4 MB</span>
+<span class="material-symbols-outlined text-text-secondary" data-icon="arrow_right_alt">arrow_right_alt</span>
+<span class="px-2 py-1 bg-secondary-container/20 border border-accent-lavender/30 text-accent-lavender rounded-md font-label-sm text-label-sm">Estimated: 450 KB (-81%)</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-stack-sm h-64">
+<div class="bg-surface-container-lowest rounded-lg border border-border flex items-center justify-center overflow-hidden relative">
+<!-- Placeholder for original image -->
+<div class="absolute top-2 left-2 bg-black/60 px-2 py-1 rounded font-label-sm text-label-sm text-primary backdrop-blur-sm z-10">Original</div>
+<img class="object-cover w-full h-full opacity-50" data-alt="A split screen view showing the original high resolution photograph of a sleek sports car on the left. The image is crisp, detailed, and vibrant, showcasing a modern professional aesthetic with deep blacks and rich colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbN5xsSq_LTC_UP-6NwUMLGxDogJbfeZI_fFdQqPJWYMVvaMx-__mO1ajO9yVdk5y0bNK6_cahavVFwjoBHMmDoU6q4UFe9FX4ikLLzEIr9xEp43zQL_FXOR1EEqL3X51JkbpqKtZeaKIMTyW1_SGI88S8IK8Lso1lcp2m6rc-0WoVV41ILni0mWn__d0LnvefnduQZ25Tww_o1U_g81K6OxmshUQR1Gan9lggTwyAlkK83VAbXLwm"/>
+</div>
+<div class="bg-surface-container-lowest rounded-lg border border-border flex items-center justify-center overflow-hidden relative">
+<!-- Placeholder for compressed image -->
+<div class="absolute top-2 left-2 bg-accent-lavender/80 px-2 py-1 rounded font-label-sm text-label-sm text-black backdrop-blur-sm z-10">Compressed Preview</div>
+<img class="object-cover w-full h-full opacity-50" data-alt="A split screen view showing the compressed version of the sports car photograph on the right. The image retains high visual fidelity with minimal artifacting, demonstrating effective compression while maintaining the modern professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1NGb_kG1rS16J9MdSLuPMQZtD5-YWkaBQoEyT4kAgeH6L1qKnZxFvblQjvqpWayVXiCyIhhy1fyc6a5X8mT6dW9a4gsXxMI3h_p73bbPV2fBgsiPdqu63BVffNhGfbHkfhPxF5rGWOk4B_2W3fXtL0W3cTZfwFIIWb2L8eBHaNdJoNAeXPDn_p0UdnyTmY0jMgautdBlj9OnnKvzwIkt91e-mqpm964nlCARZX__LIwGDFIxEkzAb"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Settings Panel (Right / Sidebar) -->
+<div class="lg:col-span-4 bg-surface rounded-xl border border-border p-stack-md flex flex-col gap-stack-md h-fit sticky top-24">
+<h3 class="font-headline-md text-headline-md text-primary pb-stack-sm border-b border-border">Compression Settings</h3>
+<!-- Quality Slider -->
+<div class="space-y-stack-sm">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-text-secondary">Quality</label>
+<span class="font-label-md text-label-md text-primary">80%</span>
+</div>
+<input class="w-full h-1 bg-surface-container rounded-full appearance-none cursor-pointer accent-accent-lavender" max="100" min="1" type="range" value="80"/>
+<div class="flex justify-between font-label-sm text-label-sm text-outline">
+<span>Smaller File</span>
+<span>Better Quality</span>
+</div>
+</div>
+<!-- Target Format -->
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-text-secondary block">Target Format</label>
+<select class="w-full bg-surface-container-lowest border border-border rounded-md px-3 py-2 text-primary font-body-md text-body-md focus:border-accent-lavender focus:ring-1 focus:ring-accent-lavender outline-none transition-all">
+<option value="auto">Auto (Best for Web)</option>
+<option value="jpeg">JPEG</option>
+<option value="webp">WebP</option>
+<option value="png">PNG (Lossless)</option>
+</select>
+</div>
+<!-- Resize Dimensions (Optional) -->
+<div class="space-y-stack-sm">
+<div class="flex items-center gap-2">
+<input class="rounded border-border bg-surface-container-lowest text-accent-lavender focus:ring-accent-lavender" id="resize-check" type="checkbox"/>
+<label class="font-label-md text-label-md text-text-secondary" for="resize-check">Resize Dimensions (Optional)</label>
+</div>
+<div class="grid grid-cols-2 gap-stack-sm opacity-50 pointer-events-none">
+<div>
+<label class="font-label-sm text-label-sm text-outline block mb-1">Max Width (px)</label>
+<input class="w-full bg-surface-container-lowest border border-border rounded-md px-3 py-2 text-primary font-body-md text-body-md" placeholder="e.g. 1920" type="number"/>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-outline block mb-1">Max Height (px)</label>
+<input class="w-full bg-surface-container-lowest border border-border rounded-md px-3 py-2 text-primary font-body-md text-body-md" placeholder="e.g. 1080" type="number"/>
+</div>
+</div>
+</div>
+<!-- Primary Action -->
+<div class="pt-stack-sm mt-auto border-t border-border">
+<button class="w-full py-3 rounded-full bg-primary text-on-primary font-label-md text-label-md hover:bg-tertiary-fixed-dim transition-colors flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined group-hover:animate-bounce" data-icon="compress">compress</span>
+                        Compress Image
+                    </button>
+<p class="text-center font-label-sm text-label-sm text-outline mt-2">Free, secure, and processing happens locally.</p>
+</div>
+</div>
+</div>
+<!-- FAQ Section -->
+<section class="py-stack-lg border-t border-border mt-stack-lg">
+<h3 class="font-headline-md text-headline-md text-primary mb-stack-md text-center">Frequently Asked Questions</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md max-w-4xl mx-auto">
+<div class="bg-surface-container p-stack-md rounded-lg border border-border">
+<h4 class="font-label-md text-label-md text-primary mb-2">Does compression reduce image quality?</h4>
+<p class="font-body-md text-body-md text-text-secondary">We use smart lossy compression techniques to selectively decrease the number of colors in the image data. The effect is nearly invisible but it makes a very large difference in file size.</p>
+</div>
+<div class="bg-surface-container p-stack-md rounded-lg border border-border">
+<h4 class="font-label-md text-label-md text-primary mb-2">Are my images secure?</h4>
+<p class="font-body-md text-body-md text-text-secondary">Yes. All processing is done locally in your browser. Your images are never uploaded to our servers, ensuring complete privacy and security.</p>
+</div>
+</div>
+</section>
+<!-- Related Tools Grid -->
+<section class="py-stack-lg border-t border-border">
+<h3 class="font-headline-md text-headline-md text-primary mb-stack-md">Related Tools</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-stack-md">
+<a class="bg-surface rounded-xl border border-border p-stack-md hover:border-accent-lavender transition-colors group flex flex-col items-start gap-stack-sm" href="#">
+<div class="p-2 bg-surface-container-high rounded-lg text-primary group-hover:text-accent-lavender transition-colors">
+<span class="material-symbols-outlined" data-icon="crop">crop</span>
+</div>
+<h4 class="font-label-md text-label-md text-primary">Crop Image</h4>
+<p class="font-body-md text-body-md text-text-secondary text-sm">Trim unwanted edges easily.</p>
+</a>
+<a class="bg-surface rounded-xl border border-border p-stack-md hover:border-accent-lavender transition-colors group flex flex-col items-start gap-stack-sm" href="#">
+<div class="p-2 bg-surface-container-high rounded-lg text-primary group-hover:text-accent-lavender transition-colors">
+<span class="material-symbols-outlined" data-icon="transform">transform</span>
+</div>
+<h4 class="font-label-md text-label-md text-primary">Resize Image</h4>
+<p class="font-body-md text-body-md text-text-secondary text-sm">Change dimensions instantly.</p>
+</a>
+<a class="bg-surface rounded-xl border border-border p-stack-md hover:border-accent-lavender transition-colors group flex flex-col items-start gap-stack-sm" href="#">
+<div class="p-2 bg-surface-container-high rounded-lg text-primary group-hover:text-accent-lavender transition-colors">
+<span class="material-symbols-outlined" data-icon="compare">compare</span>
+</div>
+<h4 class="font-label-md text-label-md text-primary">Convert Format</h4>
+<p class="font-body-md text-body-md text-text-secondary text-sm">Switch between JPG, PNG, WebP.</p>
+</a>
+<a class="bg-surface rounded-xl border border-border p-stack-md hover:border-accent-lavender transition-colors group flex flex-col items-start gap-stack-sm" href="#">
+<div class="p-2 bg-surface-container-high rounded-lg text-primary group-hover:text-accent-lavender transition-colors">
+<span class="material-symbols-outlined" data-icon="magic_button">magic_button</span>
+</div>
+<h4 class="font-label-md text-label-md text-primary">AI Enhance</h4>
+<p class="font-body-md text-body-md text-text-secondary text-sm">Upscale without losing detail.</p>
+</a>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant w-full mt-auto">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-stack-lg px-gutter py-stack-lg max-w-container-max mx-auto">
+<div class="col-span-2 md:col-span-4 lg:col-span-1">
+<div class="font-headline-md text-headline-md text-primary mb-2">LuminaEdit</div>
+<p class="font-label-sm text-label-sm text-text-secondary">© 2024 LuminaEdit AI. All rights reserved.</p>
+</div>
+<div class="flex flex-col gap-2">
+<a class="font-label-sm text-label-sm text-text-secondary hover:text-primary transition-colors opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-text-secondary hover:text-primary transition-colors opacity-80 hover:opacity-100 transition-opacity" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-2">
+<a class="font-label-sm text-label-sm text-text-secondary hover:text-primary transition-colors opacity-80 hover:opacity-100 transition-opacity" href="#">Cookie Settings</a>
+<a class="font-label-sm text-label-sm text-text-secondary hover:text-primary transition-colors opacity-80 hover:opacity-100 transition-opacity" href="#">Contact Support</a>
+</div>
+<div class="flex flex-col gap-2">
+<a class="font-label-sm text-label-sm text-text-secondary hover:text-primary transition-colors opacity-80 hover:opacity-100 transition-opacity" href="#">API Docs</a>
+</div>
+</div>
+</footer>
+</body></html>

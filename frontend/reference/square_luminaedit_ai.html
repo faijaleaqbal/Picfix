@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Square Image Cropper - LuminaEdit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "tertiary": "#ffffff",
+                    "on-surface": "#e5e1e4",
+                    "surface-container-low": "#1c1b1d",
+                    "surface-container-lowest": "#0e0e10",
+                    "on-primary-container": "#636565",
+                    "surface-container": "#201f22",
+                    "inverse-on-surface": "#313032",
+                    "primary-fixed": "#e2e2e2",
+                    "on-error": "#690005",
+                    "on-primary-fixed": "#1a1c1c",
+                    "muted": "#18181B",
+                    "on-primary-fixed-variant": "#454747",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "inverse-surface": "#e5e1e4",
+                    "border": "#27272A",
+                    "on-tertiary-container": "#646464",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#dcb8ff",
+                    "secondary-container": "#5c3783",
+                    "error-container": "#93000a",
+                    "primary": "#ffffff",
+                    "on-primary": "#2f3131",
+                    "accent-lavender": "#B48CDE",
+                    "on-secondary-container": "#d0a7fb",
+                    "secondary": "#dcb8ff",
+                    "on-secondary-fixed": "#2b0052",
+                    "primary-container": "#e2e2e2",
+                    "on-tertiary": "#303030",
+                    "inverse-primary": "#5d5f5f",
+                    "outline-variant": "#444748",
+                    "outline": "#8e9192",
+                    "error": "#ffb4ab",
+                    "surface-tint": "#c6c6c7",
+                    "text-secondary": "#A1A1AA",
+                    "on-surface-variant": "#c4c7c8",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-container-high": "#2a2a2c",
+                    "tertiary-container": "#e2e2e2",
+                    "background": "#131315",
+                    "surface-dim": "#131315",
+                    "surface-bright": "#39393b",
+                    "surface": "#131315",
+                    "surface-variant": "#353437",
+                    "on-secondary-fixed-variant": "#593580",
+                    "surface-container-highest": "#353437",
+                    "secondary-fixed": "#efdbff",
+                    "primary-fixed-dim": "#c6c6c7",
+                    "on-secondary": "#421c68",
+                    "on-background": "#e5e1e4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "stack-lg": "32px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "Geist"
+                    ],
+                    "headline-xl": [
+                            "Geist"
+                    ],
+                    "headline-md": [
+                            "Geist"
+                    ],
+                    "headline-xl-mobile": [
+                            "Geist"
+                    ],
+                    "body-lg": [
+                            "Geist"
+                    ],
+                    "body-md": [
+                            "Geist"
+                    ],
+                    "label-md": [
+                            "Geist"
+                    ],
+                    "label-sm": [
+                            "Geist"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "36px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.04em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-xl": [
+                            "60px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "letterSpacing": "-0.03em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-xl-mobile": [
+                            "40px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.04em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "letterSpacing": "0em",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "letterSpacing": "0.02em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar for tools pane */
+        .tools-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .tools-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .tools-scroll::-webkit-scrollbar-thumb {
+            background-color: #27272A;
+            border-radius: 20px;
+        }
+        
+        /* Slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            margin-top: -6px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #B48CDE;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md text-body-md overflow-hidden">
+<!-- TopNavBar -->
+<header class="w-full bg-background/80 backdrop-blur-md border-b border-outline-variant z-50 sticky top-0">
+<div class="flex justify-between items-center h-16 px-gutter w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-6">
+<a class="font-headline-md text-headline-md font-bold text-primary tracking-tighter" href="#">LuminaEdit</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-text-secondary hover:text-primary transition-colors hover:bg-muted duration-200 px-3 py-2 rounded-md" href="#">Editor</a>
+<a class="text-primary font-bold border-b-2 border-accent-lavender pb-1 px-3 py-2" href="#">Tools</a>
+<a class="text-text-secondary hover:text-primary transition-colors hover:bg-muted duration-200 px-3 py-2 rounded-md" href="#">Pricing</a>
+<a class="text-text-secondary hover:text-primary transition-colors hover:bg-muted duration-200 px-3 py-2 rounded-md" href="#">Resources</a>
+</nav>
+</div>
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="hidden md:flex items-center gap-4">
+<button class="font-label-md text-label-md text-primary bg-transparent border border-outline-variant rounded-full px-6 py-2 hover:bg-muted transition-all duration-200 scale-95 active:scale-90">Sign In</button>
+<button class="font-label-md text-label-md text-on-primary bg-primary rounded-full px-6 py-2 hover:opacity-90 transition-all duration-200 scale-95 active:scale-90">Get Started</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SideNavBar (Tools Palette) -->
+<aside class="hidden md:flex flex-col bg-surface border-r border-outline-variant docked left-0 h-full w-64 py-stack-md gap-stack-sm z-40 shrink-0">
+<div class="px-gutter mb-6">
+<h2 class="font-headline-sm text-headline-sm font-black text-accent-lavender">Workbench</h2>
+<p class="font-label-sm text-label-sm text-text-secondary">v2.4 Pro</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2 overflow-y-auto tools-scroll">
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container rounded-lg mx-2 px-4 py-3 font-label-md text-label-md transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">crop_square</span>
+                    Square Crop
+                </a>
+<a class="flex items-center gap-3 text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg px-4 py-3 font-label-md text-label-md transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">tune</span>
+                    Adjust
+                </a>
+<a class="flex items-center gap-3 text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg px-4 py-3 font-label-md text-label-md transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">auto_fix_high</span>
+                    Filters
+                </a>
+<a class="flex items-center gap-3 text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg px-4 py-3 font-label-md text-label-md transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">face</span>
+                    Retouch
+                </a>
+<a class="flex items-center gap-3 text-text-secondary hover:text-on-surface hover:bg-muted mx-2 rounded-lg px-4 py-3 font-label-md text-label-md transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">layers</span>
+                    Layers
+                </a>
+</nav>
+<div class="mt-auto flex flex-col gap-2 border-t border-outline-variant pt-4 px-2">
+<button class="w-full font-label-md text-label-md text-on-primary bg-primary rounded-full px-4 py-2 hover:opacity-90 transition-all duration-200 scale-95 active:scale-90 mb-4">Upgrade Plan</button>
+<a class="flex items-center gap-3 text-text-secondary hover:text-on-surface hover:bg-muted rounded-lg px-4 py-2 font-label-md text-label-md transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-3 text-text-secondary hover:text-on-surface hover:bg-muted rounded-lg px-4 py-2 font-label-md text-label-md transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Help
+                </a>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col lg:flex-row overflow-hidden bg-background relative">
+<!-- Canvas Area -->
+<section class="flex-1 relative flex flex-col items-center justify-center p-4 lg:p-gutter overflow-hidden h-full">
+<!-- Toolbar overlay for canvas -->
+<div class="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-surface/90 backdrop-blur-md border border-outline-variant rounded-full px-4 py-2 z-10 shadow-lg">
+<button class="text-text-secondary hover:text-primary p-1 rounded-full hover:bg-muted transition-colors">
+<span class="material-symbols-outlined">undo</span>
+</button>
+<button class="text-text-secondary hover:text-primary p-1 rounded-full hover:bg-muted transition-colors">
+<span class="material-symbols-outlined">redo</span>
+</button>
+<div class="w-px h-4 bg-outline-variant mx-2"></div>
+<button class="text-text-secondary hover:text-primary p-1 rounded-full hover:bg-muted transition-colors" title="Zoom In">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+<span class="font-label-sm text-label-sm text-primary w-12 text-center">100%</span>
+<button class="text-text-secondary hover:text-primary p-1 rounded-full hover:bg-muted transition-colors" title="Zoom Out">
+<span class="material-symbols-outlined">zoom_out</span>
+</button>
+</div>
+<!-- Editor Canvas Context -->
+<div class="w-full max-w-[800px] aspect-square bg-surface-container-highest border border-outline-variant rounded-xl flex items-center justify-center relative overflow-hidden shadow-2xl">
+<!-- Image Placeholder -->
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-300" data-alt="A highly detailed close-up portrait of a cyberpunk character illuminated by neon pink and cyan city lights. The aesthetic is gritty yet polished, fitting a high-end modern dark-mode digital editing interface. Deep blacks and vibrant neon accents define the visual style." id="canvas-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDTMcjJtZ4WE95JkbrABx07JGQg5VBoDrLFjlYXC-Hc-glqIaaIAa8eAQRTIC1Q1IjdVisDC5JgRrq1SRfne66xyo687ntLPs8UhjTfGJ7Km3RW0gpiuPQ-Sm-VLb25y5h9sOrltkc2l1ivfcJadZ1aC0liYO3JuKcKHQ_rPpYYukk6qTjedpuBoqkHxvbnx0qtmTrFb8Uyft4vFZ2dxptL1jhPxE8M7XLmxium5_PtWBG1pgIrq5_J'); transform: scale(1.0);"></div>
+<!-- Crop Overlay (Square Guide) -->
+<div class="absolute inset-0 pointer-events-none">
+<div class="w-full h-full border-4 border-accent-lavender shadow-[0_0_0_9999px_rgba(0,0,0,0.7)] relative">
+<!-- Rule of thirds grid -->
+<div class="absolute inset-0 grid grid-cols-3 grid-rows-3 opacity-30">
+<div class="border-b border-r border-primary"></div>
+<div class="border-b border-r border-primary"></div>
+<div class="border-b border-primary"></div>
+<div class="border-b border-r border-primary"></div>
+<div class="border-b border-r border-primary"></div>
+<div class="border-b border-primary"></div>
+<div class="border-r border-primary"></div>
+<div class="border-r border-primary"></div>
+<div></div>
+</div>
+<!-- Handles -->
+<div class="absolute -top-2 -left-2 w-4 h-4 bg-primary rounded-full pointer-events-auto cursor-nwse-resize shadow-sm"></div>
+<div class="absolute -top-2 -right-2 w-4 h-4 bg-primary rounded-full pointer-events-auto cursor-nesw-resize shadow-sm"></div>
+<div class="absolute -bottom-2 -left-2 w-4 h-4 bg-primary rounded-full pointer-events-auto cursor-nesw-resize shadow-sm"></div>
+<div class="absolute -bottom-2 -right-2 w-4 h-4 bg-primary rounded-full pointer-events-auto cursor-nwse-resize shadow-sm"></div>
+</div>
+</div>
+</div>
+<!-- Bottom action bar -->
+<div class="absolute bottom-6 right-6 flex gap-4">
+<button class="font-label-md text-label-md text-primary bg-surface/80 backdrop-blur-md border border-outline-variant rounded-full px-6 py-3 hover:bg-muted transition-all duration-200">Cancel</button>
+<button class="font-label-md text-label-md text-background bg-accent-lavender rounded-full px-8 py-3 hover:opacity-90 transition-all duration-200 font-semibold shadow-lg shadow-accent-lavender/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+                        Apply Crop
+                    </button>
+</div>
+</section>
+<!-- Properties Panel (Right Side) -->
+<aside class="w-full lg:w-80 bg-surface border-l border-outline-variant flex flex-col h-full shrink-0 overflow-y-auto tools-scroll border-t lg:border-t-0">
+<div class="p-stack-md border-b border-outline-variant">
+<h3 class="font-headline-md text-headline-md font-semibold text-primary">Square Cropper</h3>
+<p class="font-body-sm text-text-secondary mt-1">Make images perfectly square for social media.</p>
+</div>
+<div class="p-stack-md flex flex-col gap-stack-lg">
+<!-- Size Settings -->
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-primary">Resolution</label>
+<span class="font-label-sm text-text-secondary bg-surface-container-high px-2 py-1 rounded-md">1080 × 1080</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="bg-muted border border-accent-lavender text-primary font-label-sm py-2 rounded-md transition-colors text-center">
+                                Instagram (1:1)
+                            </button>
+<button class="bg-surface border border-outline-variant text-text-secondary hover:bg-muted hover:text-primary font-label-sm py-2 rounded-md transition-colors text-center">
+                                Custom
+                            </button>
+</div>
+</div>
+<!-- Padding Control -->
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-primary">Padding</label>
+<span class="font-label-sm text-text-secondary" id="padding-val">0px</span>
+</div>
+<input class="w-full" max="100" min="0" oninput="document.getElementById('padding-val').innerText = this.value + 'px'" type="range" value="0"/>
+</div>
+<!-- Zoom Control -->
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-primary">Zoom / Scale</label>
+<span class="font-label-sm text-text-secondary" id="scale-val">1.0x</span>
+</div>
+<input class="w-full" max="2" min="0.5" oninput="document.getElementById('scale-val').innerText = this.value + 'x'; document.getElementById('canvas-image').style.transform = 'scale(' + this.value + ')'" step="0.1" type="range" value="1.0"/>
+</div>
+<!-- Background Fill -->
+<div class="space-y-4">
+<label class="font-label-md text-label-md text-primary block">Background Fill</label>
+<div class="grid grid-cols-5 gap-2">
+<button class="w-full aspect-square rounded-full border-2 border-accent-lavender bg-black" title="Black"></button>
+<button class="w-full aspect-square rounded-full border border-outline-variant bg-white" title="White"></button>
+<button class="w-full aspect-square rounded-full border border-outline-variant bg-[#1a1a1a]" title="Dark Gray"></button>
+<button class="w-full aspect-square rounded-full border border-outline-variant bg-gradient-to-tr from-accent-lavender to-secondary" title="Gradient"></button>
+<button class="w-full aspect-square rounded-full border border-outline-variant bg-surface flex items-center justify-center text-text-secondary hover:text-primary" title="Blur Mode">
+<span class="material-symbols-outlined text-sm">blur_on</span>
+</button>
+</div>
+<div class="flex items-center gap-3 mt-4">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent-lavender"></div>
+</label>
+<span class="font-label-md text-label-md text-primary">Smart content-aware fill</span>
+</div>
+</div>
+</div>
+</aside>
+</main>
+</div>
+</body></html>
