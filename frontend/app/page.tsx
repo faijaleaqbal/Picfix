@@ -125,8 +125,8 @@ export default function Home() {
 
         {/* Search Results if query entered */}
         {filteredTools ? (
-          <section className="my-8">
-            <h3 className="mb-4 text-lg font-bold text-[#2b2f52]">
+          <section className="my-6">
+            <h3 className="mb-3 flex items-center border-l-4 border-[#4449A6] pl-2.5 text-base font-bold text-[#4449A6] sm:text-lg">
               Search Results ({filteredTools.length})
             </h3>
             {filteredTools.length === 0 ? (
@@ -145,12 +145,14 @@ export default function Home() {
           </section>
         ) : (
           /* Pi7 Categorized Tool Sections */
-          <div className="my-6 space-y-8">
+          <div className="my-6 space-y-7 sm:space-y-8">
             {CATEGORIES.map((cat) => {
               const tools = ALL_TOOLS.filter((t) => t.category === cat);
               return (
-                <section key={cat} className="space-y-3">
-                  <h3 className="text-lg font-bold text-[#2b2f52]">{cat}</h3>
+                <section key={cat} className="space-y-2.5 sm:space-y-3">
+                  <h3 className="flex items-center border-l-4 border-[#4449A6] pl-2.5 text-base font-bold text-[#4449A6] sm:text-lg">
+                    {cat}
+                  </h3>
                   <div className="toolcontainer">
                     {tools.map((tool, idx) => (
                       <Link key={`${tool.href}-${idx}`} href={tool.href} className="trackbtn">

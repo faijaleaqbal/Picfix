@@ -102,13 +102,13 @@ export function UploadDropzone({
       onDrop={onDrop}
       className={cn(
         "group relative flex cursor-pointer flex-col items-center justify-center text-center transition-all duration-200 select-none",
-        "w-full max-w-full overflow-hidden px-4 py-8 sm:px-6 sm:py-10",
+        "w-full max-w-full overflow-hidden px-3 py-6 sm:px-6 sm:py-8",
         "rounded-md border-[3px] border-dashed",
         dragOver
           ? "border-[#4449A6] bg-[#eff0fa]"
           : "border-[#9da0d9] bg-white hover:border-[#4449A6] hover:bg-[#fafbfe]",
         disabled && "cursor-not-allowed opacity-60",
-        size === "lg" ? "min-h-[260px] sm:min-h-[300px]" : "min-h-[170px]",
+        size === "lg" ? "min-h-[200px] sm:min-h-[260px]" : "min-h-[140px] sm:min-h-[160px]",
         className
       )}
     >

@@ -53,34 +53,64 @@
   }
 }
 
-/* Pi7 Tool Container & Buttons */
+/* Pi7 Tool Container & Buttons - Responsive Grid */
 .toolcontainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
+}
+
+@media (min-width: 640px) {
+  .toolcontainer {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .toolcontainer {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
 }
 
 .trackbtn, .toolbtn {
   border: 1px solid var(--pcolor);
   color: var(--pcolor);
   background-color: #ffffff;
-  padding: 8px 14px;
-  display: inline-flex;
+  padding: 10px 8px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 3px;
-  font-size: 14.5px;
-  font-weight: 500;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+  min-height: 48px;
   text-decoration: none;
-  transition: all 0.15s ease;
-  min-width: 130px;
+  transition: all 0.15s ease-in-out;
+  word-break: break-word;
+}
+
+@media (min-width: 640px) {
+  .trackbtn, .toolbtn {
+    font-size: 14.5px;
+    padding: 12px 14px;
+    min-height: 52px;
+  }
 }
 
 .trackbtn:hover, .toolbtn:hover {
   background-color: var(--pcolor);
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(68, 73, 166, 0.28);
+  border-color: var(--pcolor);
+  box-shadow: 0 4px 12px rgba(68, 73, 166, 0.25);
+  transform: translateY(-1px);
+}
+
+.trackbtn:active, .toolbtn:active {
+  transform: translateY(0);
 }
 
 /* Pi7 Dropzone & Select Button */
