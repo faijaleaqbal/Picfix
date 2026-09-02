@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, ChevronRight, Layers, X, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { UserNav } from "@/components/site/user-nav";
 
 /**
  * Pi7-identical top navigation bar
@@ -391,17 +392,24 @@ export function SiteHeader() {
           >
             Rotate Image
           </Link>
+
+          <div className="ml-2 pl-2 border-l border-white/20">
+            <UserNav />
+          </div>
         </nav>
 
-        {/* Mobile Hamburger Button */}
-        <button
-          type="button"
-          onClick={() => setMobileMenuOpen((v) => !v)}
-          className="flex size-9 items-center justify-center rounded text-white hover:bg-white/10 md:hidden focus:outline-none"
-          aria-label="Toggle Menu"
-        >
-          {mobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
-        </button>
+        {/* Right side controls on Mobile */}
+        <div className="flex items-center gap-2 md:hidden">
+          <UserNav />
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            className="flex size-9 items-center justify-center rounded text-white hover:bg-white/10 focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
