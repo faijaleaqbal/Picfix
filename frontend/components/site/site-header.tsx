@@ -275,6 +275,13 @@ export function SiteHeader() {
                   <ChevronRight className="size-3 text-[#4449A6]" />
                   Sign PDF
                 </Link>
+                <Link
+                  href="/unlock-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Unlock PDF
+                </Link>
               </div>
             )}
           </div>
@@ -466,6 +473,9 @@ export function SiteHeader() {
                 </Link>
                 <Link href="/compress-pdf-to-200kb" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
                   PDF to 200KB
+                </Link>
+                <Link href="/unlock-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Unlock PDF
                 </Link>
               </div>
             </div>

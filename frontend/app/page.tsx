@@ -20,6 +20,7 @@ const ALL_TOOLS: ToolItem[] = [
   { title: "Compress PDF", href: "/compress-pdf", category: "Most Used Tools" },
   { title: "Split PDF", href: "/split-pdf", category: "Most Used Tools" },
   { title: "PDF to JPG", href: "/pdf-to-jpg", category: "Most Used Tools" },
+  { title: "Unlock PDF (Remove Password)", href: "/unlock-pdf", category: "Most Used Tools" },
   { title: "Resize Image Pixel", href: "/resize-image-pixel", category: "Most Used Tools" },
   { title: "Add Name and Date on Photo", href: "/add-name-and-date-on-photo", category: "Most Used Tools" },
   { title: "Merge Photo and Signature", href: "/merge-photo-and-signature", category: "Most Used Tools" },
@@ -91,6 +92,7 @@ const ALL_TOOLS: ToolItem[] = [
   { title: "Watermark PDF", href: "/watermark-pdf", category: "PDF Tools" },
   { title: "Remove PDF Pages", href: "/remove-pages-pdf", category: "PDF Tools" },
   { title: "Sign PDF Document", href: "/sign-pdf", category: "PDF Tools" },
+  { title: "Unlock PDF (Remove Password)", href: "/unlock-pdf", category: "PDF Tools" },
 ];
 
 const CATEGORIES = [
