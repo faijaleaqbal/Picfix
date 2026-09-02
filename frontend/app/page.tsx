@@ -25,6 +25,9 @@ const ALL_TOOLS: ToolItem[] = [
   { title: "Add Name and Date on Photo", href: "/add-name-and-date-on-photo", category: "Most Used Tools" },
   { title: "Merge Photo and Signature", href: "/merge-photo-and-signature", category: "Most Used Tools" },
   { title: "Remove Image Background", href: "/remove-image-background", category: "Most Used Tools" },
+  { title: "AI Watermark Remover", href: "/ai-remove-watermark", category: "Most Used Tools" },
+  { title: "AI Image to Text (OCR)", href: "/image-to-text", category: "Most Used Tools" },
+  { title: "Change Photo Background", href: "/change-photo-background", category: "Most Used Tools" },
   { title: "Images To PDF", href: "/image-to-pdf", category: "Most Used Tools" },
   { title: "AI Photo Enhancer", href: "/ai-enhance-image", category: "Most Used Tools" },
   { title: "Resize Image In Centimeter", href: "/resize-image-in-cm", category: "Most Used Tools" },
@@ -91,12 +94,19 @@ const ALL_TOOLS: ToolItem[] = [
   { title: "Add Page Numbers", href: "/add-page-numbers-pdf", category: "PDF Tools" },
   { title: "Watermark PDF", href: "/watermark-pdf", category: "PDF Tools" },
   { title: "Remove PDF Pages", href: "/remove-pages-pdf", category: "PDF Tools" },
-  { title: "Sign PDF Document", href: "/sign-pdf", category: "PDF Tools" },
   { title: "Unlock PDF (Remove Password)", href: "/unlock-pdf", category: "PDF Tools" },
+  // AI Tools
+  { title: "AI Watermark Remover", href: "/ai-remove-watermark", category: "AI Tools" },
+  { title: "AI Background Remover", href: "/remove-image-background", category: "AI Tools" },
+  { title: "AI Image to Text (OCR)", href: "/image-to-text", category: "AI Tools" },
+  { title: "Change Photo Background", href: "/change-photo-background", category: "AI Tools" },
+  { title: "AI Smart Face Crop", href: "/ai-face-crop", category: "AI Tools" },
+  { title: "AI Photo Enhancer", href: "/ai-enhance-image", category: "AI Tools" },
 ];
 
 const CATEGORIES = [
   "Most Used Tools",
+  "AI Tools",
   "PDF Tools",
   "Official & Exam Sizing",
   "Target KB Compression",

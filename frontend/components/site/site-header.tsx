@@ -17,13 +17,16 @@ export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [convertDropdownOpen, setConvertDropdownOpen] = useState(false);
   const [pdfDropdownOpen, setPdfDropdownOpen] = useState(false);
+  const [aiDropdownOpen, setAiDropdownOpen] = useState(false);
   const convertRef = useRef<HTMLDivElement>(null);
   const pdfRef = useRef<HTMLDivElement>(null);
+  const aiRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMobileMenuOpen(false);
     setConvertDropdownOpen(false);
     setPdfDropdownOpen(false);
+    setAiDropdownOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -33,6 +36,9 @@ export function SiteHeader() {
       }
       if (pdfRef.current && !pdfRef.current.contains(e.target as Node)) {
         setPdfDropdownOpen(false);
+      }
+      if (aiRef.current && !aiRef.current.contains(e.target as Node)) {
+        setAiDropdownOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -286,6 +292,86 @@ export function SiteHeader() {
             )}
           </div>
 
+          {/* AI Tools Dropdown */}
+          <div className="relative" ref={aiRef}>
+            <button
+              type="button"
+              onClick={() => {
+                setAiDropdownOpen((v) => !v);
+                setConvertDropdownOpen(false);
+                setPdfDropdownOpen(false);
+              }}
+              className={cn(
+                "flex items-center gap-1 rounded px-2.5 py-1.5 text-sm font-semibold text-white transition-colors hover:text-[#ffeb3b]",
+                (aiDropdownOpen ||
+                  [
+                    "/ai-remove-watermark",
+                    "/remove-image-background",
+                    "/image-to-text",
+                    "/change-photo-background",
+                    "/ai-face-crop",
+                    "/ai-enhance-image",
+                  ].includes(pathname)) &&
+                  "text-[#ffeb3b]"
+              )}
+            >
+              <span>AI Tools</span>
+              <ChevronDown
+                className={cn(
+                  "size-3.5 transition-transform duration-200",
+                  aiDropdownOpen && "rotate-180 text-[#ffeb3b]"
+                )}
+              />
+            </button>
+
+            {aiDropdownOpen && (
+              <div className="absolute left-0 top-full w-56 rounded-b border-t-[3px] border-[#047e73] bg-white p-2 shadow-xl">
+                <Link
+                  href="/ai-remove-watermark"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  AI Watermark Remover
+                </Link>
+                <Link
+                  href="/remove-image-background"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  AI Background Remover
+                </Link>
+                <Link
+                  href="/image-to-text"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  AI Image to Text (OCR)
+                </Link>
+                <Link
+                  href="/change-photo-background"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Change Photo Background
+                </Link>
+                <Link
+                  href="/ai-face-crop"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  AI Smart Face Crop
+                </Link>
+                <Link
+                  href="/ai-enhance-image"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  AI Photo Enhancer
+                </Link>
+              </div>
+            )}
+          </div>
+
           <Link
             href="/crop-image"
             className={cn(
@@ -420,6 +506,32 @@ export function SiteHeader() {
                 </Link>
                 <Link href="/color-code-from-image" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20">
                   Color Picker
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-[#ffeb3b]">
+                AI Tools
+              </h4>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <Link href="/ai-remove-watermark" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  AI Watermark Remover
+                </Link>
+                <Link href="/remove-image-background" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  AI BG Remover
+                </Link>
+                <Link href="/image-to-text" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Image to Text (OCR)
+                </Link>
+                <Link href="/change-photo-background" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Change Photo BG
+                </Link>
+                <Link href="/ai-face-crop" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  AI Face Crop
+                </Link>
+                <Link href="/ai-enhance-image" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  AI Photo Enhancer
                 </Link>
               </div>
             </div>
