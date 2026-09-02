@@ -5,7 +5,7 @@ import { RelatedTools } from "@/components/site/related-tools";
 import { SplitPdfTool } from "./tool";
 
 export const metadata: Metadata = {
-  title: "Split PDF Online | Extract Pages from PDF | iLovePDF Alternative",
+  title: "Split PDF Online | Extract Pages from PDF | Picfix",
   description:
     "Split a PDF into multiple pages or extract specific page ranges online. Free, fast and secure.",
 };

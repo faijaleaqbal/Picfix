@@ -152,7 +152,7 @@ export function SiteHeader() {
             )}
           </div>
 
-          {/* PDF Tools (iLovePDF) Dropdown */}
+          {/* PDF Tools Dropdown */}
           <div
             className="relative"
             ref={pdfRef}
@@ -199,6 +199,13 @@ export function SiteHeader() {
                   PDF to JPG
                 </Link>
                 <Link
+                  href="/pdf-to-png"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  PDF to PNG
+                </Link>
+                <Link
                   href="/image-to-pdf"
                   className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
                 >
@@ -206,11 +213,39 @@ export function SiteHeader() {
                   Images to PDF
                 </Link>
                 <Link
+                  href="/crop-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Crop PDF
+                </Link>
+                <Link
                   href="/rotate-pdf"
                   className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
                 >
                   <ChevronRight className="size-3 text-[#4449A6]" />
                   Rotate PDF
+                </Link>
+                <Link
+                  href="/grayscale-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Grayscale PDF
+                </Link>
+                <Link
+                  href="/organize-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Organize PDF
+                </Link>
+                <Link
+                  href="/pdf-metadata"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  PDF Metadata
                 </Link>
                 <Link
                   href="/add-page-numbers-pdf"
@@ -384,7 +419,7 @@ export function SiteHeader() {
 
             <div>
               <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-[#ffeb3b]">
-                PDF Tools (iLovePDF)
+                PDF Tools
               </h4>
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <Link href="/merge-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
@@ -399,8 +434,23 @@ export function SiteHeader() {
                 <Link href="/pdf-to-jpg" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
                   PDF to JPG
                 </Link>
+                <Link href="/pdf-to-png" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  PDF to PNG
+                </Link>
+                <Link href="/crop-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Crop PDF
+                </Link>
                 <Link href="/rotate-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
                   Rotate PDF
+                </Link>
+                <Link href="/grayscale-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Grayscale PDF
+                </Link>
+                <Link href="/organize-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Organize PDF
+                </Link>
+                <Link href="/pdf-metadata" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  PDF Metadata
                 </Link>
                 <Link href="/add-page-numbers-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
                   Add Page Numbers
@@ -410,6 +460,12 @@ export function SiteHeader() {
                 </Link>
                 <Link href="/sign-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
                   Sign PDF
+                </Link>
+                <Link href="/compress-pdf-to-100kb" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  PDF to 100KB
+                </Link>
+                <Link href="/compress-pdf-to-200kb" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  PDF to 200KB
                 </Link>
               </div>
             </div>

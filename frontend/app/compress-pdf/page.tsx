@@ -5,7 +5,7 @@ import { RelatedTools } from "@/components/site/related-tools";
 import { CompressPdfTool } from "./tool";
 
 export const metadata: Metadata = {
-  title: "Compress PDF Online | Reduce PDF Size | iLovePDF Alternative",
+  title: "Compress PDF Online | Reduce PDF Size | Picfix",
   description:
     "Compress PDF files online for free. Reduce PDF size while maintaining maximum quality.",
 };

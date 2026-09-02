@@ -5,7 +5,7 @@ import { RelatedTools } from "@/components/site/related-tools";
 import { MergePdfTool } from "./tool";
 
 export const metadata: Metadata = {
-  title: "Merge PDF Files Online Free | iLovePDF Alternative",
+  title: "Merge PDF Files Online Free | Picfix",
   description:
     "Combine PDFs in the order you want with the easiest online PDF merger. 100% free, secure, and fast.",
 };

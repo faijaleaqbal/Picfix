@@ -5,7 +5,7 @@ import { RelatedTools } from "@/components/site/related-tools";
 import { RotatePdfTool } from "./tool";
 
 export const metadata: Metadata = {
-  title: "Rotate PDF Online | Turn PDF Pages | iLovePDF Alternative",
+  title: "Rotate PDF Online | Turn PDF Pages | Picfix",
   description:
     "Rotate your PDF files the way you need. Rotate multiple PDF pages at the same time by 90 or 180 degrees.",
 };

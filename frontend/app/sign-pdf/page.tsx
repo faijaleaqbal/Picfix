@@ -5,7 +5,7 @@ import { RelatedTools } from "@/components/site/related-tools";
 import { SignPdfTool } from "./tool";
 
 export const metadata: Metadata = {
-  title: "Sign PDF Online | eSign PDF Documents | iLovePDF Alternative",
+  title: "Sign PDF Online | eSign PDF Documents | Picfix",
   description:
     "Sign PDF online with your digital signature image. Simple, fast and legally binding e-signature tool.",
 };

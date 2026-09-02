@@ -5,7 +5,7 @@ import { RelatedTools } from "@/components/site/related-tools";
 import { PdfToJpgTool } from "./tool";
 
 export const metadata: Metadata = {
-  title: "PDF to JPG | Convert PDF to Images Online | iLovePDF Alternative",
+  title: "PDF to JPG | Convert PDF to Images Online | Picfix",
   description:
     "Convert every PDF page into a high-resolution JPG image online. 100% free with no limits.",
 };

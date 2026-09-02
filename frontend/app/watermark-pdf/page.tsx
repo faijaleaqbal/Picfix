@@ -5,7 +5,7 @@ import { RelatedTools } from "@/components/site/related-tools";
 import { WatermarkPdfTool } from "./tool";
 
 export const metadata: Metadata = {
-  title: "Watermark PDF Online | Stamp PDF | iLovePDF Alternative",
+  title: "Watermark PDF Online | Stamp PDF | Picfix",
   description:
     "Stamp an image or text over your PDF in seconds. Choose typography, transparency and position.",
 };

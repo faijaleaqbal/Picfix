@@ -5,7 +5,7 @@ import { RelatedTools } from "@/components/site/related-tools";
 import { AddPageNumbersTool } from "./tool";
 
 export const metadata: Metadata = {
-  title: "Add Page Numbers to PDF Online | iLovePDF Alternative",
+  title: "Add Page Numbers to PDF Online | Picfix",
   description:
     "Insert page numbers in PDF documents easily. Choose positions, numbering style and typography.",
 };

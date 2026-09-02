@@ -223,3 +223,79 @@ export async function signPdfDoc(
 
   return await pdf.save();
 }
+
+/**
+ * Crop PDF margins
+ */
+export async function cropPdfDoc(file: File, marginPoints: number = 36): Promise<Uint8Array> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const pages = pdf.getPages();
+
+  for (const page of pages) {
+    const { width, height } = page.getSize();
+    const newWidth = Math.max(50, width - marginPoints * 2);
+    const newHeight = Math.max(50, height - marginPoints * 2);
+    page.setCropBox(marginPoints, marginPoints, newWidth, newHeight);
+  }
+
+  return await pdf.save();
+}
+
+/**
+ * Reorder and organize PDF pages
+ */
+export async function reorderPdfPages(file: File, newOrder1Indexed: number[]): Promise<Uint8Array> {
+  const arrayBuffer = await file.arrayBuffer();
+  const srcPdf = await PDFDocument.load(arrayBuffer);
+  const totalPages = srcPdf.getPageCount();
+
+  const validIndices = newOrder1Indexed
+    .filter((n) => n >= 1 && n <= totalPages)
+    .map((n) => n - 1);
+
+  if (validIndices.length === 0) {
+    throw new Error("Invalid page sequence specified.");
+  }
+
+  const newPdf = await PDFDocument.create();
+  const copiedPages = await newPdf.copyPages(srcPdf, validIndices);
+  copiedPages.forEach((p) => newPdf.addPage(p));
+
+  return await newPdf.save();
+}
+
+/**
+ * Read PDF Metadata
+ */
+export async function readPdfMetadata(file: File) {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  return {
+    title: pdf.getTitle() || "",
+    author: pdf.getAuthor() || "",
+    subject: pdf.getSubject() || "",
+    keywords: pdf.getKeywords() || "",
+    pageCount: pdf.getPageCount(),
+  };
+}
+
+/**
+ * Update PDF Metadata
+ */
+export async function updatePdfMetadata(
+  file: File,
+  meta: { title?: string; author?: string; subject?: string; keywords?: string }
+): Promise<Uint8Array> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+
+  if (meta.title !== undefined) pdf.setTitle(meta.title);
+  if (meta.author !== undefined) pdf.setAuthor(meta.author);
+  if (meta.subject !== undefined) pdf.setSubject(meta.subject);
+  if (meta.keywords !== undefined) {
+    pdf.setKeywords(meta.keywords.split(",").map((s) => s.trim()).filter(Boolean));
+  }
+
+  return await pdf.save();
+}

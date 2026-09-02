@@ -5,7 +5,7 @@ import { RelatedTools } from "@/components/site/related-tools";
 import { RemovePagesTool } from "./tool";
 
 export const metadata: Metadata = {
-  title: "Remove Pages from PDF Online | iLovePDF Alternative",
+  title: "Remove Pages from PDF Online | Picfix",
   description:
     "Delete unwanted pages from PDF document online for free. Select and remove pages instantly.",
 };
