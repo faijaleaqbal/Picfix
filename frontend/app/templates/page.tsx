@@ -119,13 +119,13 @@ export default function TemplatesPage() {
         <div className="text-center space-y-3 mb-12">
           <div className="inline-flex items-center gap-2 rounded-full border border-accent-lavender/30 bg-accent-lavender/10 px-3 py-1 text-xs font-semibold text-accent-lavender">
             <Layers className="size-3.5" />
-            Template Directory
+            Preset Shortcuts
           </div>
           <h1 className="font-headline-xl text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-primary">
-            Instant Canvas Templates
+            Standard Dimension Presets
           </h1>
           <p className="mx-auto max-w-xl text-sm sm:text-base text-text-secondary">
-            Select a verified dimension template below to launch the editor with exact pixel and aspect ratio specifications.
+            Quick-access shortcuts to launch our free editing tools with standard dimensions for social media, official ID cards, and marketplace formats.
           </p>
         </div>
 

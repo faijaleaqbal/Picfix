@@ -4,13 +4,12 @@ import {
   BookOpen,
   ShieldCheck,
   ArrowRight,
-  Code2,
 } from "lucide-react";
 import { LandingShell } from "@/components/site/page-shells";
 
 export const metadata: Metadata = {
   title: "Resources & Guides",
-  description: "Image processing documentation, compression guides, format comparison benchmarks, and developer API references.",
+  description: "Image processing documentation, compression guides, format comparison benchmarks, and DPI standards.",
 };
 
 const GUIDES = [
@@ -29,52 +28,29 @@ const GUIDES = [
     link: "/passport-size-photo",
   },
   {
-    title: "Social Media Aspect Ratio Guide (2025-2026)",
-    category: "Creator Best Practices",
-    summary: "Cheat sheet of exact dimensions and safe zones for Instagram Reels, Stories, WhatsApp avatars, and YouTube banners.",
+    title: "Social Media Aspect Ratio Guide",
+    category: "Creator Standards",
+    summary: "Standard dimensions and safe zones for Instagram Reels, square feed posts, WhatsApp profile avatars, and YouTube thumbnails.",
     readTime: "5 min read",
     link: "/templates",
-  },
-];
-
-const API_ENDPOINTS = [
-  {
-    endpoint: "POST /api/compress",
-    description: "Iterative quality binary search engine to hit exact target kilobyte thresholds.",
-    params: "image (File), targetSize (bytes), format (jpeg|webp)",
-  },
-  {
-    endpoint: "POST /api/crop",
-    description: "Lossless geometric bounding-box and circular alpha mask crop.",
-    params: "image (File), shape (circle|square), x, y, width, height",
-  },
-  {
-    endpoint: "POST /api/social-resize",
-    description: "Preset cover-fit center crop for Instagram, WhatsApp DP, PAN card, and Passports.",
-    params: "image (File), platform, format, quality",
-  },
-  {
-    endpoint: "POST /api/watermark",
-    description: "High-speed text and logo watermark composite with custom opacity and margin.",
-    params: "image (File), text, fontSize, color, position, opacity",
   },
 ];
 
 export default function ResourcesPage() {
   return (
     <LandingShell>
-      <div className="mx-auto max-w-5xl py-8 sm:py-12 space-y-16">
+      <div className="mx-auto max-w-5xl py-8 sm:py-12 space-y-12">
         {/* Header */}
         <div className="text-center space-y-3">
           <div className="inline-flex items-center gap-2 rounded-full border border-accent-lavender/30 bg-accent-lavender/10 px-3 py-1 text-xs font-semibold text-accent-lavender">
             <BookOpen className="size-3.5" />
-            Knowledge Base & API Docs
+            Knowledge Base
           </div>
           <h1 className="font-headline-xl text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-primary">
-            Picfix Engineering & Guides
+            Image Guides & Best Practices
           </h1>
           <p className="mx-auto max-w-xl text-sm sm:text-base text-text-secondary">
-            Deep dive into technical image processing standards, DPI calculations, format comparisons, and headless REST API documentation.
+            Helpful reference guides on digital image formats, print resolution, and aspect ratio standards.
           </p>
         </div>
 
@@ -89,7 +65,7 @@ export default function ResourcesPage() {
                 Ephemeral Privacy Commitment
               </h2>
               <p className="text-xs text-text-secondary leading-relaxed">
-                Picfix processes images in volatile memory buffers and temporary sandboxed volumes. All files uploaded through our web application or APIs are automatically destroyed after processing. We never train AI models on user photos or store private images.
+                Picfix processes images in volatile memory buffers and temporary sandboxed storage. All files uploaded through our web application are automatically deleted after processing. We never store user photos permanently or use them to train AI models.
               </p>
             </div>
           </div>
@@ -99,7 +75,7 @@ export default function ResourcesPage() {
         <div className="space-y-6">
           <div className="border-b border-border pb-3">
             <h2 className="font-headline-md text-xl font-bold text-primary">Optimization Guides</h2>
-            <p className="text-xs text-text-secondary">Actionable reference guides for digital creators and web developers.</p>
+            <p className="text-xs text-text-secondary">Practical reference guides for creators and everyday users.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -131,58 +107,6 @@ export default function ResourcesPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* API Reference Preview */}
-        <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-border pb-3">
-            <div>
-              <h2 className="font-headline-md text-xl font-bold text-primary">Headless REST API Reference</h2>
-              <p className="text-xs text-text-secondary">Integrate Picfix high-performance image processing into your applications.</p>
-            </div>
-            <span className="w-fit rounded-md border border-border bg-surface px-2.5 py-1 font-mono text-[11px] text-accent-lavender">
-              Base: https://picfix.duckdns.org
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4">
-            {API_ENDPOINTS.map((item, i) => (
-              <div key={i} className="rounded-2xl border border-border bg-surface p-5 space-y-2">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-mono text-xs font-bold text-primary bg-surface-container-high px-2.5 py-1 rounded-lg">
-                    {item.endpoint}
-                  </span>
-                  <span className="rounded bg-accent-lavender/10 px-2 py-0.5 text-[10px] font-semibold text-accent-lavender">
-                    multipart/form-data
-                  </span>
-                </div>
-                <p className="text-xs text-text-secondary leading-relaxed">
-                  {item.description}
-                </p>
-                <div className="text-[11px] font-mono text-outline">
-                  <span className="font-semibold text-text-secondary">Params: </span>{item.params}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Code example */}
-          <div className="rounded-2xl border border-border bg-surface-container-lowest p-5 space-y-3">
-            <div className="flex items-center justify-between text-xs text-text-secondary">
-              <span className="flex items-center gap-2 font-mono font-semibold text-primary">
-                <Code2 className="size-4 text-accent-lavender" />
-                Example: cURL Image Compression
-              </span>
-              <span className="font-mono text-[11px]">bash</span>
-            </div>
-            <pre className="overflow-x-auto rounded-xl bg-black/80 p-4 font-mono text-xs text-zinc-300 leading-relaxed">
-{`curl -X POST https://picfix.duckdns.org/api/compress \\
-  -F "image=@photo.jpg" \\
-  -F "targetSize=204800" \\
-  -F "format=jpeg" \\
-  --output photo_compressed.jpg`}
-            </pre>
           </div>
         </div>
       </div>
