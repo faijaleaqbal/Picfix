@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: picfix-backend
+    env: node
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: ALLOWED_ORIGINS
+        value: "https://frontend-beta-ruddy-73.vercel.app,https://picfix.duckdns.org"
+      - key: MAX_FILE_SIZE
+        value: "15728640"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
