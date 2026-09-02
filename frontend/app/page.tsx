@@ -16,6 +16,10 @@ const ALL_TOOLS: ToolItem[] = [
   // Most Used Tools
   { title: "Passport Photo Maker", href: "/passport-size-photo", category: "Most Used Tools" },
   { title: "Reduce Image Size in KB", href: "/reduce-image-size-in-kb", category: "Most Used Tools" },
+  { title: "Merge PDF", href: "/merge-pdf", category: "Most Used Tools" },
+  { title: "Compress PDF", href: "/compress-pdf", category: "Most Used Tools" },
+  { title: "Split PDF", href: "/split-pdf", category: "Most Used Tools" },
+  { title: "PDF to JPG", href: "/pdf-to-jpg", category: "Most Used Tools" },
   { title: "Resize Image Pixel", href: "/resize-image-pixel", category: "Most Used Tools" },
   { title: "Add Name and Date on Photo", href: "/add-name-and-date-on-photo", category: "Most Used Tools" },
   { title: "Merge Photo and Signature", href: "/merge-photo-and-signature", category: "Most Used Tools" },
@@ -25,7 +29,6 @@ const ALL_TOOLS: ToolItem[] = [
   { title: "Resize Image In Centimeter", href: "/resize-image-in-cm", category: "Most Used Tools" },
   { title: "PAN Card Resize", href: "/resize-for-pan-card", category: "Most Used Tools" },
   { title: "SSC Photo Resizer", href: "/ssc-photo-resizer", category: "Most Used Tools" },
-  { title: "Increase Image Size in KB", href: "/increase-image-size-in-kb", category: "Most Used Tools" },
   { title: "Crop Image", href: "/crop-image", category: "Most Used Tools" },
   { title: "Rotate Image", href: "/rotate-image", category: "Most Used Tools" },
 
@@ -67,12 +70,22 @@ const ALL_TOOLS: ToolItem[] = [
   { title: "Compress Image to 100KB", href: "/compress-image-to-100kb", category: "Target KB Compression" },
   { title: "Compress Image to 200KB", href: "/compress-image-to-200kb", category: "Target KB Compression" },
   { title: "Compress Image to 500KB", href: "/compress-image-to-500kb", category: "Target KB Compression" },
-  { title: "Increase Image Size in KB", href: "/increase-image-size-in-kb", category: "Target KB Compression" },
-  { title: "General Compressor", href: "/compress-image", category: "Target KB Compression" },
+  // PDF Tools (iLovePDF Suite)
+  { title: "Merge PDF", href: "/merge-pdf", category: "PDF Tools (iLovePDF)" },
+  { title: "Split PDF", href: "/split-pdf", category: "PDF Tools (iLovePDF)" },
+  { title: "Compress PDF", href: "/compress-pdf", category: "PDF Tools (iLovePDF)" },
+  { title: "PDF to JPG", href: "/pdf-to-jpg", category: "PDF Tools (iLovePDF)" },
+  { title: "Images to PDF", href: "/image-to-pdf", category: "PDF Tools (iLovePDF)" },
+  { title: "Rotate PDF", href: "/rotate-pdf", category: "PDF Tools (iLovePDF)" },
+  { title: "Add Page Numbers", href: "/add-page-numbers-pdf", category: "PDF Tools (iLovePDF)" },
+  { title: "Watermark PDF", href: "/watermark-pdf", category: "PDF Tools (iLovePDF)" },
+  { title: "Remove PDF Pages", href: "/remove-pages-pdf", category: "PDF Tools (iLovePDF)" },
+  { title: "Sign PDF Document", href: "/sign-pdf", category: "PDF Tools (iLovePDF)" },
 ];
 
 const CATEGORIES = [
   "Most Used Tools",
+  "PDF Tools (iLovePDF)",
   "Official & Exam Sizing",
   "Target KB Compression",
   "Basic Editing",

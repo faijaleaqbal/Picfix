@@ -16,17 +16,23 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [convertDropdownOpen, setConvertDropdownOpen] = useState(false);
+  const [pdfDropdownOpen, setPdfDropdownOpen] = useState(false);
   const convertRef = useRef<HTMLDivElement>(null);
+  const pdfRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMobileMenuOpen(false);
     setConvertDropdownOpen(false);
+    setPdfDropdownOpen(false);
   }, [pathname]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (convertRef.current && !convertRef.current.contains(e.target as Node)) {
         setConvertDropdownOpen(false);
+      }
+      if (pdfRef.current && !pdfRef.current.contains(e.target as Node)) {
+        setPdfDropdownOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -141,6 +147,98 @@ export function SiteHeader() {
                 >
                   <ChevronRight className="size-3 text-[#4449A6]" />
                   Images To PDF
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* PDF Tools (iLovePDF) Dropdown */}
+          <div
+            className="relative"
+            ref={pdfRef}
+            onMouseEnter={() => setPdfDropdownOpen(true)}
+            onMouseLeave={() => setPdfDropdownOpen(false)}
+          >
+            <button
+              type="button"
+              onClick={() => setPdfDropdownOpen((v) => !v)}
+              className="flex items-center gap-1 rounded px-2.5 py-1.5 text-sm font-semibold text-white transition-colors hover:text-[#ffeb3b]"
+            >
+              <span>PDF Tools</span>
+              <ChevronDown className="size-3.5 opacity-80" />
+            </button>
+
+            {pdfDropdownOpen && (
+              <div className="absolute left-0 top-full w-56 rounded-b border-t-[3px] border-[#d31b5a] bg-white p-2 shadow-xl">
+                <Link
+                  href="/merge-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Merge PDF
+                </Link>
+                <Link
+                  href="/split-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Split PDF
+                </Link>
+                <Link
+                  href="/compress-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Compress PDF
+                </Link>
+                <Link
+                  href="/pdf-to-jpg"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  PDF to JPG
+                </Link>
+                <Link
+                  href="/image-to-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Images to PDF
+                </Link>
+                <Link
+                  href="/rotate-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Rotate PDF
+                </Link>
+                <Link
+                  href="/add-page-numbers-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Add Page Numbers
+                </Link>
+                <Link
+                  href="/watermark-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Watermark PDF
+                </Link>
+                <Link
+                  href="/remove-pages-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Remove PDF Pages
+                </Link>
+                <Link
+                  href="/sign-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-semibold text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Sign PDF
                 </Link>
               </div>
             )}
@@ -280,6 +378,38 @@ export function SiteHeader() {
                 </Link>
                 <Link href="/color-code-from-image" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20">
                   Color Picker
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-[#ffeb3b]">
+                PDF Tools (iLovePDF)
+              </h4>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <Link href="/merge-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Merge PDF
+                </Link>
+                <Link href="/split-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Split PDF
+                </Link>
+                <Link href="/compress-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Compress PDF
+                </Link>
+                <Link href="/pdf-to-jpg" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  PDF to JPG
+                </Link>
+                <Link href="/rotate-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Rotate PDF
+                </Link>
+                <Link href="/add-page-numbers-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Add Page Numbers
+                </Link>
+                <Link href="/watermark-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Watermark PDF
+                </Link>
+                <Link href="/sign-pdf" className="rounded bg-white/10 p-2.5 font-medium hover:bg-white/20 hover:text-[#ffeb3b]">
+                  Sign PDF
                 </Link>
               </div>
             </div>
