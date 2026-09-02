@@ -134,3 +134,39 @@ async function startAiWorker() {
 }
 
 module.exports = { startAiWorker, processJob };
+
+/**
+ * Standalone entrypoint for `npm run worker` (P4-2 separate worker container).
+ * Starts the AI worker with graceful SIGTERM/SIGINT handling.
+ */
+if (require.main === module) {
+  let worker = null;
+
+  const gracefulShutdown = async (signal) => {
+    console.log(`[worker] Received ${signal}. Starting graceful shutdown...`);
+    // Force exit after 10s if graceful shutdown hangs
+    const forceExitTimer = setTimeout(() => {
+      console.error('[worker] Forcing shutdown after 10s');
+      process.exit(1);
+    }, 10000);
+
+    if (worker) {
+      await worker.close().catch(err => console.error('[worker] Error closing:', err));
+      console.log('[worker] AI worker closed.');
+    }
+    const { closeSharedRedis } = require('./utils/redisClient');
+    await closeSharedRedis();
+    clearTimeout(forceExitTimer);
+    console.log('[worker] Redis connections closed. Exiting.');
+    process.exit(0);
+  };
+
+  process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+  process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+  console.log('[worker] Starting AI worker process...');
+  startAiWorker().then(w => { worker = w; }).catch(err => {
+    console.error('[worker] Failed to start:', err);
+    process.exit(1);
+  });
+}

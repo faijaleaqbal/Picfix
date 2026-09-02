@@ -2,17 +2,23 @@ services:
   backend:
     build: .
     container_name: image-editor-backend
-    ports:
-      - "4001:4000"
+    ports: []
     env_file:
       - .env
     environment:
-      # TEMP_DIR inside container — mount as volume for host cleanup visibility
+      - REDIS_URL=redis://redis:6379
+      - HOST=0.0.0.0
+      - PORT=3000
+      - RUN_WORKER_INPROCESS=0
+      - TRUST_PROXY_SUBNET=172.20.0.0/16
+      - AI_JOB_TIMEOUT_MS=60000
       - TEMP_DIR=/tmp/image-uploads
     volumes:
-      # Persist temp uploads on host so cron cleanup can also run there if needed
       - image-uploads:/tmp/image-uploads
     restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
     deploy:
       resources:
         limits:
@@ -20,21 +26,42 @@ services:
     networks:
       - backend-net
 
-  # Redis for future queue/rate-limiting — intentionally NOT wired to code yet.
+  nginx:
+    image: nginx:alpine
+    container_name: image-nginx-ingress
+    ports:
+      - "8081:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - backend-net
+
   redis:
     image: redis:7-alpine
     container_name: image-editor-redis
-    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "512mb", "--maxmemory-policy", "noeviction"]
+    volumes:
+      - redis-data:/data
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 768M
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
     networks:
       - backend-net
-    # No ports exposed to host — internal only for now
 
-  # ---------------------------------------------------------------------
-  # FUTURE: Python AI microservice (FastAPI).
-  # ---------------------------------------------------------------------
   ai-service:
-    build: ../ai-service          # Python FastAPI service (separate team)
+    build: ../ai-service
     container_name: ai-service
     environment:
       - BACKEND_URL=http://backend:3000
@@ -46,9 +73,52 @@ services:
     networks:
       - backend-net
 
+  frontend:
+    build:
+      context: ../frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8081
+    container_name: image-editor-frontend
+    ports:
+      - "3005:3000"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    networks:
+      - backend-net
+
+  worker:
+    build: .
+    container_name: image-editor-worker
+    command: ["npm", "run", "worker"]
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - HOST=0.0.0.0
+      - PORT=3000
+      - RUN_WORKER_INPROCESS=0
+      - TRUST_PROXY_SUBNET=172.20.0.0/16
+      - AI_SERVICE_URL=http://ai-service:8000
+    volumes:
+      - image-uploads:/tmp/image-uploads
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 768M
+    networks:
+      - backend-net
+
 networks:
   backend-net:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
 
 volumes:
   image-uploads:
+  redis-data:

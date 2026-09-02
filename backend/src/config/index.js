@@ -29,6 +29,7 @@ const config = {
   maxImagesPerPdf: int(process.env.MAX_IMAGES_PER_PDF, 20),
   aiServiceUrl: process.env.AI_SERVICE_URL || 'http://ai-service:8000',
   trustProxy: bool(process.env.TRUST_PROXY, true),
+  trustProxySubnet: process.env.TRUST_PROXY_SUBNET || undefined,
 
   // ---- Redis / BullMQ ----
   // Single shared Redis instance for queue + rate-limiters. Required.
