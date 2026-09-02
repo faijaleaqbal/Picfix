@@ -137,13 +137,14 @@ export function MockUploadCanvas({
 
 /**
  * Floating zoom/undo/redo pill that overlays several editor canvases
- * (flip, rotate, add-text, square, circle). Values are cosmetic mock
- * state; buttons animate but do not mutate the image.
+/**
+ * Floating zoom/undo/redo pill that overlays several editor canvases.
+ * Designed to fit gracefully on both mobile (< 640px) and desktop viewports without collision.
  */
 export function CanvasToolbar({
   zoom = "100%",
   className,
-  position = "bottom-6",
+  position = "bottom-4 sm:bottom-6",
 }: {
   zoom?: string;
   className?: string;
@@ -154,7 +155,7 @@ export function CanvasToolbar({
     <div
       aria-label="Canvas toolbar"
       className={cn(
-        "absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-surface-container-high/80 p-1 shadow-soft-md backdrop-blur-md",
+        "absolute left-1/2 z-20 flex -translate-x-1/2 items-center gap-1 sm:gap-2 rounded-full border border-border bg-surface-container-high/90 px-2 py-1 shadow-lg backdrop-blur-md max-w-[calc(100%-2rem)]",
         position,
         className
       )}
@@ -162,37 +163,116 @@ export function CanvasToolbar({
       <button
         type="button"
         aria-label="Undo"
-        className="rounded-full p-2 text-text-secondary transition-colors hover:bg-muted hover:text-primary"
+        className="flex size-8 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-muted hover:text-primary active:scale-95"
       >
-        <Undo2 className="size-5" />
+        <Undo2 className="size-4" />
       </button>
       <button
         type="button"
         aria-label="Redo"
-        className="rounded-full p-2 text-text-secondary transition-colors hover:bg-muted hover:text-primary"
+        className="flex size-8 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-muted hover:text-primary active:scale-95"
       >
-        <Redo2 className="size-5" />
+        <Redo2 className="size-4" />
       </button>
-      <div className="mx-1 h-6 w-px bg-border" />
+      <div className="mx-0.5 h-4 w-px bg-border" />
       <button
         type="button"
         aria-label="Zoom out"
         onClick={() => setZoomLevel((z) => Math.max(25, z - 25))}
-        className="rounded-full p-2 text-text-secondary transition-colors hover:bg-muted hover:text-primary"
+        className="flex size-8 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-muted hover:text-primary active:scale-95"
       >
-        <ZoomOut className="size-5" />
+        <ZoomOut className="size-4" />
       </button>
-      <span className="w-12 text-center font-label-sm text-label-sm text-primary">
+      <span className="w-10 text-center font-mono text-xs font-semibold text-primary">
         {zoom === "Fit" ? "Fit" : `${zoomLevel}%`}
       </span>
       <button
         type="button"
         aria-label="Zoom in"
         onClick={() => setZoomLevel((z) => Math.min(400, z + 25))}
-        className="rounded-full p-2 text-text-secondary transition-colors hover:bg-muted hover:text-primary"
+        className="flex size-8 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-muted hover:text-primary active:scale-95"
       >
-        <ZoomIn className="size-5" />
+        <ZoomIn className="size-4" />
       </button>
+    </div>
+  );
+}
+
+/**
+ * Responsive Editor Toolbar addressing Part 6:
+ * Desktop: Title                         Undo Redo Apply
+ * Mobile:
+ *   Title
+ *   Undo Redo                            Apply
+ */
+export function EditorToolbar({
+  title,
+  badge,
+  onUndo,
+  onRedo,
+  onApply,
+  applyLabel = "Apply",
+  applyLoading = false,
+  className,
+}: {
+  title: string;
+  badge?: string;
+  onUndo?: () => void;
+  onRedo?: () => void;
+  onApply?: () => void;
+  applyLabel?: string;
+  applyLoading?: boolean;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "flex w-full flex-col gap-2 border-b border-border bg-surface/90 px-4 py-2.5 backdrop-blur sm:flex-row sm:items-center sm:justify-between sm:px-6",
+        className
+      )}
+    >
+      <div className="flex items-center gap-2">
+        <h2 className="font-headline-md text-base sm:text-lg font-bold text-primary truncate">
+          {title}
+        </h2>
+        {badge ? (
+          <span className="rounded bg-accent-lavender/20 px-2 py-0.5 font-mono text-[10px] text-accent-lavender">
+            {badge}
+          </span>
+        ) : null}
+      </div>
+
+      <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-4">
+        <div className="flex items-center gap-1 rounded-full border border-border bg-surface-container-low p-0.5">
+          <button
+            type="button"
+            onClick={onUndo}
+            aria-label="Undo action"
+            className="flex size-8 items-center justify-center rounded-full text-text-secondary hover:bg-muted hover:text-primary"
+          >
+            <Undo2 className="size-4" />
+          </button>
+          <button
+            type="button"
+            onClick={onRedo}
+            aria-label="Redo action"
+            className="flex size-8 items-center justify-center rounded-full text-text-secondary hover:bg-muted hover:text-primary"
+          >
+            <Redo2 className="size-4" />
+          </button>
+        </div>
+
+        {onApply ? (
+          <button
+            type="button"
+            onClick={onApply}
+            disabled={applyLoading}
+            className="flex min-h-[38px] items-center justify-center rounded-full bg-primary px-4 py-1.5 font-label-md text-xs sm:text-sm font-semibold text-on-primary shadow-sm transition-transform hover:opacity-90 active:scale-95 disabled:opacity-50"
+          >
+            {applyLoading ? "Applying..." : applyLabel}
+          </button>
+        ) : null}
+      </div>
     </div>
   );
 }

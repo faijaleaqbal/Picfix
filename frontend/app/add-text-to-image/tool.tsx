@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Download } from "lucide-react";
-import { PanelFooterActions, ToolPanel } from "@/components/site/tool-panel";
+import { PanelFooterActions, ToolPanel, SliderControl } from "@/components/site/tool-panel";
 import { UploadDropzone } from "@/components/site/upload-dropzone";
 import {
   BeforeAfter,
@@ -68,9 +68,9 @@ export function AddTextTool() {
   };
 
   return (
-    <div className="relative flex h-full min-w-0 flex-1 overflow-hidden md:flex-row">
+    <div className="relative flex min-h-0 w-full flex-1 flex-col md:h-full md:flex-row md:overflow-hidden">
       {/* Canvas Area */}
-      <div className="relative flex flex-1 flex-col items-center justify-center gap-stack-md overflow-y-auto bg-surface-container-lowest p-4 md:p-8">
+      <div className="relative flex min-h-[260px] max-h-[48vh] w-full flex-1 flex-col items-center justify-center gap-3 overflow-y-auto bg-black/90 p-4 sm:p-6 md:max-h-none md:p-8">
         {/* Checkerboard background pattern */}
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -84,7 +84,7 @@ export function AddTextTool() {
         {!file ? (
           <UploadDropzone
             title="Drag & Drop Image Here"
-            description="or click to browse from your device"
+            description="or tap to browse from your device"
             size="lg"
             onFileSelected={state.selectFile}
             selectedName={state.file?.name ?? null}
@@ -92,15 +92,15 @@ export function AddTextTool() {
             className="relative z-10 max-w-xl"
           />
         ) : (
-          <div className="relative z-10 flex w-full max-w-4xl flex-col gap-stack-sm">
+          <div className="relative z-10 flex max-h-full w-full max-w-3xl flex-col gap-3 overflow-y-auto">
             <BeforeAfter
               originalUrl={originalUrl}
               resultUrl={resultUrl}
               resultLabel="With Text"
             />
             {result ? <ResultMeta result={result} originalSize={file.size} /> : null}
-            {processing ? <LoadingIndicator label="Rendering text…" /> : null}
-            {error ? <ProcessError message={error} code={errorCode} /> : null}
+            {processing ? <LoadingIndicator label="Rendering typography onto image…" /> : null}
+            {error ? <ProcessError message={error} code={errorCode} onRetry={run} /> : null}
             {result ? (
               <DownloadButton onClick={state.download} label="Download Image with Text" />
             ) : null}
@@ -112,75 +112,83 @@ export function AddTextTool() {
       <ToolPanel
         title="Text Properties"
         description="Overlay custom typography and messaging."
+        collapsibleOnMobile={true}
         footer={
           <PanelFooterActions
             onReset={state.reset}
-            applyLabel={processing ? "Working…" : "Apply Changes"}
+            applyLabel={processing ? "Rendering…" : "Apply Text"}
             onApply={run}
+            disabled={!file || !content.trim()}
+            loading={processing}
             applyIcon={<Download className="size-4" />}
           />
         }
       >
         {/* Text Input */}
-        <div className="space-y-3">
-          <label htmlFor="add-text-content" className="flex items-center justify-between font-label-md text-label-md text-primary">
-            Content
+        <div className="space-y-2">
+          <label htmlFor="add-text-content" className="font-label-md text-xs font-semibold uppercase tracking-wider text-text-secondary">
+            Text Content
           </label>
           <textarea
             id="add-text-content"
             value={content}
             aria-label="Text content"
-            placeholder="Type something..."
+            placeholder="Type your caption or heading..."
             onChange={(e) => setContent(e.target.value)}
-            className="min-h-[100px] w-full resize-y rounded-xl border border-border bg-surface-container-high p-4 font-body-md text-primary placeholder:text-text-secondary transition-all focus:border-transparent focus:outline-none focus:ring-2 focus:ring-accent-lavender"
+            className="min-h-[84px] w-full resize-y rounded-xl border border-border bg-surface-container-high p-3 font-body-md text-sm text-primary placeholder:text-text-secondary focus:border-accent-lavender focus:outline-none"
           />
         </div>
 
-        {/* Font Family */}
-        <div className="space-y-3">
-          <label htmlFor="add-text-font" className="font-label-md text-label-md text-primary">Font Family</label>
-          <select
-            id="add-text-font"
-            value={font}
-            aria-label="Font family"
-            onChange={(e) => setFont(e.target.value)}
-            className="w-full cursor-pointer appearance-none rounded-md border border-border bg-surface-container-high px-4 py-3 font-body-md text-primary transition-all focus:outline-none focus:ring-2 focus:ring-accent-lavender"
-          >
-            {FONT_OPTIONS.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
+        {/* Font Family & Bold */}
+        <div className="grid grid-cols-2 gap-3 border-t border-border pt-3">
+          <div className="space-y-1">
+            <label htmlFor="add-text-font" className="text-xs text-text-secondary">Font</label>
+            <select
+              id="add-text-font"
+              value={font}
+              aria-label="Font family"
+              onChange={(e) => setFont(e.target.value)}
+              className="w-full cursor-pointer rounded-lg border border-border bg-surface-container-high px-2.5 py-2 text-xs font-semibold text-primary focus:outline-none"
+            >
+              {FONT_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Style: weight + position (supported by backend) */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="col-span-2 flex items-center justify-between rounded-xl bg-surface-container-high p-3">
-            <span className="font-label-md text-label-md text-primary">Bold</span>
-            <input
-              type="checkbox"
-              checked={bold}
-              onChange={(e) => setBold(e.target.checked)}
-              aria-label="Bold text"
-              className="h-4 w-4 rounded border-border text-accent-lavender focus:ring-accent-lavender"
-            />
+          <div className="flex flex-col justify-end">
+            <button
+              type="button"
+              onClick={() => setBold((v) => !v)}
+              className={cn(
+                "flex h-[38px] items-center justify-center gap-2 rounded-lg border text-xs font-semibold transition-all",
+                bold
+                  ? "border-accent-lavender bg-accent-lavender/15 text-accent-lavender"
+                  : "border-border bg-surface-container text-text-secondary hover:text-primary"
+              )}
+            >
+              <span className="font-bold">B</span> Bold
+            </button>
           </div>
         </div>
 
         {/* Position (9 anchors) */}
-        <div className="space-y-2">
-          <label className="font-label-md text-label-md text-primary">Position</label>
-          <div className="grid grid-cols-3 gap-2">
+        <div className="space-y-2 border-t border-border pt-3">
+          <label className="font-label-md text-xs font-semibold uppercase tracking-wider text-text-secondary">
+            Anchor Position
+          </label>
+          <div className="grid grid-cols-3 gap-1.5">
             {POSITIONS.map((p, i) => (
               <button
                 key={p}
                 type="button"
                 onClick={() => setPositionIdx(i)}
                 className={cn(
-                  "rounded-md border px-2 py-1 font-label-sm text-label-sm transition-colors",
+                  "rounded-lg border px-2 py-1.5 text-center font-mono text-[11px] capitalize transition-colors",
                   positionIdx === i
-                    ? "border-accent-lavender bg-muted text-primary"
+                    ? "border-accent-lavender bg-accent-lavender/15 font-semibold text-accent-lavender"
                     : "border-border text-text-secondary hover:bg-muted hover:text-primary"
                 )}
               >
@@ -190,35 +198,22 @@ export function AddTextTool() {
           </div>
         </div>
 
-        {/* Size */}
-        <div className="space-y-3 rounded-xl border border-border/50 bg-surface-container-low p-4">
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <label htmlFor="add-text-size" className="font-label-sm text-label-sm uppercase tracking-wider text-text-secondary">
-                Size
-              </label>
-              <span className="rounded bg-surface-variant px-2 py-0.5 text-xs font-label-md text-primary">
-                {size}px
-              </span>
-            </div>
-            <input
-              id="add-text-size"
-              type="range"
-              min={8}
-              max={200}
-              value={size}
-              aria-label="Font size"
-              onChange={(e) => setSize(Number(e.target.value))}
-              className="slider-thumb w-full"
-            />
-          </div>
+        {/* Size Slider */}
+        <div className="border-t border-border pt-3">
+          <SliderControl
+            label="Font Size"
+            value={size}
+            min={8}
+            max={200}
+            unit="px"
+            onChange={setSize}
+          />
         </div>
 
-        {/* Color & Appearance */}
-        <div className="space-y-4 border-t border-border pt-6">
-          <h4 className="font-label-md text-label-md font-semibold text-primary">Appearance</h4>
+        {/* Color & Opacity */}
+        <div className="space-y-3 border-t border-border pt-3">
           <div className="flex items-center justify-between">
-            <span className="font-label-md text-label-md text-text-secondary">Fill Color</span>
+            <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">Fill Color</span>
             <div className="flex items-center gap-2">
               {Object.entries(COLOR_MAP).map(([name]) => (
                 <button
@@ -228,32 +223,23 @@ export function AddTextTool() {
                   aria-label={name}
                   onClick={() => setFill(name)}
                   className={cn(
-                    "h-8 w-8 cursor-pointer rounded-full border border-border transition-transform hover:scale-110",
+                    "size-7 cursor-pointer rounded-full border border-border transition-transform hover:scale-110",
                     name === "Black" ? "bg-black" : name === "Lavender" ? "bg-[#B48CDE]" : "bg-white",
-                    fill === name && "shadow-[0_0_0_2px_#131315,0_0_0_4px_#B48CDE]"
+                    fill === name && "ring-2 ring-accent-lavender ring-offset-2 ring-offset-background"
                   )}
                 />
               ))}
             </div>
           </div>
-          <div className="space-y-3 pt-2">
-            <div className="flex items-center justify-between">
-              <label htmlFor="add-text-opacity" className="font-label-md text-label-md text-text-secondary">Opacity</label>
-              <span className="rounded bg-surface-variant px-2 py-0.5 text-xs font-label-md text-primary">
-                {opacity}%
-              </span>
-            </div>
-            <input
-              id="add-text-opacity"
-              type="range"
-              min={0}
-              max={100}
-              value={opacity}
-              aria-label="Text opacity"
-              onChange={(e) => setOpacity(Number(e.target.value))}
-              className="slider-thumb w-full"
-            />
-          </div>
+
+          <SliderControl
+            label="Opacity"
+            value={opacity}
+            min={1}
+            max={100}
+            unit="%"
+            onChange={setOpacity}
+          />
         </div>
       </ToolPanel>
     </div>

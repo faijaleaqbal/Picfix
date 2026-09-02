@@ -75,7 +75,7 @@ export function CompressImageTool() {
         {processing ? (
           <LoadingIndicator label="Searching for the best quality that fits your target size…" />
         ) : null}
-        {error && !state.aiPending ? <ProcessError message={error} code={errorCode} /> : null}
+        {error && !state.aiPending ? <ProcessError message={error} code={errorCode} onRetry={run} /> : null}
         {state.aiPending ? <AiPending /> : null}
         {result ? (
           <DownloadButton onClick={state.download} label="Download Compressed Image" />
@@ -83,16 +83,16 @@ export function CompressImageTool() {
       </div>
 
       {/* Settings Panel (Right / Sidebar) */}
-      <div className="sticky top-24 flex h-fit flex-col gap-stack-md rounded-xl border border-border bg-surface p-stack-md lg:col-span-4">
-        <h3 className="border-b border-border pb-stack-sm font-headline-md text-headline-md text-primary">
+      <div className="sticky top-20 flex h-fit flex-col gap-4 rounded-2xl border border-border bg-surface p-4 sm:p-5 lg:col-span-4">
+        <h3 className="border-b border-border pb-3 font-headline-md text-base sm:text-lg font-bold text-primary">
           Compression Settings
         </h3>
 
         {/* Target File Size */}
-        <div className="space-y-stack-sm">
+        <div className="space-y-2">
           <label
             htmlFor="target-size"
-            className="block font-label-md text-label-md text-text-secondary"
+            className="block font-label-md text-xs font-semibold uppercase tracking-wider text-text-secondary"
           >
             Target File Size
           </label>
@@ -104,61 +104,65 @@ export function CompressImageTool() {
               max={15000}
               value={targetKb}
               onChange={(e) => setTargetKb(Number(e.target.value) || 1)}
-              className="w-full rounded-md border border-border bg-surface-container-lowest px-3 py-2 font-body-md text-body-md text-primary outline-none transition-all focus:border-accent-lavender focus:ring-1 focus:ring-accent-lavender"
+              className="w-full rounded-lg border border-border bg-surface-container-lowest px-3 py-2 font-mono text-sm font-semibold text-primary outline-none transition-all focus:border-accent-lavender focus:ring-1 focus:ring-accent-lavender"
             />
-            <span className="font-label-md text-label-md text-text-secondary">KB</span>
+            <span className="font-mono text-xs font-semibold text-text-secondary">KB</span>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5 pt-1">
             {SIZE_CHIPS.map((kb) => (
               <button
                 key={kb}
                 type="button"
                 onClick={() => setTargetKb(kb)}
-                className="rounded-full border border-border px-3 py-1 font-label-sm text-label-sm text-text-secondary transition-colors hover:border-accent-lavender hover:text-primary"
+                className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all active:scale-95 ${
+                  targetKb === kb
+                    ? "border-accent-lavender bg-accent-lavender/15 font-semibold text-accent-lavender"
+                    : "border-border bg-surface-container-low text-text-secondary hover:border-accent-lavender hover:text-primary"
+                }`}
               >
                 {formatBytes(kb * 1024, 0)}
               </button>
             ))}
           </div>
-          <p className="font-label-sm text-label-sm text-outline">
-            The engine searches for the highest quality that stays under this size.
+          <p className="text-[11px] text-outline">
+            The smart compression engine preserves maximum visual clarity while guaranteeing file size under target.
           </p>
         </div>
 
         {/* Target Format */}
-        <div className="space-y-stack-sm">
-          <label htmlFor="compress-format" className="block font-label-md text-label-md text-text-secondary">
+        <div className="space-y-2 border-t border-border pt-3">
+          <label htmlFor="compress-format" className="block font-label-md text-xs font-semibold uppercase tracking-wider text-text-secondary">
             Target Format
           </label>
           <select
             id="compress-format"
             value={format}
             onChange={(e) => setFormat(e.target.value)}
-            className="w-full cursor-pointer rounded-md border border-border bg-surface-container-lowest px-3 py-2 font-body-md text-body-md text-primary outline-none transition-all focus:border-accent-lavender focus:ring-1 focus:ring-accent-lavender"
+            className="w-full cursor-pointer rounded-lg border border-border bg-surface-container-lowest px-3 py-2 text-xs font-semibold text-primary outline-none transition-all focus:border-accent-lavender focus:ring-1 focus:ring-accent-lavender"
           >
-            <option value="jpeg">JPEG</option>
-            <option value="webp">WebP</option>
+            <option value="jpeg">JPEG (Universal photo standard)</option>
+            <option value="webp">WebP (Next-gen modern web)</option>
           </select>
         </div>
 
-        {/* Result summary fills the old "resize dimensions" slot */}
-        <div className="space-y-stack-sm rounded-md border border-border bg-surface-container-low p-stack-sm">
-          <label className="font-label-md text-label-md text-text-secondary">
-            Result
+        {/* Result summary */}
+        <div className="space-y-1.5 rounded-xl border border-border bg-surface-container-low p-3">
+          <label className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
+            Size Optimization
           </label>
           {result && file ? (
-            <p className="font-label-sm text-label-sm text-primary">
+            <p className="font-mono text-xs font-semibold text-primary">
               {formatBytes(file.size)} → {formatBytes(result.blob.size)}
               {saved != null ? (
                 <span className="text-accent-lavender"> (−{saved}%)</span>
               ) : null}
               {result.qualityUsed != null
-                ? ` · quality ${result.qualityUsed}`
+                ? ` · Quality ${result.qualityUsed}`
                 : ""}
             </p>
           ) : (
-            <p className="font-label-sm text-label-sm text-outline">
-              Run the compression to see the final size.
+            <p className="text-[11px] text-outline">
+              Upload an image and run compression to see reduction results.
             </p>
           )}
         </div>
@@ -167,7 +171,7 @@ export function CompressImageTool() {
         <PanelCta
           label={processing ? "Compressing…" : "Compress Image"}
           icon={processing ? <ArrowRight className="size-4 animate-pulse" /> : <Check className="size-4" />}
-          hint="Iterative quality search — may take a few seconds."
+          hint="Iterative quality search — completes in seconds."
           disabled={!file || processing}
           onClick={run}
         />

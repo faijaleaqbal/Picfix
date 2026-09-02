@@ -19,28 +19,44 @@ export function ProcessError({
   message,
   code,
   className,
+  onRetry,
 }: {
   message: string;
   code?: string | null;
   className?: string;
+  onRetry?: () => void;
 }) {
   return (
     <div
       role="alert"
       className={cn(
-        "flex flex-col gap-1 rounded-xl border border-error/40 bg-error/10 p-stack-md",
+        "flex flex-col gap-2 rounded-xl border border-error/40 bg-error/10 p-4 text-left shadow-sm",
         className
       )}
     >
-      <p className="font-label-md text-label-md text-error">{message}</p>
-      {code ? (
-        <p className="font-label-sm text-label-sm text-error/70">
-          Error code: {code}
-        </p>
+      <div className="flex items-start justify-between gap-2">
+        <p className="font-label-md text-sm font-semibold text-error">{message}</p>
+        {code ? (
+          <span className="rounded bg-error/20 px-1.5 py-0.5 font-mono text-[10px] text-error shrink-0">
+            {code}
+          </span>
+        ) : null}
+      </div>
+      {onRetry ? (
+        <button
+          type="button"
+          onClick={onRetry}
+          className="mt-1 w-fit rounded-full border border-error/40 bg-surface px-3 py-1 text-xs font-semibold text-primary transition-colors hover:bg-muted"
+        >
+          Try Again
+        </button>
       ) : null}
     </div>
   );
 }
+
+/** Alias for ProcessError for consistent design language */
+export const ErrorState = ProcessError;
 
 export function AiPending({ className }: { className?: string }) {
   return (
@@ -53,10 +69,10 @@ export function AiPending({ className }: { className?: string }) {
       <Sparkles className="size-5 shrink-0 text-accent-lavender" />
       <div>
         <p className="font-label-md text-label-md text-primary">
-          AI features coming soon
+          Picfix AI features coming soon
         </p>
         <p className="font-label-sm text-label-sm text-text-secondary">
-          This enhancement is being finalized and will be available shortly.
+          This AI enhancement model is being finalized and will be available shortly.
         </p>
       </div>
     </div>
@@ -64,24 +80,62 @@ export function AiPending({ className }: { className?: string }) {
 }
 
 export function LoadingIndicator({
-  label = "Processing…",
+  label = "Processing image…",
+  sublabel = "Applying changes, please wait a moment",
   className,
 }: {
   label?: string;
+  sublabel?: string;
   className?: string;
 }) {
   return (
     <div
       className={cn(
-        "flex items-center gap-2 rounded-xl border border-border bg-surface-container p-stack-md",
+        "flex items-center gap-3 rounded-xl border border-border bg-surface-container p-4 shadow-sm",
         className
       )}
     >
       <span
         aria-hidden
-        className="size-4 animate-spin rounded-full border-2 border-accent-lavender border-t-transparent"
+        className="size-5 shrink-0 animate-spin rounded-full border-2 border-accent-lavender border-t-transparent"
       />
-      <p className="font-label-md text-label-md text-text-secondary">{label}</p>
+      <div className="min-w-0 flex-1 text-left">
+        <p className="font-label-md text-sm font-semibold text-primary">{label}</p>
+        {sublabel ? (
+          <p className="truncate text-xs text-text-secondary">{sublabel}</p>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+/** Alias for LoadingIndicator */
+export const LoadingState = LoadingIndicator;
+
+export function EmptyState({
+  title = "No image selected",
+  description = "Upload an image from your device to begin editing.",
+  action,
+  className,
+}: {
+  title?: string;
+  description?: string;
+  action?: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-surface-container-low p-8 text-center",
+        className
+      )}
+    >
+      <div className="mb-3 flex size-12 items-center justify-center rounded-xl bg-surface-container-high text-text-secondary">
+        <ImageIcon className="size-6 text-accent-lavender" />
+      </div>
+      <h4 className="font-label-md text-base font-semibold text-primary">{title}</h4>
+      <p className="mt-1 max-w-sm text-xs text-text-secondary">{description}</p>
+      {action ? <div className="mt-4">{action}</div> : null}
     </div>
   );
 }
@@ -195,7 +249,7 @@ export function DownloadButton({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "flex w-full items-center justify-center gap-2 rounded-full bg-primary py-3 font-label-md text-label-md text-on-primary transition-colors hover:bg-tertiary-fixed-dim disabled:cursor-not-allowed disabled:opacity-50",
+        "flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 font-label-md text-sm font-semibold text-on-primary shadow-sm transition-all hover:opacity-90 active:scale-98 disabled:cursor-not-allowed disabled:opacity-50",
         className
       )}
     >
@@ -210,6 +264,57 @@ export function EmptyResultNotice() {
     <div className="flex items-center gap-2 font-label-sm text-label-sm text-outline">
       <ImageIcon className="size-4" />
       Upload an image, adjust the settings, then run the tool.
+    </div>
+  );
+}
+
+/**
+ * Standardized result preview card wrapping BeforeAfter, ResultMeta, and Download
+ */
+export function ResultCard({
+  result,
+  originalUrl,
+  resultUrl,
+  originalSize,
+  downloadLabel = "Download Processed Image",
+  onDownload,
+  onReset,
+  className,
+}: {
+  result: ProcessImageResult;
+  originalUrl: string | null;
+  resultUrl: string | null;
+  originalSize?: number | null;
+  downloadLabel?: string;
+  onDownload: () => void;
+  onReset?: () => void;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "flex flex-col gap-4 rounded-2xl border border-border bg-surface p-4 sm:p-5 shadow-sm",
+        className
+      )}
+    >
+      <div className="flex items-center justify-between border-b border-border pb-3">
+        <h4 className="font-label-md text-sm font-bold text-primary">Processed Result</h4>
+        {onReset ? (
+          <button
+            type="button"
+            onClick={onReset}
+            className="text-xs text-text-secondary hover:text-primary transition-colors"
+          >
+            Clear & Reset
+          </button>
+        ) : null}
+      </div>
+
+      <BeforeAfter originalUrl={originalUrl} resultUrl={resultUrl} />
+
+      <ResultMeta result={result} originalSize={originalSize} />
+
+      <DownloadButton onClick={onDownload} label={downloadLabel} />
     </div>
   );
 }

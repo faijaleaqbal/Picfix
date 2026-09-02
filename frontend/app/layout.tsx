@@ -22,12 +22,39 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://picfix.duckdns.org"),
   title: {
-    default: "LuminaEdit AI — Free Online Image Editing Tools",
-    template: "%s | LuminaEdit AI",
+    default: "Picfix — Free Online Image Editing Tools",
+    template: "%s | Picfix",
   },
   description:
-    "Professional grade image processing tools for modern workflows. Compress, resize, crop, convert and enhance images — free, private and fast.",
+    "Professional grade image processing tools for modern workflows. Compress, resize, crop, convert, and enhance images with Picfix AI — free, private, and fast.",
+  applicationName: "Picfix",
+  keywords: [
+    "image editor",
+    "compress image",
+    "resize image",
+    "crop image",
+    "heic to jpg",
+    "webp to jpg",
+    "image to pdf",
+    "passport photo",
+    "picfix ai",
+  ],
+  authors: [{ name: "Picfix Team" }],
+  openGraph: {
+    title: "Picfix — Free Online Image Editing Tools",
+    description:
+      "Professional grade image processing tools for modern workflows. Compress, resize, crop, convert, and enhance images with Picfix AI.",
+    url: "https://picfix.duckdns.org",
+    siteName: "Picfix",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Picfix — Free Online Image Editing Tools",
+    description: "Professional grade image processing tools for modern workflows.",
+  },
 };
 
 export default function RootLayout({

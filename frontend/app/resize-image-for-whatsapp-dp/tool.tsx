@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Download, Eye, EyeOff, Check } from "lucide-react";
+import { Eye, EyeOff, Check } from "lucide-react";
+import { ToolPanel, PanelFooterActions } from "@/components/site/tool-panel";
 import { UploadDropzone } from "@/components/site/upload-dropzone";
 import {
   DownloadButton,
@@ -16,8 +17,7 @@ import { DEFAULT_TIMEOUTS } from "@/lib/api";
  * WhatsApp DP workbench.
  *
  * Wired to POST /api/social-resize with platform=whatsapp-dp
- * (500×500 center crop). Padding/blur/fit controls stay
- * presentational until the backend extends the contract.
+ * (500×500 center crop).
  */
 export function WhatsappDpTool() {
   const [format, setFormat] = useState("jpeg");
@@ -35,32 +35,13 @@ export function WhatsappDpTool() {
   };
 
   return (
-    <div className="flex h-full min-w-0 flex-1 flex-col overflow-hidden bg-surface-container-lowest">
-      {/* Tool Header */}
-      <div className="z-10 flex flex-wrap items-center justify-between gap-2 border-b border-outline-variant bg-surface/50 px-gutter py-stack-md backdrop-blur-sm">
-        <div>
-          <h1 className="font-headline-md text-headline-md text-primary">WhatsApp DP Resize</h1>
-          <p className="mt-1 font-body-md text-body-md text-text-secondary">
-            Perfectly size your profile picture without cropping out the important parts.
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={run}
-          disabled={!file || processing}
-          className="flex items-center gap-2 rounded-full bg-primary px-6 py-2 font-label-md text-label-md text-on-primary transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <Check className="size-4" />
-          {processing ? "Working…" : "Resize to 500×500"}
-        </button>
-      </div>
-
+    <div className="relative flex min-h-0 w-full flex-1 flex-col md:h-full md:flex-row md:overflow-hidden">
       {/* Canvas Workspace */}
-      <div className="checkerboard-bg relative flex flex-1 items-center justify-center overflow-y-auto p-gutter">
+      <div className="relative flex min-h-[260px] max-h-[50vh] w-full flex-1 flex-col items-center justify-center gap-4 overflow-y-auto bg-black/90 p-4 sm:p-6 md:max-h-none md:p-8">
         {!file ? (
           <UploadDropzone
-            title="Drag & Drop Image Here"
-            description="or click to browse from your device"
+            title="Drag & Drop Profile Picture"
+            description="or tap to browse from your device"
             size="lg"
             onFileSelected={state.selectFile}
             selectedName={state.file?.name ?? null}
@@ -68,15 +49,15 @@ export function WhatsappDpTool() {
             className="relative z-10 max-w-xl"
           />
         ) : (
-          <div className="relative z-10 flex w-full max-w-md flex-col gap-stack-sm">
-            <div className="relative aspect-square w-full overflow-hidden rounded-sm border border-outline-variant bg-white shadow-2xl">
+          <div className="relative z-10 flex max-h-full w-full max-w-md flex-col items-center gap-3 overflow-y-auto">
+            {/* Aspect Square Preview with circular mask overlay */}
+            <div className="relative aspect-square w-full max-w-[320px] sm:max-w-[380px] overflow-hidden rounded-2xl border border-border bg-surface shadow-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={resultUrl ?? originalUrl ?? ""}
-                alt={resultUrl ? "Resized DP" : "Original upload"}
+                alt={resultUrl ? "Resized WhatsApp DP" : "Original upload"}
                 className="h-full w-full object-contain"
               />
-              {/* Circle Overlay (WhatsApp Mask) */}
               {maskOn ? (
                 <div className="pointer-events-none absolute inset-0 z-20">
                   <svg
@@ -101,69 +82,103 @@ export function WhatsappDpTool() {
                       r="48"
                       stroke="#B48CDE"
                       strokeDasharray="2,2"
-                      strokeWidth="0.5"
+                      strokeWidth="0.75"
                     />
                   </svg>
                 </div>
               ) : null}
+
+              {/* Mask toggle overlay button */}
+              <button
+                type="button"
+                title="Toggle Circular Preview"
+                aria-label="Toggle circular preview"
+                onClick={() => setMaskOn((v) => !v)}
+                className="absolute right-3 top-3 z-30 flex size-9 items-center justify-center rounded-full bg-surface/85 text-primary shadow-md backdrop-blur-md transition-colors hover:bg-surface"
+              >
+                {maskOn ? <Eye className="size-4 text-accent-lavender" /> : <EyeOff className="size-4 text-text-secondary" />}
+              </button>
             </div>
+
             {result ? <ResultMeta result={result} originalSize={file.size} /> : null}
-            {processing ? <LoadingIndicator label="Resizing for WhatsApp…" /> : null}
-            {error ? <ProcessError message={error} code={errorCode} /> : null}
+            {processing ? <LoadingIndicator label="Resizing to 500×500 WhatsApp DP…" /> : null}
+            {error ? <ProcessError message={error} code={errorCode} onRetry={run} /> : null}
             {result ? (
-              <DownloadButton onClick={state.download} label="Download DP" />
+              <DownloadButton onClick={state.download} label="Download WhatsApp DP" />
             ) : null}
           </div>
         )}
+      </div>
 
-        {/* Floating Controls Panel */}
-        <div className="glass-panel absolute bottom-gutter left-1/2 z-30 flex w-[90%] max-w-sm -translate-x-1/2 flex-col gap-stack-md rounded-xl p-stack-md shadow-lg">
-          <div className="flex items-center justify-between">
-            <span className="font-label-sm text-label-sm uppercase tracking-wider text-text-secondary">
+      {/* Settings ToolPanel */}
+      <ToolPanel
+        title="WhatsApp DP Settings"
+        description="Fit square 500×500 dimensions for WhatsApp profile picture."
+        collapsibleOnMobile={true}
+        footer={
+          <PanelFooterActions
+            onReset={state.reset}
+            applyLabel={processing ? "Resizing…" : "Resize to 500×500"}
+            onApply={run}
+            disabled={!file}
+            loading={processing}
+            applyIcon={<Check className="size-4" />}
+          />
+        }
+      >
+        <div className="space-y-4">
+          {/* Target resolution card */}
+          <div className="rounded-xl border border-accent-lavender/30 bg-accent-lavender/10 p-3">
+            <div className="flex items-center justify-between">
+              <span className="font-label-md text-xs font-semibold text-primary">Dimensions</span>
+              <span className="rounded bg-accent-lavender/20 px-2 py-0.5 font-mono text-[11px] font-semibold text-accent-lavender">
+                500 × 500 px
+              </span>
+            </div>
+            <p className="mt-1 text-xs text-text-secondary">
+              Center-crops without stretching to fit WhatsApp&apos;s circular contact photo frame.
+            </p>
+          </div>
+
+          {/* Mask toggle control */}
+          <div className="flex items-center justify-between rounded-xl border border-border bg-surface-container-low p-3">
+            <div>
+              <span className="block font-label-md text-xs font-semibold text-primary">
+                Circular Preview Guide
+              </span>
+              <span className="text-[11px] text-text-secondary">
+                Simulate circular avatar crop
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setMaskOn((v) => !v)}
+              className="flex items-center gap-1.5 rounded-lg border border-border bg-surface-container px-3 py-1.5 text-xs font-medium text-primary hover:bg-muted"
+            >
+              {maskOn ? <Eye className="size-3.5 text-accent-lavender" /> : <EyeOff className="size-3.5 text-text-secondary" />}
+              <span>{maskOn ? "Mask On" : "Mask Off"}</span>
+            </button>
+          </div>
+
+          {/* Format selection */}
+          <div className="space-y-2 border-t border-border pt-4">
+            <label htmlFor="dp-format" className="font-label-md text-xs font-semibold uppercase tracking-wider text-text-secondary">
               Output Format
-            </span>
+            </label>
             <select
+              id="dp-format"
               value={format}
               aria-label="Output format"
               onChange={(e) => setFormat(e.target.value)}
-              className="rounded-md border border-border bg-surface-container-high px-2 py-1 font-label-sm text-label-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent-lavender"
+              className="w-full rounded-lg border border-border bg-surface-container px-3 py-2 text-xs font-semibold text-primary focus:outline-none focus:ring-1 focus:ring-accent-lavender"
             >
-              <option value="jpeg">JPEG</option>
-              <option value="png">PNG</option>
-              <option value="webp">WebP</option>
+              <option value="jpeg">JPEG (High compatibility)</option>
+              <option value="png">PNG (Lossless crisp graphics)</option>
+              <option value="webp">WebP (Optimized size)</option>
             </select>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="font-label-md text-label-md text-primary">Square 500×500</span>
-            <span className="font-label-sm text-label-sm text-text-secondary">
-              center-cropped by backend
-            </span>
-          </div>
         </div>
-
-        {/* Action FABs */}
-        <div className="absolute right-gutter top-gutter z-30 flex flex-col gap-2">
-          <button
-            type="button"
-            title="Download"
-            aria-label="Download"
-            disabled={!result}
-            onClick={state.download}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-outline-variant bg-surface-container-high text-primary shadow-md transition-colors hover:bg-surface-variant disabled:opacity-40"
-          >
-            <Download className="size-5" />
-          </button>
-          <button
-            type="button"
-            title="Toggle Preview Mask"
-            aria-label="Toggle preview mask"
-            onClick={() => setMaskOn((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-outline-variant bg-surface-container-high text-primary shadow-md transition-colors hover:bg-surface-variant"
-          >
-            {maskOn ? <Eye className="size-5" /> : <EyeOff className="size-5" />}
-          </button>
-        </div>
-      </div>
+      </ToolPanel>
     </div>
   );
 }

@@ -15,12 +15,12 @@ export function LandingShell({
   mainClassName?: string;
 }) {
   return (
-    <div className="flex min-h-screen flex-col bg-background font-body-md text-body-md text-on-surface">
+    <div className="flex min-h-[100dvh] w-full flex-col overflow-x-hidden bg-background font-body-md text-body-md text-on-surface">
       <SiteHeader />
       <main
         className={
           mainClassName ??
-          "mx-auto w-full max-w-container-max flex-grow space-y-stack-lg px-margin-mobile py-stack-lg md:px-gutter"
+          "mx-auto w-full max-w-container-max flex-grow space-y-stack-lg px-4 py-stack-md sm:px-6 md:px-gutter md:py-stack-lg"
         }
       >
         {children}
@@ -33,8 +33,10 @@ export function LandingShell({
 /**
  * Shell for the "editor workspace" tool pages (flip, rotate, add-text,
  * square, circle, grayscale, instagram, whatsapp-dp, passport, ...):
- * sticky header, then a full-height row with the Workbench sidebar,
- * the canvas area, and (optionally) a right tool panel.
+ * - Mobile (< 768px): clean vertical document flow, no scroll traps,
+ *   full-width canvas, scrollable controls, sticky bottom action bar.
+ * - Tablet & Desktop (>= 768px): fixed 100dvh studio layout with collapsible
+ *   studio sidebar, flexible center canvas, and dedicated tool panel.
  */
 export function WorkspaceShell({
   children,
@@ -46,11 +48,11 @@ export function WorkspaceShell({
   showFooter?: boolean;
 }) {
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-background font-body-md text-body-md text-on-surface">
+    <div className="flex min-h-[100dvh] w-full flex-col overflow-x-hidden bg-background font-body-md text-body-md text-on-surface md:h-[100dvh] md:overflow-hidden">
       <SiteHeader />
-      <div className="relative flex flex-1 overflow-hidden">
+      <div className="relative flex flex-1 flex-col overflow-x-hidden md:flex-row md:overflow-hidden">
         {sidebar}
-        <main className="relative flex min-w-0 flex-1 flex-col overflow-hidden">
+        <main className="relative flex min-w-0 flex-1 flex-col overflow-x-hidden md:overflow-hidden">
           {children}
         </main>
       </div>

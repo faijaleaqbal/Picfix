@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Maximize, ZoomIn, ZoomOut } from "lucide-react";
+import { Check } from "lucide-react";
 import { PositionGrid } from "@/components/site/workspace";
-import { PanelFooterActions, ToolPanel } from "@/components/site/tool-panel";
+import { PanelFooterActions, ToolPanel, SliderControl } from "@/components/site/tool-panel";
 import { UploadDropzone } from "@/components/site/upload-dropzone";
 import {
   BeforeAfter,
@@ -74,12 +74,12 @@ export function AddLogoTool() {
   };
 
   return (
-    <div className="relative flex h-full min-w-0 flex-1 flex-col overflow-hidden lg:flex-row">
+    <div className="relative flex min-h-0 w-full flex-1 flex-col md:h-full md:flex-row md:overflow-hidden">
       {/* Canvas Area */}
-      <div className="relative flex flex-1 flex-col items-center justify-center gap-stack-md overflow-y-auto bg-surface-dim p-gutter">
+      <div className="relative flex min-h-[260px] max-h-[48vh] w-full flex-1 flex-col items-center justify-center gap-3 overflow-y-auto bg-black/90 p-4 sm:p-6 md:max-h-none md:p-8">
         {/* Checkerboard background for transparency context */}
         <div
-          className="absolute inset-0 z-0 opacity-50"
+          className="absolute inset-0 z-0 opacity-40"
           style={{
             backgroundImage:
               "linear-gradient(45deg, #1c1b1d 25%, transparent 25%), linear-gradient(-45deg, #1c1b1d 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1c1b1d 75%), linear-gradient(-45deg, transparent 75%, #1c1b1d 75%)",
@@ -89,8 +89,8 @@ export function AddLogoTool() {
         />
         {!file ? (
           <UploadDropzone
-            title="Drag & Drop Image Here"
-            description="or click to browse from your device"
+            title="Drag & Drop Base Image"
+            description="or tap to browse from your device"
             size="lg"
             onFileSelected={state.selectFile}
             selectedName={state.file?.name ?? null}
@@ -98,160 +98,102 @@ export function AddLogoTool() {
             className="relative z-10 max-w-xl"
           />
         ) : (
-          <div className="relative z-10 flex w-full max-w-3xl flex-col gap-stack-sm">
+          <div className="relative z-10 flex max-h-full w-full max-w-3xl flex-col gap-3 overflow-y-auto">
             <BeforeAfter originalUrl={originalUrl} resultUrl={resultUrl} resultLabel="With Logo" />
             {result ? <ResultMeta result={result} originalSize={file.size} /> : null}
-            {processing ? <LoadingIndicator label="Compositing logo…" /> : null}
-            {error ? <ProcessError message={error} code={errorCode} /> : null}
+            {processing ? <LoadingIndicator label="Compositing logo onto image…" /> : null}
+            {error ? <ProcessError message={error} code={errorCode} onRetry={run} /> : null}
             {result ? (
               <DownloadButton onClick={state.download} label="Download Image with Logo" />
             ) : null}
           </div>
         )}
-
-        {/* Top Floating Tools (Zoom/Pan) */}
-        <div className="absolute right-gutter top-gutter z-20 flex rounded-full border border-border bg-surface-container-low p-1 shadow-lg">
-          <button
-            type="button"
-            aria-label="Zoom in"
-            className="rounded-full p-2 text-text-secondary transition-colors hover:bg-surface-variant hover:text-primary"
-          >
-            <ZoomIn className="size-5" />
-          </button>
-          <div className="mx-1 my-auto h-6 w-px bg-border" />
-          <button
-            type="button"
-            aria-label="Zoom out"
-            className="rounded-full p-2 text-text-secondary transition-colors hover:bg-surface-variant hover:text-primary"
-          >
-            <ZoomOut className="size-5" />
-          </button>
-          <div className="mx-1 my-auto h-6 w-px bg-border" />
-          <button
-            type="button"
-            aria-label="Fit screen"
-            className="rounded-full p-2 text-text-secondary transition-colors hover:bg-surface-variant hover:text-primary"
-          >
-            <Maximize className="size-5" />
-          </button>
-        </div>
       </div>
 
       {/* Right Tool Panel (Settings) */}
       <ToolPanel
-        title="Add Logo"
-        description="Embed your brand mark with precision."
+        title="Logo Settings"
+        description="Overlay your logo or watermark with custom sizing."
+        collapsibleOnMobile={true}
         footer={
           <PanelFooterActions
             onReset={reset}
-            applyLabel={processing ? "Working…" : "Apply"}
+            applyLabel={processing ? "Compositing…" : "Apply Logo"}
             onApply={run}
+            disabled={!file || !logoFile}
+            loading={processing}
             applyIcon={<Check className="size-4" />}
           />
         }
       >
-        {/* Upload Section */}
-        <div>
-          <label className="mb-2 block font-label-md text-label-md text-primary">
-            Logo Image
+        {/* 1. Upload Logo Section */}
+        <div className="space-y-2">
+          <label className="font-label-md text-xs font-semibold uppercase tracking-wider text-text-secondary">
+            1. Select Logo File
           </label>
           <UploadDropzone
-            title="Click to upload logo"
-            description="SVG, PNG or JPG (max 15MB)"
+            title={logoFile ? logoFile.name : "Tap to choose logo"}
+            description="PNG, SVG, or JPG (max 15MB)"
             buttonLabel="Select Logo"
             onFileSelected={handleLogo}
             selectedName={logoFile?.name ?? null}
             error={logoError}
+            className="py-4"
           />
         </div>
 
-        {/* Base image */}
-        <div>
-          <label className="mb-2 block font-label-md text-label-md text-primary">
-            Base Image
-          </label>
-          {file ? (
-            <p className="rounded-md border border-border bg-surface-container-low px-3 py-2 font-label-sm text-label-sm text-primary">
-              {file.name} selected
-            </p>
-          ) : (
-            <p className="font-label-sm text-label-sm text-outline">
-              Use the canvas drop zone to pick the base image.
-            </p>
-          )}
-        </div>
-
-        {/* Position Grid */}
-        <div>
-          <label className="mb-2 block font-label-md text-label-md text-primary">
-            Position
-          </label>
-          <div className="grid grid-cols-3 gap-2 rounded-xl border border-border bg-surface-container-low p-2">
+        {/* 2. Position Grid */}
+        <div className="space-y-2 border-t border-border pt-4">
+          <div className="flex items-center justify-between text-xs sm:text-sm">
+            <span className="font-semibold uppercase tracking-wider text-text-secondary">
+              2. Anchor Position
+            </span>
+            <span className="font-mono text-xs font-semibold text-accent-lavender capitalize">
+              {POSITIONS[positionIdx]?.replace("-", " ")}
+            </span>
+          </div>
+          <div className="flex justify-center rounded-xl border border-border bg-surface-container-low p-2">
             <PositionGrid
               value={positionIdx}
               onChange={setPositionIdx}
-              size="aspect-square w-full border-none bg-transparent"
-              className="mx-0 w-full gap-2"
+              size="size-8"
+              className="w-auto gap-2"
             />
           </div>
         </div>
 
-        {/* Sliders */}
-        <div className="space-y-6">
-          <div>
-            <div className="mb-2 flex items-center justify-between">
-              <label htmlFor="logo-scale" className="font-label-md text-label-md text-primary">Scale</label>
-              <span className="rounded-md border border-border bg-surface-container-low px-2 py-1 font-label-sm text-label-sm text-text-secondary">
-                {scale}%
-              </span>
-            </div>
-            <input
-              id="logo-scale"
-              type="range"
-              min={1}
-              max={100}
-              value={scale}
-              aria-label="Logo scale"
-              onChange={(e) => setScale(Number(e.target.value))}
-              className="slider-thumb w-full"
-            />
+        {/* 3. Sizing & Transparency Sliders */}
+        <div className="space-y-4 border-t border-border pt-4">
+          <div className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
+            3. Scale & Transparency
           </div>
-          <div>
-            <div className="mb-2 flex items-center justify-between">
-              <label htmlFor="logo-opacity" className="font-label-md text-label-md text-primary">Opacity</label>
-              <span className="rounded-md border border-border bg-surface-container-low px-2 py-1 font-label-sm text-label-sm text-text-secondary">
-                {opacity}%
-              </span>
-            </div>
-            <input
-              id="logo-opacity"
-              type="range"
-              min={0}
-              max={100}
-              value={opacity}
-              aria-label="Logo opacity"
-              onChange={(e) => setOpacity(Number(e.target.value))}
-              className="slider-thumb w-full"
-            />
-          </div>
-          <div>
-            <div className="mb-2 flex items-center justify-between">
-              <label htmlFor="logo-margin" className="font-label-md text-label-md text-primary">Margin</label>
-              <span className="rounded-md border border-border bg-surface-container-low px-2 py-1 font-label-sm text-label-sm text-text-secondary">
-                {margin}px
-              </span>
-            </div>
-            <input
-              id="logo-margin"
-              type="range"
-              min={0}
-              max={100}
-              value={margin}
-              aria-label="Logo margin"
-              onChange={(e) => setMargin(Number(e.target.value))}
-              className="slider-thumb w-full"
-            />
-          </div>
+
+          <SliderControl
+            label="Logo Scale"
+            value={scale}
+            min={1}
+            max={100}
+            unit="%"
+            onChange={setScale}
+          />
+
+          <SliderControl
+            label="Opacity"
+            value={opacity}
+            min={0}
+            max={100}
+            unit="%"
+            onChange={setOpacity}
+          />
+
+          <SliderControl
+            label="Corner Margin"
+            value={margin}
+            min={0}
+            max={100}
+            unit="px"
+            onChange={setMargin}
+          />
         </div>
       </ToolPanel>
     </div>

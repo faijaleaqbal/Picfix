@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------------
-   LuminaEdit AI — global styles
+   Picfix — global styles
    The site chrome is permanently dark (Stitch exports ship `class="dark"`),
    so the palette is declared once at :root.
    ------------------------------------------------------------------ */

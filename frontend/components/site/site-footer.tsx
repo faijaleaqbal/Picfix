@@ -16,13 +16,13 @@ export function SiteFooter() {
             href="/"
             className="mb-2 block font-headline-md text-headline-md font-bold text-primary"
           >
-            LuminaEdit
+            Picfix
           </Link>
           <p className="font-label-sm text-label-sm text-text-secondary">
             Professional grade image processing tools for modern workflows.
           </p>
           <p className="mt-2 font-label-sm text-label-sm text-text-secondary">
-            © 2024 LuminaEdit AI. All rights reserved.
+            © 2024-2026 Picfix AI. All rights reserved.
           </p>
         </div>
         <div className="flex flex-col gap-2">

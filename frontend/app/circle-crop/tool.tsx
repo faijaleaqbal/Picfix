@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CircleDot, Minus, Plus } from "lucide-react";
+import { CircleDot } from "lucide-react";
 import { PanelCta } from "@/components/site/panel-cta";
 import {
   BeforeAfter,
@@ -24,7 +24,6 @@ import { DEFAULT_TIMEOUTS } from "@/lib/api";
  */
 export function CircleCropTool() {
   const [transparent, setTransparent] = useState(true);
-  const [zoom, setZoom] = useState(100);
   const state = useProcessing();
   const { file, result, resultUrl, originalUrl, processing, error, errorCode } = state;
 
@@ -36,21 +35,21 @@ export function CircleCropTool() {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-stack-lg lg:grid-cols-12">
+    <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-12">
       {/* Canvas Area */}
-      <div className="flex min-h-[512px] flex-col overflow-hidden rounded-xl border border-border lg:col-span-8">
+      <div className="flex min-h-[260px] sm:min-h-[360px] md:min-h-[440px] flex-col overflow-hidden rounded-2xl border border-border bg-surface lg:col-span-8">
         {/* Toolbar top */}
         <div className="z-10 flex h-12 shrink-0 items-center justify-between border-b border-border bg-surface-container-low px-4">
           <div className="flex items-center gap-2">
-            <span className="font-label-sm text-label-sm uppercase tracking-wider text-text-secondary">
-              Circle Crop
+            <span className="font-label-sm text-xs font-semibold uppercase tracking-wider text-text-secondary">
+              Circle Crop Preview
             </span>
           </div>
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={state.reset}
-              className="rounded-md px-3 py-1.5 font-label-sm text-label-sm font-medium text-text-secondary transition-colors hover:bg-surface-variant hover:text-primary"
+              className="rounded-lg px-3 py-1.5 font-label-sm text-xs font-medium text-text-secondary transition-colors hover:bg-surface-variant hover:text-primary"
             >
               Reset
             </button>
@@ -58,7 +57,7 @@ export function CircleCropTool() {
               type="button"
               onClick={run}
               disabled={!file || processing}
-              className="rounded-full bg-primary px-4 py-1.5 font-label-sm text-label-sm font-semibold text-on-primary transition-transform hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 font-label-sm text-xs font-semibold text-on-primary shadow-sm transition-transform hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {processing ? "Cropping…" : "Apply"}
             </button>
@@ -66,7 +65,7 @@ export function CircleCropTool() {
         </div>
 
         {/* Canvas (checkerboard for transparency) */}
-        <div className="checkerboard-bg relative flex flex-1 items-center justify-center overflow-hidden p-8">
+        <div className="checkerboard-bg relative flex flex-1 items-center justify-center overflow-hidden p-4 sm:p-6 md:p-8">
           {!file ? (
             <UploadDropzone
               title="Drag & Drop Image Here"
@@ -77,35 +76,14 @@ export function CircleCropTool() {
               className="w-full"
             />
           ) : (
-            <div className="flex w-full flex-col gap-stack-sm">
+            <div className="flex w-full flex-col gap-3">
               <BeforeAfter originalUrl={originalUrl} resultUrl={resultUrl} resultLabel="Circle (PNG)" />
               {result ? <ResultMeta result={result} originalSize={file.size} /> : null}
             </div>
           )}
-
-          {/* Zoom/Pan controls bottom */}
-          <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-4 rounded-full border border-border bg-surface-container-high/90 px-4 py-2 shadow-lg backdrop-blur-md">
-            <button
-              type="button"
-              aria-label="Zoom out"
-              onClick={() => setZoom((z) => Math.max(25, z - 25))}
-              className="text-text-secondary transition-colors hover:text-primary"
-            >
-              <Minus className="size-4" />
-            </button>
-            <span className="font-label-sm text-label-sm text-primary">{zoom}%</span>
-            <button
-              type="button"
-              aria-label="Zoom in"
-              onClick={() => setZoom((z) => Math.min(400, z + 25))}
-              className="text-text-secondary transition-colors hover:text-primary"
-            >
-              <Plus className="size-4" />
-            </button>
-          </div>
         </div>
-        {processing ? <LoadingIndicator label="Cropping to circle…" className="m-4" /> : null}
-        {error ? <ProcessError message={error} code={errorCode} className="m-4" /> : null}
+        {processing ? <LoadingIndicator label="Cropping image into circle…" className="m-4" /> : null}
+        {error ? <ProcessError message={error} code={errorCode} onRetry={run} className="m-4" /> : null}
         {result ? (
           <div className="p-4">
             <DownloadButton onClick={state.download} label="Download Circle PNG" />

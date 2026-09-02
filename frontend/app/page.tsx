@@ -6,9 +6,9 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { TOOLS, TOOL_GROUPS } from "@/lib/tools";
 
 export const metadata: Metadata = {
-  title: "LuminaEdit AI — Free Online Image Editing Tools",
+  title: "Picfix — Free Online Image Editing Tools",
   description:
-    "Professional grade image processing tools for modern workflows. Compress, resize, crop, convert and enhance images — free, private and fast.",
+    "Professional grade image processing tools for modern workflows. Compress, resize, crop, convert, and enhance images with Picfix AI — free, private and fast.",
 };
 
 /**
@@ -25,7 +25,7 @@ export default function Home() {
         <section className="mx-auto mb-stack-lg max-w-3xl space-y-stack-md text-center md:mb-24">
           <span className="mx-auto flex w-fit items-center gap-2 rounded-full border border-accent-lavender/30 bg-accent-lavender/10 px-3 py-1 font-label-sm text-label-sm text-accent-lavender">
             <Sparkles className="size-4" />
-            Powered by LuminaEdit AI
+            Powered by Picfix AI
           </span>
           <h1 className="font-headline-xl text-headline-xl-mobile text-primary md:text-headline-xl">
             Professional image tools for modern workflows

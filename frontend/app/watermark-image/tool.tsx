@@ -43,7 +43,7 @@ const POSITIONS = [
 
 export function WatermarkTool() {
   const [type, setType] = useState<"text" | "logo">("text");
-  const [text, setText] = useState("LUMINA EDIT");
+  const [text, setText] = useState("PICFIX");
   const [opacity, setOpacity] = useState(45);
   const [positionIdx, setPositionIdx] = useState(8); // bottom-right
   const [scale, setScale] = useState(50);

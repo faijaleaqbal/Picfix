@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FlipHorizontal, FlipVertical, Download } from "lucide-react";
+import { FlipHorizontal, FlipVertical } from "lucide-react";
 import { PanelFooterActions, ToolPanel } from "@/components/site/tool-panel";
 import { UploadDropzone } from "@/components/site/upload-dropzone";
 import {
@@ -36,13 +36,13 @@ export function FlipTool() {
   };
 
   return (
-    <div className="relative flex h-full min-w-0 flex-1 flex-col overflow-hidden lg:flex-row">
+    <div className="relative flex min-h-0 w-full flex-1 flex-col md:h-full md:flex-row md:overflow-hidden">
       {/* Canvas Area */}
-      <div className="pattern-grid relative flex flex-1 flex-col items-center justify-center gap-stack-md overflow-y-auto p-gutter">
+      <div className="relative flex min-h-[260px] max-h-[50vh] w-full flex-1 flex-col items-center justify-center gap-4 overflow-y-auto bg-black/90 p-4 sm:p-6 md:max-h-none md:p-8">
         {!file ? (
           <UploadDropzone
             title="Drag & Drop Image Here"
-            description="or click to browse from your device"
+            description="or tap to browse from your device"
             size="lg"
             onFileSelected={state.selectFile}
             selectedName={state.file?.name ?? null}
@@ -50,11 +50,11 @@ export function FlipTool() {
             className="relative z-10 max-w-xl"
           />
         ) : (
-          <div className="relative z-10 flex max-h-full w-full max-w-3xl flex-col gap-stack-sm overflow-y-auto">
+          <div className="relative z-10 flex max-h-full w-full max-w-3xl flex-col gap-3 overflow-y-auto">
             <BeforeAfter originalUrl={originalUrl} resultUrl={resultUrl} resultLabel="Flipped" />
             {result ? <ResultMeta result={result} originalSize={file.size} /> : null}
-            {processing ? <LoadingIndicator label="Flipping…" /> : null}
-            {error ? <ProcessError message={error} code={errorCode} /> : null}
+            {processing ? <LoadingIndicator label="Flipping image…" /> : null}
+            {error ? <ProcessError message={error} code={errorCode} onRetry={run} /> : null}
             {result ? (
               <DownloadButton onClick={state.download} label="Download Flipped Image" />
             ) : null}
@@ -64,8 +64,9 @@ export function FlipTool() {
 
       {/* Tool Panel */}
       <ToolPanel
-        title="Flip Image"
+        title="Flip Settings"
         description="Mirror images horizontally or vertically."
+        collapsibleOnMobile={true}
         footer={
           <PanelFooterActions
             onReset={() => {
@@ -73,50 +74,54 @@ export function FlipTool() {
               setFlipV(false);
               state.reset();
             }}
-            applyLabel={processing ? "Working…" : "Apply"}
+            applyLabel={processing ? "Flipping…" : "Apply Flip"}
             onApply={run}
-            applyIcon={<Download className="size-4" />}
+            disabled={!canRun}
+            loading={processing}
+            applyIcon={<FlipHorizontal className="size-4" />}
           />
         }
       >
-        <div className="space-y-stack-sm">
-          <h3 className="font-label-md text-xs uppercase tracking-wider text-on-surface">
-            Transform
-          </h3>
-          <div className="grid grid-cols-2 gap-stack-sm">
+        <div className="space-y-3">
+          <h4 className="font-label-md text-xs font-semibold uppercase tracking-wider text-text-secondary">
+            Direction
+          </h4>
+          <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
-              onClick={() => setFlipH((v) => !v)}
-              className={`group flex flex-col items-center justify-center gap-stack-sm rounded-xl border p-4 transition-all ${
+              onClick={() => {
+                setFlipH((v) => !v);
+                setFlipV(false);
+              }}
+              className={`flex flex-col items-center justify-center gap-2 rounded-xl border p-4 min-h-[64px] transition-all active:scale-95 ${
                 flipH
-                  ? "border-accent-lavender bg-surface-container-high"
-                  : "border-border bg-surface-container hover:border-accent-lavender hover:bg-surface-container-high"
+                  ? "border-accent-lavender bg-accent-lavender/15 text-accent-lavender font-semibold ring-1 ring-accent-lavender"
+                  : "border-border bg-surface-container hover:border-accent-lavender hover:bg-surface-container-high text-text-secondary hover:text-primary"
               }`}
             >
-              <FlipHorizontal className="text-2xl text-text-secondary transition-colors group-hover:text-primary" />
-              <span className="font-label-sm text-label-sm text-text-secondary transition-colors group-hover:text-primary">
-                Horizontal
-              </span>
+              <FlipHorizontal className="size-6" />
+              <span className="text-xs sm:text-sm">Horizontal</span>
             </button>
             <button
               type="button"
-              onClick={() => setFlipV((v) => !v)}
-              className={`group flex flex-col items-center justify-center gap-stack-sm rounded-xl border p-4 transition-all ${
+              onClick={() => {
+                setFlipV((v) => !v);
+                setFlipH(false);
+              }}
+              className={`flex flex-col items-center justify-center gap-2 rounded-xl border p-4 min-h-[64px] transition-all active:scale-95 ${
                 flipV
-                  ? "border-accent-lavender bg-surface-container-high"
-                  : "border-border bg-surface-container hover:border-accent-lavender hover:bg-surface-container-high"
+                  ? "border-accent-lavender bg-accent-lavender/15 text-accent-lavender font-semibold ring-1 ring-accent-lavender"
+                  : "border-border bg-surface-container hover:border-accent-lavender hover:bg-surface-container-high text-text-secondary hover:text-primary"
               }`}
             >
-              <FlipVertical className="text-2xl text-text-secondary transition-colors group-hover:text-primary" />
-              <span className="font-label-sm text-label-sm text-text-secondary transition-colors group-hover:text-primary">
-                Vertical
-              </span>
+              <FlipVertical className="size-6" />
+              <span className="text-xs sm:text-sm">Vertical</span>
             </button>
           </div>
-          <p className="font-label-sm text-label-sm text-outline">
+          <p className="text-xs text-text-secondary">
             {canRun
-              ? `Will mirror ${flipH ? "horizontally" : "vertically"}${flipH && flipV ? " (horizontal is sent)" : ""}.`
-              : "Pick at least one transform."}
+              ? `Selected: mirror ${flipH ? "horizontally (left-right)" : "vertically (top-down)"}.`
+              : "Select a flip axis above, then tap Apply."}
           </p>
         </div>
       </ToolPanel>

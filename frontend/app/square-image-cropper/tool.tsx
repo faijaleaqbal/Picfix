@@ -35,9 +35,9 @@ export function SquareCropperTool() {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-stack-lg lg:grid-cols-12">
+    <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-12">
       {/* Canvas Area */}
-      <div className="relative flex flex-col items-center justify-center gap-stack-md overflow-hidden rounded-xl border border-border bg-surface-container-low p-4 lg:col-span-8 lg:p-gutter">
+      <div className="relative flex flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl border border-border bg-surface-container-low p-4 sm:p-6 lg:col-span-8">
         {!file ? (
           <UploadDropzone
             title="Drag & Drop Image Here"
@@ -49,13 +49,13 @@ export function SquareCropperTool() {
             className="w-full"
           />
         ) : (
-          <div className="flex w-full flex-col gap-stack-sm">
+          <div className="flex w-full flex-col gap-3">
             <BeforeAfter originalUrl={originalUrl} resultUrl={resultUrl} resultLabel="Square" />
             {result ? <ResultMeta result={result} originalSize={file.size} /> : null}
           </div>
         )}
-        {processing ? <LoadingIndicator label="Cropping to square…" /> : null}
-        {error ? <ProcessError message={error} code={errorCode} /> : null}
+        {processing ? <LoadingIndicator label="Cropping image to square…" /> : null}
+        {error ? <ProcessError message={error} code={errorCode} onRetry={run} /> : null}
         {result ? (
           <DownloadButton onClick={state.download} label="Download Square Image" className="max-w-md" />
         ) : null}

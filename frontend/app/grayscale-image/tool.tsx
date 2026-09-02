@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { Download, Undo2, Redo2, ZoomIn, ZoomOut } from "lucide-react";
+import { Download } from "lucide-react";
+import { ToolPanel, PanelFooterActions } from "@/components/site/tool-panel";
+import { EditorToolbar } from "@/components/site/workspace";
 import { UploadDropzone } from "@/components/site/upload-dropzone";
 import {
   DownloadButton,
@@ -22,7 +23,6 @@ import { cn } from "@/lib/utils";
  * supports tone adjustments.
  */
 export function GrayscaleTool() {
-  const [zoom, setZoom] = useState(100);
   const state = useProcessing();
   const { file, result, resultUrl, processing, error, errorCode } = state;
 
@@ -33,50 +33,22 @@ export function GrayscaleTool() {
   };
 
   return (
-    <div className="flex h-full flex-col overflow-hidden">
-      {/* Header area for tool context */}
-      <header className="z-10 flex h-16 shrink-0 items-center justify-between border-b border-outline-variant bg-surface/80 px-gutter backdrop-blur-md">
-        <div className="flex items-center gap-4">
-          <div>
-            <h2 className="font-headline-md text-headline-md font-bold text-primary">
-              Grayscale Image
-            </h2>
-            <p className="font-label-sm text-label-sm text-text-secondary">
-              Convert photos to striking black and white.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-4">
-          <button
-            type="button"
-            aria-label="Undo"
-            onClick={state.reset}
-            className="flex items-center gap-2 font-label-md text-label-md text-text-secondary transition-colors hover:text-primary"
-          >
-            <Undo2 className="size-5" />
-          </button>
-          <button
-            type="button"
-            aria-label="Redo"
-            className="flex items-center gap-2 font-label-md text-label-md text-text-secondary transition-colors hover:text-primary"
-          >
-            <Redo2 className="size-5" />
-          </button>
-          <button
-            type="button"
-            onClick={run}
-            disabled={!file || processing}
-            className="rounded-full bg-primary px-6 py-2 font-label-md text-label-md text-on-primary transition-colors hover:bg-tertiary-fixed disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {processing ? "Working…" : "Apply"}
-          </button>
-        </div>
-      </header>
+    <div className="relative flex min-h-0 w-full flex-1 flex-col md:h-full md:overflow-hidden">
+      {/* Responsive Editor Header Bar — prevents toolbar collisions */}
+      <EditorToolbar
+        title="Grayscale Converter"
+        badge="B&W"
+        onUndo={state.reset}
+        onRedo={() => {}}
+        onApply={run}
+        applyLabel={processing ? "Converting…" : "Apply Grayscale"}
+        applyLoading={processing}
+      />
 
       {/* Editor Canvas & Settings Split */}
-      <div className="flex flex-1 flex-col overflow-hidden lg:flex-row">
+      <div className="flex min-h-0 flex-1 flex-col md:flex-row md:overflow-hidden">
         {/* Canvas Area */}
-        <div className="relative flex flex-1 items-center justify-center overflow-y-auto bg-surface-container-lowest p-stack-lg">
+        <div className="relative flex min-h-[260px] max-h-[50vh] w-full flex-1 flex-col items-center justify-center gap-4 overflow-y-auto bg-black/90 p-4 sm:p-6 md:max-h-none md:p-8">
           {/* Grid pattern background */}
           <div
             className="absolute inset-0 opacity-10"
@@ -88,7 +60,7 @@ export function GrayscaleTool() {
           {!file ? (
             <UploadDropzone
               title="Drag & Drop Image Here"
-              description="or click to browse from your device"
+              description="or tap to browse from your device"
               size="lg"
               onFileSelected={state.selectFile}
               selectedName={state.file?.name ?? null}
@@ -96,43 +68,22 @@ export function GrayscaleTool() {
               className="relative z-10 max-w-xl"
             />
           ) : (
-            <div className="group relative flex flex-col gap-stack-sm">
-              {/* Before / after */}
+            <div className="relative z-10 flex max-h-full w-full max-w-3xl flex-col gap-3 overflow-y-auto">
               <div className="relative overflow-hidden rounded-xl border border-border shadow-2xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={resultUrl ?? state.originalUrl ?? ""}
                   alt={resultUrl ? "Grayscale result" : "Original upload"}
                   className={cn(
-                    "h-auto max-h-[716px] w-auto transition-all duration-300",
+                    "h-auto max-h-[60vh] w-auto max-w-full rounded-lg object-contain mx-auto transition-all duration-300",
                     !resultUrl && "grayscale"
                   )}
                 />
-                <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-surface/90 px-4 py-2 opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
-                  <button
-                    type="button"
-                    aria-label="Zoom out"
-                    onClick={() => setZoom((z) => Math.max(25, z - 25))}
-                    className="p-1 text-text-secondary hover:text-primary"
-                  >
-                    <ZoomOut className="size-4" />
-                  </button>
-                  <span className="w-12 text-center font-label-sm text-label-sm text-primary">
-                    {zoom === 100 ? "Fit" : `${zoom}%`}
-                  </span>
-                  <button
-                    type="button"
-                    aria-label="Zoom in"
-                    onClick={() => setZoom((z) => Math.min(400, z + 25))}
-                    className="p-1 text-text-secondary hover:text-primary"
-                  >
-                    <ZoomIn className="size-4" />
-                  </button>
-                </div>
               </div>
+
               {result ? <ResultMeta result={result} originalSize={file.size} /> : null}
-              {processing ? <LoadingIndicator label="Converting to black & white…" /> : null}
-              {error ? <ProcessError message={error} code={errorCode} /> : null}
+              {processing ? <LoadingIndicator label="Converting image to black & white…" /> : null}
+              {error ? <ProcessError message={error} code={errorCode} onRetry={run} /> : null}
               {result ? (
                 <DownloadButton onClick={state.download} label="Download Grayscale Image" />
               ) : null}
@@ -140,37 +91,50 @@ export function GrayscaleTool() {
           )}
         </div>
 
-        {/* Settings Panel (Right) */}
-        <aside className="z-10 flex h-full w-full shrink-0 flex-col overflow-y-auto border-l border-outline-variant bg-surface lg:w-80">
-          <div className="flex flex-col gap-stack-lg p-gutter">
-            {/* Presets Section */}
-            <section>
-              <h3 className="mb-stack-sm font-label-md text-label-md text-primary">
-                Presets
-              </h3>
-              <p className="font-label-sm text-label-sm text-text-secondary">
-                All presets apply the same high-quality grayscale conversion.
-              </p>
-            </section>
+        {/* Settings ToolPanel */}
+        <ToolPanel
+          title="Monochrome Settings"
+          description="Convert color photos to timeless black and white tone."
+          collapsibleOnMobile={true}
+          footer={
+            <PanelFooterActions
+              onReset={state.reset}
+              applyLabel={processing ? "Converting…" : "Apply B&W"}
+              onApply={run}
+              disabled={!file}
+              loading={processing}
+              applyIcon={<Download className="size-4" />}
+            />
+          }
+        >
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <span className="font-label-md text-xs font-semibold uppercase tracking-wider text-text-secondary">
+                Conversion Mode
+              </span>
+              <div className="grid grid-cols-1 gap-2">
+                <div className="rounded-xl border border-accent-lavender bg-accent-lavender/10 p-3 ring-1 ring-accent-lavender">
+                  <div className="flex items-center justify-between">
+                    <span className="font-label-md text-sm font-semibold text-primary">
+                      Neutral Grayscale
+                    </span>
+                    <span className="rounded bg-accent-lavender/20 px-1.5 py-0.5 font-mono text-[10px] text-accent-lavender">
+                      Active
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-text-secondary">
+                    Perceptual luminosity weights preserving original tonal depth and contrast.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            {/* Primary action for mobile / alternative */}
-            <section className="mt-auto flex flex-col gap-stack-sm">
-              <DownloadButton
-                onClick={state.download}
-                label="Download Result"
-                disabled={!result}
-                icon={<Download className="size-4" />}
-              />
-              <button
-                type="button"
-                onClick={state.reset}
-                className="rounded-full border border-outline-variant px-4 py-2 font-label-md text-label-md text-primary transition-colors hover:bg-muted"
-              >
-                Reset
-              </button>
-            </section>
+            <div className="rounded-xl border border-border bg-surface-container-low p-3 text-xs text-text-secondary">
+              <span className="font-semibold text-primary">Pro Tip: </span>
+              PNG images preserve transparency after monochrome conversion; JPG images retain high detail with smaller file sizes.
+            </div>
           </div>
-        </aside>
+        </ToolPanel>
       </div>
     </div>
   );
