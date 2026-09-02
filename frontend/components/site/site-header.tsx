@@ -3,349 +3,241 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Sparkles,
-  Menu,
-  X,
-  ChevronDown,
-  Wand2,
-  ArrowRight,
-} from "lucide-react";
-import { TOOLS, TOOL_GROUPS } from "@/lib/tools";
+import { ChevronDown, ChevronRight, Layers } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * Shared top navigation bar used by every page.
- * Features:
- * - Official Picfix branding
- * - Fully responsive desktop navigation with Tools dropdown
- * - Touch-friendly mobile hamburger drawer with categorized tool links
+ * Pi7-identical top navigation bar
+ * Background: #4956a5
+ * Hover: #ffeb3b
+ * Dropdown: White with top border #d31b5a
  */
 export function SiteHeader() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [convertDropdownOpen, setConvertDropdownOpen] = useState(false);
+  const convertRef = useRef<HTMLDivElement>(null);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
-    setToolsDropdownOpen(false);
+    setConvertDropdownOpen(false);
   }, [pathname]);
 
-  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setToolsDropdownOpen(false);
+      if (convertRef.current && !convertRef.current.contains(e.target as Node)) {
+        setConvertDropdownOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileMenuOpen]);
-
   return (
-    <>
-      <header className="sticky top-0 z-40 w-full border-b border-border bg-background/90 backdrop-blur-md">
-        <div className="mx-auto flex h-16 w-full max-w-container-max items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* Brand + Desktop Navigation */}
-          <div className="flex items-center gap-6 lg:gap-8">
-            <Link
-              href="/"
-              className="group flex items-center gap-2 font-headline-md text-headline-md font-extrabold tracking-tight text-primary transition-opacity hover:opacity-90"
+    <nav className="sticky top-0 z-50 w-full bg-[#4956a5] shadow-[0_4px_5px_-1px_rgba(0,0,0,0.25)]">
+      <div className="mx-auto flex h-[58px] max-w-[1240px] items-center justify-between px-4 sm:px-6">
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center gap-2.5 text-white no-underline">
+          <div className="flex size-8 items-center justify-center rounded bg-white/10 text-white">
+            <Layers className="size-5 text-[#ffeb3b]" />
+          </div>
+          <div className="flex items-baseline gap-1.5 text-white">
+            <span className="text-xl font-extrabold tracking-tight">PICFIX</span>
+            <b className="text-xs font-bold uppercase tracking-wider text-white/90">IMAGE TOOL</b>
+          </div>
+        </Link>
+
+        {/* Desktop Navigation Links */}
+        <div className="hidden items-center gap-1 md:flex lg:gap-2">
+          <Link
+            href="/"
+            className={cn(
+              "px-3 py-2 text-[14.5px] font-semibold text-white transition-colors hover:text-[#ffeb3b]",
+              pathname === "/" && "text-[#ffeb3b]"
+            )}
+          >
+            Home
+          </Link>
+
+          <Link
+            href="/resize-image-pixel"
+            className={cn(
+              "px-3 py-2 text-[14.5px] font-semibold text-white transition-colors hover:text-[#ffeb3b]",
+              pathname === "/resize-image-pixel" && "text-[#ffeb3b]"
+            )}
+          >
+            Resize Image Pixel
+          </Link>
+
+          <Link
+            href="/passport-size-photo"
+            className={cn(
+              "px-3 py-2 text-[14.5px] font-semibold text-white transition-colors hover:text-[#ffeb3b]",
+              pathname === "/passport-size-photo" && "text-[#ffeb3b]"
+            )}
+          >
+            Passport Size Photo
+          </Link>
+
+          {/* Convert Image Dropdown */}
+          <div
+            className="relative"
+            ref={convertRef}
+            onMouseEnter={() => setConvertDropdownOpen(true)}
+            onMouseLeave={() => setConvertDropdownOpen(false)}
+          >
+            <button
+              type="button"
+              onClick={() => setConvertDropdownOpen((v) => !v)}
+              className="flex items-center gap-1 px-3 py-2 text-[14.5px] font-semibold text-white transition-colors hover:text-[#ffeb3b]"
             >
-              <div className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-accent-lavender to-secondary text-surface shadow-sm transition-transform group-hover:scale-105">
-                <Wand2 className="size-5 text-surface-dim" />
-              </div>
-              <span className="bg-gradient-to-r from-primary via-primary to-accent-lavender bg-clip-text text-transparent">
-                Picfix
-              </span>
-              <span className="hidden rounded-full bg-accent-lavender/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-accent-lavender ring-1 ring-inset ring-accent-lavender/30 sm:inline-block">
-                AI
-              </span>
-            </Link>
+              <span>Convert Image</span>
+              <ChevronDown className="size-3.5 opacity-80" />
+            </button>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden items-center gap-1 md:flex">
-              <Link
-                href="/"
-                className={cn(
-                  "rounded-md px-3 py-2 font-label-md text-label-md transition-colors",
-                  pathname === "/"
-                    ? "font-semibold text-accent-lavender"
-                    : "text-text-secondary hover:bg-muted hover:text-primary"
-                )}
-              >
-                Home
-              </Link>
-
-              {/* Tools Dropdown */}
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  type="button"
-                  onClick={() => setToolsDropdownOpen((prev) => !prev)}
-                  className={cn(
-                    "flex items-center gap-1.5 rounded-md px-3 py-2 font-label-md text-label-md transition-colors",
-                    toolsDropdownOpen || pathname !== "/"
-                      ? "bg-muted text-primary"
-                      : "text-text-secondary hover:bg-muted hover:text-primary"
-                  )}
-                  aria-expanded={toolsDropdownOpen}
+            {convertDropdownOpen && (
+              <div className="absolute left-0 top-full w-56 rounded-b border-t-[3px] border-[#d31b5a] bg-white p-2 shadow-[rgba(100,100,111,0.25)_0px_7px_29px_0px]">
+                <Link
+                  href="/jpeg-to-jpg"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-medium text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
                 >
-                  <span>Tools</span>
-                  <ChevronDown
-                    className={cn(
-                      "size-4 transition-transform duration-200",
-                      toolsDropdownOpen && "rotate-180"
-                    )}
-                  />
-                </button>
-
-                {toolsDropdownOpen && (
-                  <div className="absolute left-0 top-full mt-2 w-[520px] rounded-2xl border border-border bg-surface p-4 shadow-xl ring-1 ring-white/5">
-                    <div className="mb-3 flex items-center justify-between border-b border-border pb-2 px-1">
-                      <span className="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-text-secondary">
-                        All Image Tools (21)
-                      </span>
-                      <Link
-                        href="/"
-                        onClick={() => setToolsDropdownOpen(false)}
-                        className="text-xs text-accent-lavender hover:underline"
-                      >
-                        View all tools →
-                      </Link>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 max-h-[360px] overflow-y-auto pr-1">
-                      {TOOLS.map((t) => {
-                        const Icon = t.icon;
-                        const isCurrent = pathname === `/${t.slug}`;
-                        return (
-                          <Link
-                            key={t.slug}
-                            href={`/${t.slug}`}
-                            onClick={() => setToolsDropdownOpen(false)}
-                            className={cn(
-                              "flex items-center gap-2.5 rounded-lg p-2 text-sm transition-colors",
-                              isCurrent
-                                ? "bg-accent-lavender/15 text-accent-lavender font-medium"
-                                : "text-text-secondary hover:bg-muted hover:text-primary"
-                            )}
-                          >
-                            <Icon className="size-4 shrink-0 text-accent-lavender" />
-                            <span className="truncate">{t.title}</span>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Image To JPG
+                </Link>
+                <Link
+                  href="/png-to-jpeg"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-medium text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Image to JPEG
+                </Link>
+                <Link
+                  href="/heic-to-jpg"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-medium text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  HEIC To JPG
+                </Link>
+                <Link
+                  href="/webp-to-jpg"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-medium text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  WebP To JPG
+                </Link>
+                <Link
+                  href="/image-to-pdf"
+                  className="flex items-center gap-2 rounded px-2.5 py-1.5 text-xs font-medium text-[#505050] transition-colors hover:bg-[#EFF0FA] hover:text-[#4449A6]"
+                >
+                  <ChevronRight className="size-3 text-[#4449A6]" />
+                  Images To PDF
+                </Link>
               </div>
-
-              <Link
-                href="/templates"
-                className={cn(
-                  "rounded-md px-3 py-2 font-label-md text-label-md transition-colors",
-                  pathname === "/templates"
-                    ? "font-semibold text-accent-lavender"
-                    : "text-text-secondary hover:bg-muted hover:text-primary"
-                )}
-              >
-                Templates
-              </Link>
-              <Link
-                href="/pricing"
-                className={cn(
-                  "rounded-md px-3 py-2 font-label-md text-label-md transition-colors",
-                  pathname === "/pricing"
-                    ? "font-semibold text-accent-lavender"
-                    : "text-text-secondary hover:bg-muted hover:text-primary"
-                )}
-              >
-                Pricing
-              </Link>
-              <Link
-                href="/resources"
-                className={cn(
-                  "rounded-md px-3 py-2 font-label-md text-label-md transition-colors",
-                  pathname === "/resources"
-                    ? "font-semibold text-accent-lavender"
-                    : "text-text-secondary hover:bg-muted hover:text-primary"
-                )}
-              >
-                Resources
-              </Link>
-            </nav>
+            )}
           </div>
 
-          {/* Desktop Right Actions */}
-          <div className="hidden items-center gap-3 md:flex">
-            <span className="hidden lg:inline-flex items-center rounded-full bg-surface-container-high px-3 py-1.5 text-xs font-medium text-text-secondary border border-border">
-              100% Free Tools
-            </span>
-            <Link
-              href="/compress-image"
-              className="flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 font-label-md text-label-md text-on-primary transition-opacity hover:opacity-90"
-            >
-              <span>Get Started</span>
-              <ArrowRight className="size-4" />
-            </Link>
-          </div>
+          <Link
+            href="/compress-image"
+            className={cn(
+              "px-3 py-2 text-[14.5px] font-semibold text-white transition-colors hover:text-[#ffeb3b]",
+              pathname === "/compress-image" && "text-[#ffeb3b]"
+            )}
+          >
+            Compress Image
+          </Link>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 md:hidden">
-            <Link
-              href="/compress-image"
-              className="rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-on-primary transition-opacity hover:opacity-90"
-            >
-              Start
-            </Link>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen((prev) => !prev)}
-              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-              className="flex size-10 items-center justify-center rounded-lg border border-border bg-surface text-primary transition-colors hover:bg-muted"
-            >
-              {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-            </button>
-          </div>
+          <Link
+            href="/crop-image"
+            className={cn(
+              "px-3 py-2 text-[14.5px] font-semibold text-white transition-colors hover:text-[#ffeb3b]",
+              pathname === "/crop-image" && "text-[#ffeb3b]"
+            )}
+          >
+            Crop Image
+          </Link>
+
+          <Link
+            href="/rotate-image"
+            className={cn(
+              "px-3 py-2 text-[14.5px] font-semibold text-white transition-colors hover:text-[#ffeb3b]",
+              pathname === "/rotate-image" && "text-[#ffeb3b]"
+            )}
+          >
+            Rotate Image
+          </Link>
         </div>
-      </header>
 
-      {/* Mobile Drawer / Navigation Sheet */}
+        {/* Mobile Hamburger Button */}
+        <button
+          type="button"
+          onClick={() => setMobileMenuOpen((v) => !v)}
+          className="flex flex-col justify-center gap-1.5 p-2 md:hidden text-white focus:outline-none"
+          aria-label="Toggle Menu"
+        >
+          <span
+            className={cn(
+              "h-0.5 w-6 bg-white transition-transform duration-200",
+              mobileMenuOpen && "translate-y-2 rotate-45"
+            )}
+          />
+          <span
+            className={cn(
+              "h-0.5 w-6 bg-white transition-opacity duration-200",
+              mobileMenuOpen && "opacity-0"
+            )}
+          />
+          <span
+            className={cn(
+              "h-0.5 w-6 bg-white transition-transform duration-200",
+              mobileMenuOpen && "-translate-y-2 -rotate-45"
+            )}
+          />
+        </button>
+      </div>
+
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-background/98 backdrop-blur-xl md:hidden">
-          {/* Drawer Header */}
-          <div className="flex h-16 items-center justify-between border-b border-border px-4">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2 font-headline-md text-headline-md font-black tracking-tight text-primary"
-            >
-              <div className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-accent-lavender to-secondary text-surface">
-                <Wand2 className="size-4 text-surface-dim" />
-              </div>
-              <span>Picfix</span>
+        <div className="fixed inset-x-0 bottom-0 top-[58px] z-50 overflow-y-auto bg-[#4956a5] p-6 text-white md:hidden">
+          <div className="flex flex-col gap-4 text-base font-semibold">
+            <Link href="/" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              Home
             </Link>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              aria-label="Close menu"
-              className="flex size-10 items-center justify-center rounded-lg border border-border bg-surface text-primary"
-            >
-              <X className="size-5" />
-            </button>
-          </div>
-
-          {/* Drawer Body - Scrollable */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-6">
-            {/* Quick Links */}
-            <div className="grid grid-cols-2 gap-2">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center rounded-xl border border-border bg-surface p-3 font-label-md text-label-md text-primary"
-              >
-                Home
-              </Link>
-              <Link
-                href="/pricing"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center rounded-xl border border-border bg-surface p-3 font-label-md text-label-md text-primary"
-              >
-                Pricing
-              </Link>
-              <Link
-                href="/templates"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center rounded-xl border border-border bg-surface p-3 font-label-md text-label-md text-primary"
-              >
-                Templates
-              </Link>
-              <Link
-                href="/resources"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center rounded-xl border border-border bg-surface p-3 font-label-md text-label-md text-primary"
-              >
-                Resources
-              </Link>
-            </div>
-
-            {/* Categorized Tools Directory */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 border-b border-border pb-2">
-                <Sparkles className="size-4 text-accent-lavender" />
-                <h3 className="font-label-md text-label-md font-bold uppercase tracking-wider text-primary">
-                  All Image Tools
-                </h3>
-              </div>
-
-              {TOOL_GROUPS.map((group) => {
-                const groupTools = TOOLS.filter((t) => t.group === group.id);
-                return (
-                  <div key={group.id} className="space-y-2">
-                    <h4 className="font-label-sm text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                      {group.label}
-                    </h4>
-                    <div className="grid grid-cols-1 gap-1.5">
-                      {groupTools.map((tool) => {
-                        const Icon = tool.icon;
-                        const isCurrent = pathname === `/${tool.slug}`;
-                        return (
-                          <Link
-                            key={tool.slug}
-                            href={`/${tool.slug}`}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className={cn(
-                              "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors",
-                              isCurrent
-                                ? "bg-accent-lavender/15 text-accent-lavender font-semibold"
-                                : "text-text-secondary hover:bg-muted hover:text-primary"
-                            )}
-                          >
-                            <Icon className="size-4 shrink-0 text-accent-lavender" />
-                            <span className="flex-1">{tool.title}</span>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Drawer Footer Actions */}
-          <div className="border-t border-border bg-surface p-4 space-y-2">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-muted py-3 font-label-md text-label-md text-primary"
-            >
-              <span>Explore All Tools</span>
+            <Link href="/compress-image" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              Compress Image (Reduce in KB)
             </Link>
-            <Link
-              href="/compress-image"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 font-label-md text-label-md text-on-primary"
-            >
-              <span>Start Editing Free</span>
-              <ArrowRight className="size-4" />
+            <Link href="/resize-image-pixel" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              Resize Image Pixel
+            </Link>
+            <Link href="/passport-size-photo" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              Passport Size Photo
+            </Link>
+            <Link href="/crop-image" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              Crop Image
+            </Link>
+            <Link href="/circle-crop" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              Circle Crop
+            </Link>
+            <Link href="/rotate-image" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              Rotate Image
+            </Link>
+            <Link href="/flip-image" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              Flip Image
+            </Link>
+            <Link href="/image-to-pdf" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              Images to PDF
+            </Link>
+            <Link href="/heic-to-jpg" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              HEIC to JPG
+            </Link>
+            <Link href="/jpeg-to-jpg" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              Image to JPG
+            </Link>
+            <Link href="/ai-enhance-image" className="border-l-2 border-white pl-3 hover:text-[#ffeb3b]">
+              AI Photo Enhancer
             </Link>
           </div>
         </div>
       )}
-    </>
+    </nav>
   );
 }

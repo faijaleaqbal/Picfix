@@ -163,28 +163,28 @@ export function BeforeAfter({
       )}
     >
       {originalUrl ? (
-        <figure className="relative flex min-h-[200px] items-center justify-center overflow-hidden rounded-lg border border-border bg-surface-container-lowest p-2">
-          <figcaption className="absolute left-2 top-2 z-10 rounded bg-black/60 px-2 py-1 font-label-sm text-label-sm text-primary backdrop-blur-sm">
+        <figure className="relative flex min-h-[200px] items-center justify-center overflow-hidden rounded border border-[#d9dcea] bg-[#fafbfe] p-2">
+          <figcaption className="absolute left-2 top-2 z-10 rounded bg-[#4956a5] px-2 py-0.5 text-xs font-bold text-white shadow-sm">
             {beforeLabel}
           </figcaption>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={originalUrl}
             alt="Original upload"
-            className="max-h-[420px] w-auto max-w-full rounded-md object-contain"
+            className="max-h-[420px] w-auto max-w-full rounded object-contain"
           />
         </figure>
       ) : null}
       {resultUrl ? (
-        <figure className="relative flex min-h-[200px] items-center justify-center overflow-hidden rounded-lg border border-border bg-surface-container-lowest p-2">
-          <figcaption className="absolute left-2 top-2 z-10 rounded bg-accent-lavender/80 px-2 py-1 font-label-sm text-label-sm text-black backdrop-blur-sm">
+        <figure className="relative flex min-h-[200px] items-center justify-center overflow-hidden rounded border border-[#d9dcea] bg-[#fafbfe] p-2">
+          <figcaption className="absolute left-2 top-2 z-10 rounded bg-[#047e73] px-2 py-0.5 text-xs font-bold text-white shadow-sm">
             {resultLabel}
           </figcaption>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={resultUrl}
             alt="Processed result"
-            className="max-h-[420px] w-auto max-w-full rounded-md object-contain"
+            className="max-h-[420px] w-auto max-w-full rounded object-contain"
           />
         </figure>
       ) : null}
@@ -201,28 +201,36 @@ export function ResultMeta({
   originalSize?: number | null;
   className?: string;
 }) {
+  const savedBytes = originalSize && originalSize > result.blob.size ? originalSize - result.blob.size : 0;
+  const savedPercent = originalSize && savedBytes > 0 ? Math.round((savedBytes / originalSize) * 100) : 0;
+
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center gap-2 font-label-sm text-label-sm",
+        "flex flex-wrap items-center gap-2 text-sm",
         className
       )}
     >
       {originalSize ? (
-        <span className="rounded-md bg-surface-container px-2 py-1 text-text-secondary">
-          Original: {formatBytes(originalSize)}
+        <span className="text-gray-500">
+          Original: <span className="line-through">{formatBytes(originalSize)}</span>
         </span>
       ) : null}
-      <span className="rounded-md border border-accent-lavender/30 bg-secondary-container/20 px-2 py-1 text-accent-lavender">
-        {result.filename} · {formatBytes(result.blob.size)}
+      <span className="font-bold text-[#2b2f52]">
+        Result: {formatBytes(result.blob.size)}
       </span>
+      {savedPercent > 0 ? (
+        <span className="rounded-full bg-[#e6f5ec] px-2.5 py-0.5 text-xs font-bold text-[#1d7a44]">
+          {savedPercent}% Saved
+        </span>
+      ) : null}
       {result.qualityUsed != null ? (
-        <span className="rounded-md bg-surface-container px-2 py-1 text-text-secondary">
+        <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
           Quality: {result.qualityUsed}
         </span>
       ) : null}
       {result.dpi != null ? (
-        <span className="rounded-md bg-surface-container px-2 py-1 text-text-secondary">
+        <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
           DPI: {result.dpi}
         </span>
       ) : null}
@@ -249,7 +257,7 @@ export function DownloadButton({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "flex min-h-[46px] w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 font-label-md text-sm font-semibold text-on-primary shadow-sm transition-all hover:opacity-90 active:scale-98 disabled:cursor-not-allowed disabled:opacity-50",
+        "flex min-h-[44px] w-full items-center justify-center gap-2 rounded bg-[#047e73] px-6 py-2.5 font-bold text-white shadow transition-all hover:bg-[#036960] active:scale-98 disabled:cursor-not-allowed disabled:opacity-50",
         className
       )}
     >

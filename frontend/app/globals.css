@@ -3,38 +3,47 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------------
-   Picfix — global styles
-   The site chrome is permanently dark (Stitch exports ship `class="dark"`),
-   so the palette is declared once at :root.
+   Picfix — Pi7 exact brand styling
+   --pcolor: #4449A6 (Signature royal blue / indigo)
+   --scolor: #d31b5a (Magenta / crimson accent)
+   --btnsel: #047e73 (Teal upload button)
    ------------------------------------------------------------------ */
 
 :root {
-  /* shadcn/ui semantic tokens, mapped onto the Stitch design palette */
-  --background: #131315;
-  --foreground: #e5e1e4;
-  --card: #131315;
-  --card-foreground: #e5e1e4;
-  --popover: #201f22;
-  --popover-foreground: #e5e1e4;
-  --primary: #ffffff;
-  --primary-foreground: #2f3131;
-  --secondary: #dcb8ff;
-  --secondary-foreground: #421c68;
-  --muted: #18181b;
-  --muted-foreground: #a1a1aa;
-  --accent: #b48cde;
-  --accent-foreground: #131315;
-  --destructive: #ffb4ab;
-  --destructive-foreground: #690005;
-  --border: #27272a;
-  --input: #27272a;
-  --ring: #b48cde;
-  --radius: 0.75rem;
+  --pcolor: #4449A6;
+  --scolor: #d31b5a;
+  --background: #ffffff;
+  --foreground: #2b2f52;
+  --card: #ffffff;
+  --card-foreground: #2b2f52;
+  --popover: #ffffff;
+  --popover-foreground: #2b2f52;
+  --primary: #4449A6;
+  --primary-foreground: #ffffff;
+  --secondary: #d31b5a;
+  --secondary-foreground: #ffffff;
+  --muted: #eff0fa;
+  --muted-foreground: #6e7288;
+  --accent: #eff0fa;
+  --accent-foreground: #4449A6;
+  --destructive: #d31b5a;
+  --destructive-foreground: #ffffff;
+  --border: #d9dcea;
+  --input: #d9dcea;
+  --ring: #4449A6;
+  --radius: 3px;
 }
 
 @layer base {
   body {
-    @apply bg-background text-on-background font-body-md;
+    background-color: #ffffff;
+    color: #2b2f52;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #2b2f52;
+    font-weight: 700;
   }
 }
 
@@ -42,6 +51,81 @@
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Pi7 Tool Container & Buttons */
+.toolcontainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.trackbtn, .toolbtn {
+  border: 1px solid var(--pcolor);
+  color: var(--pcolor);
+  background-color: #ffffff;
+  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-size: 14.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  min-width: 130px;
+}
+
+.trackbtn:hover, .toolbtn:hover {
+  background-color: var(--pcolor);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(68, 73, 166, 0.28);
+}
+
+/* Pi7 Dropzone & Select Button */
+.imagelabel {
+  border: 3px dashed #9da0d9;
+  border-radius: 4px;
+  background: #ffffff;
+  transition: border-color 0.2s ease;
+}
+
+.imagelabel:hover {
+  border: 3px solid rgba(68, 73, 166, 0.95);
+}
+
+.btnsel {
+  background: #047e73;
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 15px;
+  display: inline-block;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: background 0.15s ease;
+}
+
+.btnsel:hover {
+  background: #036960;
+}
+
+.compressbtn {
+  background: #4956a5;
+  color: #ffffff;
+  font-weight: 650;
+  padding: 8px 24px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transition: background 0.15s ease;
+}
+
+.compressbtn:hover {
+  background: #3d4890;
 }
 
 /* Custom scrollbars (used by the workspace-style tool pages) */

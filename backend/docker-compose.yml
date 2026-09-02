@@ -77,7 +77,7 @@ services:
     build:
       context: ../frontend
       args:
-        NEXT_PUBLIC_API_URL: http://localhost:8081
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://picfix.duckdns.org}
     container_name: image-editor-frontend
     ports:
       - "3005:3000"
@@ -93,6 +93,8 @@ services:
     build: .
     container_name: image-editor-worker
     command: ["npm", "run", "worker"]
+    healthcheck:
+      disable: true
     env_file:
       - .env
     environment:

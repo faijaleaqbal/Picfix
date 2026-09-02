@@ -25,10 +25,14 @@ import { formatBytes } from "@/lib/config";
  * quality search (max 8 iterations) to land within ±5% of the target,
  * which is why this call gets a longer timeout than other tools.
  */
-const SIZE_CHIPS = [50, 100, 200, 500, 1000];
+const SIZE_CHIPS = [20, 50, 100, 200, 500];
 
-export function CompressImageTool() {
-  const [targetKb, setTargetKb] = useState(200);
+export function CompressImageTool({
+  initialTargetKb = 200,
+}: {
+  initialTargetKb?: number;
+} = {}) {
+  const [targetKb, setTargetKb] = useState(initialTargetKb);
   const [format, setFormat] = useState("jpeg");
   const state = useProcessing();
 

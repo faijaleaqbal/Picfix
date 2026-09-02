@@ -270,19 +270,19 @@ export function PanelFooterActions({
         type="button"
         onClick={onReset}
         disabled={disabled || loading}
-        className="flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-full border border-border bg-surface px-4 py-2.5 font-label-md text-sm font-semibold text-primary transition-colors hover:bg-muted active:scale-98 disabled:opacity-50"
+        className="flex min-h-[42px] flex-1 items-center justify-center gap-1.5 rounded border border-[#d9dcea] bg-white px-4 py-2 text-sm font-semibold text-[#505050] transition-colors hover:bg-[#f7f8fc] active:scale-98 disabled:opacity-50"
       >
-        <RotateCcw className="size-4 text-text-secondary" />
+        <RotateCcw className="size-4 text-[#8a8ea6]" />
         <span>Reset</span>
       </button>
       <button
         type="button"
         onClick={onApply}
         disabled={disabled || loading}
-        className="flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-full bg-primary px-4 py-2.5 font-label-md text-sm font-semibold text-on-primary shadow-sm transition-transform hover:opacity-90 active:scale-98 disabled:opacity-50"
+        className="flex min-h-[42px] flex-1 items-center justify-center gap-2 rounded bg-[#4956a5] px-4 py-2 text-sm font-bold text-white shadow transition-transform hover:bg-[#3d4890] active:scale-98 disabled:opacity-50"
       >
         {loading ? (
-          <span className="size-4 animate-spin rounded-full border-2 border-on-primary border-t-transparent" />
+          <span className="size-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
         ) : (
           applyIcon
         )}

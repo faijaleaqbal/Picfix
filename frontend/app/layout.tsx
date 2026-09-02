@@ -24,36 +24,32 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://picfix.duckdns.org"),
   title: {
-    default: "Picfix — Free Online Image Editing Tools",
-    template: "%s | Picfix",
+    default: "Picfix Image Tool — Compress, Resize & Edit Images",
+    template: "%s | Picfix Image Tool",
   },
   description:
-    "Professional grade image processing tools for modern workflows. Compress, resize, crop, convert, and enhance images with Picfix AI — free, private, and fast.",
-  applicationName: "Picfix",
+    "Picfix Image Tool is a collection of free online tools like Image Compressor, Image resize tool, and Image conversion tools (Image to JPG, Image to PNG, etc).",
+  themeColor: "#4449A6",
+  applicationName: "Picfix Image Tool",
   keywords: [
     "image editor",
     "compress image",
-    "resize image",
+    "reduce image size in kb",
+    "resize image pixel",
+    "passport size photo",
     "crop image",
     "heic to jpg",
     "webp to jpg",
     "image to pdf",
-    "passport photo",
-    "picfix ai",
   ],
   authors: [{ name: "Picfix Team" }],
   openGraph: {
-    title: "Picfix — Free Online Image Editing Tools",
+    title: "Picfix Image Tool — Compress, Resize & Edit Images",
     description:
-      "Professional grade image processing tools for modern workflows. Compress, resize, crop, convert, and enhance images with Picfix AI.",
+      "Compress, resize, crop, convert and edit images with Picfix Image Tool — free, private and fast.",
     url: "https://picfix.duckdns.org",
-    siteName: "Picfix",
+    siteName: "Picfix Image Tool",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Picfix — Free Online Image Editing Tools",
-    description: "Professional grade image processing tools for modern workflows.",
   },
 };
 
@@ -63,9 +59,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-body-md antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-white text-[#2b2f52] font-body-md antialiased`}
       >
         {children}
       </body>

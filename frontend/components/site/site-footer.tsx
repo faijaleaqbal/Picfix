@@ -1,89 +1,128 @@
 import Link from "next/link";
-import { TOOLS } from "@/lib/tools";
+import { Layers } from "lucide-react";
 
-/**
- * Shared footer used by every page.
- * Follows the majority structure: brand block + legal/support link columns.
- */
 export function SiteFooter() {
-  const featuredTools = TOOLS.slice(0, 6);
-
   return (
-    <footer className="mt-auto w-full border-t border-outline-variant bg-surface-container-lowest">
-      <div className="mx-auto grid max-w-container-max grid-cols-2 gap-stack-lg px-gutter py-stack-lg md:grid-cols-4 lg:grid-cols-5">
-        <div className="col-span-2 mb-4 lg:col-span-1 lg:mb-0">
-          <Link
-            href="/"
-            className="mb-2 block font-headline-md text-headline-md font-bold text-primary"
-          >
-            Picfix
-          </Link>
-          <p className="font-label-sm text-label-sm text-text-secondary">
-            Professional grade image processing tools for modern workflows.
+    <footer className="mt-auto w-full bg-[#4956a5] text-white">
+      <div className="mx-auto max-w-[1240px] px-4 py-8 sm:px-6">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+          {/* Brand & Privacy */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <div className="flex size-7 items-center justify-center rounded bg-white/10 text-[#ffeb3b]">
+                <Layers className="size-4" />
+              </div>
+              <span className="text-lg font-bold tracking-tight">PICFIX IMAGE TOOL</span>
+            </div>
+            <p className="text-xs leading-relaxed text-white/90">
+              Rest assured, your images are automatically removed from our server after 30 Mins of compression. Your privacy matters to us at Picfix Image Tool.
+            </p>
+          </div>
+
+          {/* Quick Tools */}
+          <div>
+            <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">
+              Popular Tools
+            </h4>
+            <ul className="space-y-1.5 text-xs text-white/90">
+              <li>
+                <Link href="/compress-image" className="transition-colors hover:text-[#ffeb3b]">
+                  Reduce Image Size in KB
+                </Link>
+              </li>
+              <li>
+                <Link href="/resize-image-pixel" className="transition-colors hover:text-[#ffeb3b]">
+                  Resize Image Pixel
+                </Link>
+              </li>
+              <li>
+                <Link href="/passport-size-photo" className="transition-colors hover:text-[#ffeb3b]">
+                  Passport Size Photo
+                </Link>
+              </li>
+              <li>
+                <Link href="/crop-image" className="transition-colors hover:text-[#ffeb3b]">
+                  Crop Image
+                </Link>
+              </li>
+              <li>
+                <Link href="/circle-crop" className="transition-colors hover:text-[#ffeb3b]">
+                  Circle Crop
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Format Conversions */}
+          <div>
+            <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">
+              Convert Image
+            </h4>
+            <ul className="space-y-1.5 text-xs text-white/90">
+              <li>
+                <Link href="/jpeg-to-jpg" className="transition-colors hover:text-[#ffeb3b]">
+                  Image To JPG
+                </Link>
+              </li>
+              <li>
+                <Link href="/png-to-jpeg" className="transition-colors hover:text-[#ffeb3b]">
+                  Image to JPEG
+                </Link>
+              </li>
+              <li>
+                <Link href="/heic-to-jpg" className="transition-colors hover:text-[#ffeb3b]">
+                  HEIC To JPG
+                </Link>
+              </li>
+              <li>
+                <Link href="/webp-to-jpg" className="transition-colors hover:text-[#ffeb3b]">
+                  WebP To JPG
+                </Link>
+              </li>
+              <li>
+                <Link href="/image-to-pdf" className="transition-colors hover:text-[#ffeb3b]">
+                  Images To PDF
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal & Info */}
+          <div>
+            <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">
+              Resources & Info
+            </h4>
+            <ul className="space-y-1.5 text-xs text-white/90">
+              <li>
+                <Link href="/resources" className="transition-colors hover:text-[#ffeb3b]">
+                  API Documentation
+                </Link>
+              </li>
+              <li>
+                <Link href="/templates" className="transition-colors hover:text-[#ffeb3b]">
+                  Dimension Templates
+                </Link>
+              </li>
+              <li>
+                <Link href="/pricing" className="transition-colors hover:text-[#ffeb3b]">
+                  Pricing (100% Free)
+                </Link>
+              </li>
+              <li>
+                <Link href="/resources" className="transition-colors hover:text-[#ffeb3b]">
+                  Privacy Policy & Terms
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="mt-8 flex flex-col items-center justify-between gap-2 border-t border-white/20 pt-4 text-xs text-white/80 sm:flex-row">
+          <p>© 2026 Picfix Image Tool. All rights reserved.</p>
+          <p className="flex items-center gap-1">
+            Made With <span className="text-red-300">♥</span> By Picfix
           </p>
-          <p className="mt-2 font-label-sm text-label-sm text-text-secondary">
-            © 2024-2026 Picfix AI. All rights reserved.
-          </p>
-        </div>
-        <div className="flex flex-col gap-2">
-          <h4 className="mb-1 font-label-md text-label-md text-primary">Product</h4>
-          {featuredTools.slice(0, 3).map((tool) => (
-            <Link
-              key={tool.slug}
-              href={`/${tool.slug}`}
-              className="text-text-secondary transition-colors hover:text-primary"
-            >
-              {tool.title}
-            </Link>
-          ))}
-          <Link
-            href="/"
-            className="text-text-secondary transition-colors hover:text-primary"
-          >
-            Templates
-          </Link>
-          <Link
-            href="/"
-            className="text-text-secondary transition-colors hover:text-primary"
-          >
-            Pricing
-          </Link>
-        </div>
-        <div className="flex flex-col gap-2">
-          <h4 className="mb-1 font-label-md text-label-md text-primary">Legal</h4>
-          <Link
-            href="/"
-            className="text-text-secondary transition-colors hover:text-primary"
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            href="/"
-            className="text-text-secondary transition-colors hover:text-primary"
-          >
-            Terms of Service
-          </Link>
-          <Link
-            href="/"
-            className="text-text-secondary transition-colors hover:text-primary"
-          >
-            Cookie Settings
-          </Link>
-        </div>
-        <div className="flex flex-col gap-2">
-          <h4 className="mb-1 font-label-md text-label-md text-primary">Support</h4>
-          <Link
-            href="/"
-            className="text-text-secondary transition-colors hover:text-primary"
-          >
-            Contact Support
-          </Link>
-          <Link
-            href="/"
-            className="text-text-secondary transition-colors hover:text-primary"
-          >
-            API Docs
-          </Link>
         </div>
       </div>
     </footer>

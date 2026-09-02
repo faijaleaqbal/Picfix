@@ -1,162 +1,181 @@
+"use client";
+
+import { useState, useMemo } from "react";
 import Link from "next/link";
-import type { Metadata } from "next";
-import { Sparkles, ArrowRight, Zap, ShieldCheck, Gauge } from "lucide-react";
+import { Search, ShieldCheck } from "lucide-react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
-import { TOOLS, TOOL_GROUPS } from "@/lib/tools";
 
-export const metadata: Metadata = {
-  title: "Picfix — Free Online Image Editing Tools",
-  description:
-    "Professional grade image processing tools for modern workflows. Compress, resize, crop, convert, and enhance images with Picfix AI — free, private and fast.",
-};
+interface ToolItem {
+  title: string;
+  href: string;
+  category: string;
+}
 
-/**
- * Landing page: hero + full tool directory grouped by category.
- * Every tool in lib/tools.ts is linked from here (see verification).
- */
+const ALL_TOOLS: ToolItem[] = [
+  // Most Used Tools
+  { title: "Passport Photo Maker", href: "/passport-size-photo", category: "Most Used Tools" },
+  { title: "Reduce Image Size in KB", href: "/reduce-image-size-in-kb", category: "Most Used Tools" },
+  { title: "Resize Image Pixel", href: "/resize-image-pixel", category: "Most Used Tools" },
+  { title: "Add Name and Date on Photo", href: "/add-name-and-date-on-photo", category: "Most Used Tools" },
+  { title: "Merge Photo and Signature", href: "/merge-photo-and-signature", category: "Most Used Tools" },
+  { title: "Remove Image Background", href: "/remove-image-background", category: "Most Used Tools" },
+  { title: "Images To PDF", href: "/image-to-pdf", category: "Most Used Tools" },
+  { title: "AI Photo Enhancer", href: "/ai-enhance-image", category: "Most Used Tools" },
+  { title: "Resize Image In Centimeter", href: "/resize-image-in-cm", category: "Most Used Tools" },
+  { title: "PAN Card Resize", href: "/resize-for-pan-card", category: "Most Used Tools" },
+  { title: "SSC Photo Resizer", href: "/ssc-photo-resizer", category: "Most Used Tools" },
+  { title: "Increase Image Size in KB", href: "/increase-image-size-in-kb", category: "Most Used Tools" },
+  { title: "Crop Image", href: "/crop-image", category: "Most Used Tools" },
+  { title: "Rotate Image", href: "/rotate-image", category: "Most Used Tools" },
+
+  // Basic Editing
+  { title: "Crop Image", href: "/crop-image", category: "Basic Editing" },
+  { title: "Circle Crop", href: "/circle-crop", category: "Basic Editing" },
+  { title: "Square Crop", href: "/square-image-cropper", category: "Basic Editing" },
+  { title: "Rotate Image", href: "/rotate-image", category: "Basic Editing" },
+  { title: "Flip Image", href: "/flip-image", category: "Basic Editing" },
+  { title: "Watermark Images", href: "/watermark-image", category: "Basic Editing" },
+  { title: "Add Text to Image", href: "/add-text-to-image", category: "Basic Editing" },
+  { title: "Add Logo to Image", href: "/add-logo-to-image", category: "Basic Editing" },
+  { title: "Grayscale Image", href: "/grayscale-image", category: "Basic Editing" },
+  { title: "Blur Image", href: "/blur-image", category: "Basic Editing" },
+  { title: "Color Code From Image", href: "/color-code-from-image", category: "Basic Editing" },
+
+  // Format Conversions
+  { title: "Image to JPG", href: "/jpeg-to-jpg", category: "Format Conversions" },
+  { title: "HEIC to JPG", href: "/heic-to-jpg", category: "Format Conversions" },
+  { title: "WebP to JPG", href: "/webp-to-jpg", category: "Format Conversions" },
+  { title: "PNG to JPEG", href: "/png-to-jpeg", category: "Format Conversions" },
+  { title: "Images To PDF", href: "/image-to-pdf", category: "Format Conversions" },
+
+  // Official & Exam Resizing
+  { title: "Passport Size Photo", href: "/passport-size-photo", category: "Official & Exam Sizing" },
+  { title: "Add Name and Date on Photo", href: "/add-name-and-date-on-photo", category: "Official & Exam Sizing" },
+  { title: "Merge Photo and Signature", href: "/merge-photo-and-signature", category: "Official & Exam Sizing" },
+  { title: "SSC Photo Resizer (20-50KB)", href: "/ssc-photo-resizer", category: "Official & Exam Sizing" },
+  { title: "PAN Card Resize", href: "/resize-for-pan-card", category: "Official & Exam Sizing" },
+  { title: "Resize Image in CM", href: "/resize-image-in-cm", category: "Official & Exam Sizing" },
+  { title: "Resize Image by Pixel", href: "/resize-image-pixel", category: "Official & Exam Sizing" },
+  { title: "Instagram Resize (No Crop)", href: "/resize-image-for-instagram", category: "Official & Exam Sizing" },
+  { title: "WhatsApp DP Resize", href: "/resize-image-for-whatsapp-dp", category: "Official & Exam Sizing" },
+
+  // Target KB Compression
+  { title: "Reduce Size in KB", href: "/reduce-image-size-in-kb", category: "Target KB Compression" },
+  { title: "Compress Image to 20KB", href: "/compress-image-to-20kb", category: "Target KB Compression" },
+  { title: "Compress Image to 50KB", href: "/compress-image-to-50kb", category: "Target KB Compression" },
+  { title: "Compress Image to 100KB", href: "/compress-image-to-100kb", category: "Target KB Compression" },
+  { title: "Compress Image to 200KB", href: "/compress-image-to-200kb", category: "Target KB Compression" },
+  { title: "Compress Image to 500KB", href: "/compress-image-to-500kb", category: "Target KB Compression" },
+  { title: "Increase Image Size in KB", href: "/increase-image-size-in-kb", category: "Target KB Compression" },
+  { title: "General Compressor", href: "/compress-image", category: "Target KB Compression" },
+];
+
+const CATEGORIES = [
+  "Most Used Tools",
+  "Official & Exam Sizing",
+  "Target KB Compression",
+  "Basic Editing",
+  "Format Conversions",
+];
+
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredTools = useMemo(() => {
+    if (!searchQuery.trim()) return null;
+    const q = searchQuery.toLowerCase().trim();
+    return ALL_TOOLS.filter(
+      (t) => t.title.toLowerCase().includes(q) || t.category.toLowerCase().includes(q)
+    );
+  }, [searchQuery]);
+
   return (
-    <div className="flex min-h-screen flex-col bg-background font-body-md text-body-md text-on-surface">
+    <div className="flex min-h-screen flex-col bg-white text-[#2b2f52]">
       <SiteHeader />
 
-      <main className="mx-auto w-full max-w-container-max flex-grow px-margin-mobile py-stack-lg md:px-gutter md:py-16">
-        {/* Hero */}
-        <section className="mx-auto mb-stack-lg max-w-3xl space-y-stack-md text-center md:mb-24">
-          <span className="mx-auto flex w-fit items-center gap-2 rounded-full border border-accent-lavender/30 bg-accent-lavender/10 px-3 py-1 font-label-sm text-label-sm text-accent-lavender">
-            <Sparkles className="size-4" />
-            Powered by Picfix AI
-          </span>
-          <h1 className="font-headline-xl text-headline-xl-mobile text-primary md:text-headline-xl">
-            Professional image tools for modern workflows
-          </h1>
-          <p className="mx-auto max-w-2xl font-body-lg text-body-lg text-text-secondary">
-            Compress, resize, crop, convert and enhance images — free,
-            private and fast. All 21 tools run right in your browser.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-stack-md">
-            <Link
-              href="/compress-image"
-              className="flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-label-md text-label-md text-on-primary transition-colors hover:bg-tertiary-fixed-dim"
-            >
-              Start Editing
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/ai-enhance-image"
-              className="flex items-center gap-2 rounded-full border border-outline-variant px-6 py-3 font-label-md text-label-md text-primary transition-colors hover:bg-muted"
-            >
-              <Sparkles className="size-4 text-accent-lavender" />
-              Try AI Enhance
-            </Link>
-          </div>
-        </section>
+      <main className="mx-auto w-full max-w-[1240px] flex-grow px-4 py-8 sm:px-6">
+        {/* Main Title */}
+        <h1 className="text-center text-2xl font-bold tracking-tight text-[#2b2f52] sm:text-3xl md:text-4xl">
+          Compress, Resize & Edit Pictures
+        </h1>
 
-        {/* Value props */}
-        <section className="mb-stack-lg grid grid-cols-1 gap-stack-md md:mb-24 md:grid-cols-3">
-          <div className="flex items-start gap-4 rounded-xl border border-border bg-surface p-stack-md">
-            <div className="rounded-lg bg-surface-container-high p-2 text-accent-lavender">
-              <Zap className="size-5" />
-            </div>
-            <div>
-              <h3 className="font-label-md text-label-md text-primary">
-                Instant Processing
-              </h3>
-              <p className="font-label-sm text-label-sm text-text-secondary">
-                Files are processed locally in your browser. No uploads required.
-              </p>
-            </div>
+        {/* Pi7 Search Bar */}
+        <div className="mx-auto my-6 max-w-xl rounded-md bg-[#eff0fa] p-2">
+          <div className="relative flex items-center">
+            <Search className="absolute left-3 size-4 text-[#4449A6] opacity-75" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search Tool (e.g. compress, passport, ssc, signature, crop)..."
+              className="w-full rounded bg-white py-2 pl-10 pr-4 text-sm text-[#2b2f52] outline-none shadow-sm transition-all focus:ring-2 focus:ring-[#4449A6]/30"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 text-xs text-gray-400 hover:text-gray-700"
+              >
+                Clear
+              </button>
+            )}
           </div>
-          <div className="flex items-start gap-4 rounded-xl border border-border bg-surface p-stack-md">
-            <div className="rounded-lg bg-surface-container-high p-2 text-accent-lavender">
-              <ShieldCheck className="size-5" />
-            </div>
-            <div>
-              <h3 className="font-label-md text-label-md text-primary">
-                Private by Default
-              </h3>
-              <p className="font-label-sm text-label-sm text-text-secondary">
-                Your images are never uploaded to our servers.
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4 rounded-xl border border-border bg-surface p-stack-md">
-            <div className="rounded-lg bg-surface-container-high p-2 text-accent-lavender">
-              <Gauge className="size-5" />
-            </div>
-            <div>
-              <h3 className="font-label-md text-label-md text-primary">
-                Pro-Grade Quality
-              </h3>
-              <p className="font-label-sm text-label-sm text-text-secondary">
-                Advanced interpolation algorithms keep output pristine.
-              </p>
-            </div>
-          </div>
-        </section>
+        </div>
 
-        {/* Tool directory */}
-        {TOOL_GROUPS.map((group) => (
-          <section key={group.id} className="mb-stack-lg">
-            <h2 className="font-headline-md text-headline-md mb-stack-md text-primary">
-              {group.label}
-            </h2>
-            <div className="grid grid-cols-1 gap-stack-md sm:grid-cols-2 lg:grid-cols-4">
-              {TOOLS.filter((tool) => tool.group === group.id).map((tool) => (
-                <Link
-                  key={tool.slug}
-                  href={`/${tool.slug}`}
-                  className="group flex flex-col items-start gap-stack-sm rounded-xl border border-border bg-surface p-stack-md transition-colors hover:border-accent-lavender"
-                >
-                  <div className="rounded-lg bg-surface-container-high p-2 text-primary transition-colors group-hover:text-accent-lavender">
-                    <tool.icon className="size-5" />
-                  </div>
-                  <h3 className="font-label-md text-label-md text-primary">
+        {/* Search Results if query entered */}
+        {filteredTools ? (
+          <section className="my-8">
+            <h3 className="mb-4 text-lg font-bold text-[#2b2f52]">
+              Search Results ({filteredTools.length})
+            </h3>
+            {filteredTools.length === 0 ? (
+              <p className="py-8 text-center text-sm text-gray-500">
+                No tools found matching &ldquo;{searchQuery}&rdquo;. Try another search keyword.
+              </p>
+            ) : (
+              <div className="toolcontainer">
+                {filteredTools.map((tool, idx) => (
+                  <Link key={`${tool.href}-${idx}`} href={tool.href} className="trackbtn">
                     {tool.title}
-                  </h3>
-                  <p className="font-body-md text-body-md text-sm text-text-secondary">
-                    {tool.description}
-                  </p>
-                </Link>
-              ))}
-            </div>
+                  </Link>
+                ))}
+              </div>
+            )}
           </section>
-        ))}
+        ) : (
+          /* Pi7 Categorized Tool Sections */
+          <div className="my-6 space-y-8">
+            {CATEGORIES.map((cat) => {
+              const tools = ALL_TOOLS.filter((t) => t.category === cat);
+              return (
+                <section key={cat} className="space-y-3">
+                  <h3 className="text-lg font-bold text-[#2b2f52]">{cat}</h3>
+                  <div className="toolcontainer">
+                    {tools.map((tool, idx) => (
+                      <Link key={`${tool.href}-${idx}`} href={tool.href} className="trackbtn">
+                        {tool.title}
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        )}
 
-        {/* Resize special-routes note */}
-        <section className="mb-stack-lg">
-          <h2 className="font-headline-md text-headline-md mb-stack-md text-primary">
-            Popular quick links
-          </h2>
-          <div className="grid grid-cols-1 gap-stack-md sm:grid-cols-2 lg:grid-cols-4">
-            <Link
-              href="/resize-image-pixel"
-              className="group flex flex-col items-start gap-stack-sm rounded-xl border border-border bg-surface p-stack-md transition-colors hover:border-accent-lavender"
-            >
-              <div className="rounded-lg bg-surface-container-high p-2 text-primary transition-colors group-hover:text-accent-lavender">
-                <Sparkles className="size-5" />
-              </div>
-              <h3 className="font-label-md text-label-md text-primary">
-                Resize Image (px)
-              </h3>
-              <p className="font-body-md text-body-md text-sm text-text-secondary">
-                Change image dimensions in pixels.
-              </p>
-            </Link>
-            <Link
-              href="/resize-image-in-cm"
-              className="group flex flex-col items-start gap-stack-sm rounded-xl border border-border bg-surface p-stack-md transition-colors hover:border-accent-lavender"
-            >
-              <div className="rounded-lg bg-surface-container-high p-2 text-primary transition-colors group-hover:text-accent-lavender">
-                <Sparkles className="size-5" />
-              </div>
-              <h3 className="font-label-md text-label-md text-primary">
-                Resize Image (cm)
-              </h3>
-              <p className="font-body-md text-body-md text-sm text-text-secondary">
-                Change image dimensions in centimeters.
-              </p>
-            </Link>
+        {/* Privacy & Fast Processing Assurance Banner */}
+        <section className="my-12 rounded-lg border border-[#d9dcea] bg-[#fafbfe] p-6 text-center sm:p-8">
+          <div className="mx-auto max-w-2xl space-y-3">
+            <div className="inline-flex size-12 items-center justify-center rounded-full bg-[#EFF0FA] text-[#4449A6]">
+              <ShieldCheck className="size-6" />
+            </div>
+            <h2 className="text-xl font-bold text-[#2b2f52]">
+              100% Free, Fast & Private Image Processing
+            </h2>
+            <p className="text-xs leading-relaxed text-[#6e7288] sm:text-sm">
+              Rest assured, your images are processed swiftly and automatically removed from temporary memory after 30 minutes. We never store or train models on user images.
+            </p>
           </div>
         </section>
       </main>
