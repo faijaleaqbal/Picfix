@@ -84,8 +84,9 @@ export function AuthPage({ mode = 'login' }: AuthPageProps) {
 					setSignupSuccess(true);
 				}
 			}
-		} catch {
-			setErrorMsg("An unexpected error occurred. Please try again.");
+		} catch (err: unknown) {
+			const message = err instanceof Error ? err.message : "An unexpected error occurred. Please try again.";
+			setErrorMsg(message);
 		} finally {
 			setLoading(false);
 		}
