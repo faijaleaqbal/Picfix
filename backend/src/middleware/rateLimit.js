@@ -45,21 +45,6 @@ function retryAfterHandler(req, res) {
 }
 
 function makeLimiter({ max, windowMs, name }) {
-  let limiter;
-  let store = null;
-  try {
-    const client = getSharedRedis('ratelimit');
-    store = new RedisStore({
-      sendCommand: async (...args) => {
-        markRedisHealthy();
-        return client.call(...args);
-      },
-      prefix: `rl:${name}:`,
-    });
-  } catch (err) {
-    markRedisUnhealthy(name);
-  }
-
   const base = {
     windowMs,
     limit: max,
@@ -67,12 +52,26 @@ function makeLimiter({ max, windowMs, name }) {
     legacyHeaders: false,
     message: { error: 'Too many requests. Please slow down.', code: 'RATE_LIMITED' },
     handler: retryAfterHandler,
-    store,
   };
 
-  limiter = rateLimit(base);
-  return limiter;
+  if (process.env.USE_REDIS === 'true' && config.redisUrl) {
+    try {
+      const client = getSharedRedis('ratelimit');
+      base.store = new RedisStore({
+        sendCommand: async (...args) => {
+          markRedisHealthy();
+          return client.call(...args);
+        },
+        prefix: `rl:${name}:`,
+      });
+    } catch (err) {
+      markRedisUnhealthy(name);
+    }
+  }
+
+  return rateLimit(base);
 }
+
 
 const aiRateLimit = makeLimiter({
   max: config.aiRateLimit.max,

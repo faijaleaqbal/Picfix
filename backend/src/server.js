@@ -110,7 +110,7 @@ const server = app.listen(config.port, config.host, () => {
 
   // Dev convenience: run the AI worker in-process unless production.
   // Production runs `npm run worker` as a separate process.
-  const runInProcess = process.env.RUN_WORKER_INPROCESS === '1' || config.nodeEnv !== 'production';
+  const runInProcess = process.env.USE_REDIS === 'true' && (process.env.RUN_WORKER_INPROCESS === '1' || config.nodeEnv !== 'production');
   if (runInProcess) {
     Promise.resolve(require('./worker').startAiWorker())
       .then((worker) => {
@@ -120,6 +120,7 @@ const server = app.listen(config.port, config.host, () => {
       .catch((err) => console.warn(`[server] AI worker not started: ${err.message}`));
   }
 });
+
 
 async function gracefulShutdown(signal) {
   if (isShuttingDown) {

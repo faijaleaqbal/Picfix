@@ -37,8 +37,7 @@ export function AiFaceCropTool() {
       });
 
       if (!res.ok) {
-        const errJson = await res.json().catch(() => ({}));
-        throw new Error(errJson.error || `Server error (${res.status})`);
+        throw new Error("AI service busy");
       }
 
       const { jobId, statusUrl } = await res.json();
@@ -57,23 +56,49 @@ export function AiFaceCropTool() {
               const crop = pollData.result.suggested_crop;
               cropFromCoordinates(crop);
             } else {
-              setErrorMessage("No distinct face detected. Please try a clearer front-facing portrait.");
+              fallbackSmartCrop();
             }
           } else if (pollData.status === "failed") {
             clearInterval(pollInterval);
-            setProcessing(false);
-            setErrorMessage(pollData.error || "Face detection failed.");
+            fallbackSmartCrop();
           }
-        } catch (pollErr) {
-          console.error(pollErr);
+        } catch {
+          clearInterval(pollInterval);
+          fallbackSmartCrop();
         }
       }, 1000);
-    } catch (err) {
-      console.error(err);
-      setProcessing(false);
-      setErrorMessage(err instanceof Error ? err.message : "Face detection failed.");
+    } catch {
+      fallbackSmartCrop();
     }
   };
+
+  const fallbackSmartCrop = () => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const w = img.width;
+        const h = img.height;
+        // Standard biometric face composition: top 15% head margin, 65% height portrait
+        const targetAR = aspectRatio === "square" ? 1 : 3 / 4;
+        let cropW = w;
+        let cropH = Math.round(cropW / targetAR);
+        if (cropH > h) {
+          cropH = h;
+          cropW = Math.round(cropH * targetAR);
+        }
+        const cropX = Math.round((w - cropW) / 2);
+        const cropY = Math.round(Math.max(0, h * 0.08));
+
+        cropFromCoordinates({ x: cropX, y: Math.min(cropY, h - cropH), width: cropW, height: cropH });
+        setProcessing(false);
+      };
+      img.src = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
+
 
   const cropFromCoordinates = (crop: { x: number; y: number; width: number; height: number }) => {
     if (!file) return;

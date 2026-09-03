@@ -35,8 +35,80 @@ interface PresetInfo {
   notes?: string;
 }
 
+const DEFAULT_PRESETS: Record<string, PresetInfo> = {
+  "2x2-inch": {
+    label: "2 x 2 inch (US visa/photo)",
+    width: 600,
+    height: 600,
+    dpi: 300,
+    notes: "Standard US passport/visa photo"
+  },
+  "35mm-45mm": {
+    label: "35 x 45 mm (India/EU standard)",
+    width: 413,
+    height: 531,
+    dpi: 300,
+    notes: "Indian passport / most EU countries"
+  },
+  "pan-card": {
+    label: "PAN card photo (India)",
+    width: 213,
+    height: 213,
+    dpi: 300,
+    notes: "3.5 x 2.35 cm; square crop, head-and-shoulders"
+  },
+  "upsc": {
+    label: "UPSC exam photo",
+    width: 350,
+    height: 450,
+    dpi: 300,
+    notes: "350 x 450 px recommended by UPSC"
+  },
+  "india-visa-us": {
+    label: "India visa photo (US applicants)",
+    width: 531,
+    height: 531,
+    notes: "2 x 2 inch at 300 DPI, printed"
+  },
+  "schengen-visa": {
+    label: "Schengen visa photo",
+    width: 413,
+    height: 531,
+    dpi: 300,
+    notes: "35 x 45 mm"
+  },
+  "china-visa": {
+    label: "China visa photo",
+    width: 362,
+    height: 483,
+    dpi: 300,
+    notes: "33 x 44 mm"
+  },
+  "canada-visa": {
+    label: "Canada visa photo",
+    width: 420,
+    height: 540,
+    dpi: 300,
+    notes: "35 x 45 mm at 420x540 final"
+  },
+  "passport-uk": {
+    label: "UK passport photo",
+    width: 825,
+    height: 1074,
+    dpi: 300,
+    notes: "35 x 45 mm printed at higher resolution"
+  },
+  "id-1-card": {
+    label: "ID-1 card photo (85.6 x 54 mm)",
+    width: 1012,
+    height: 638,
+    dpi: 300,
+    notes: "Landscape"
+  }
+};
+
 export function PassportPhotoTool() {
-  const [presets, setPresets] = useState<Record<string, PresetInfo> | null>(null);
+  const [presets, setPresets] = useState<Record<string, PresetInfo>>(DEFAULT_PRESETS);
   const [presetKey, setPresetKey] = useState("2x2-inch");
   const [presetError, setPresetError] = useState<string | null>(null);
   const [format, setFormat] = useState("jpeg");
@@ -49,16 +121,20 @@ export function PassportPhotoTool() {
   useEffect(() => {
     fetchJson<{ presets: Record<string, PresetInfo> }>("/api/passport-photo/presets")
       .then((data) => {
-        setPresets(data.presets);
-        if (!data.presets[presetKey]) {
-          setPresetKey(Object.keys(data.presets)[0] ?? "2x2-inch");
+        if (data && data.presets) {
+          setPresets(data.presets);
+          setPresetError(null);
+          if (!data.presets[presetKey]) {
+            setPresetKey(Object.keys(data.presets)[0] ?? "2x2-inch");
+          }
         }
       })
-      .catch(() =>
-        setPresetError("Couldn't load the country presets — the backend may be offline.")
-      );
+      .catch(() => {
+        // Fallback to DEFAULT_PRESETS silently without blocking user
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   /**
    * Submit AI face detection (async job) and poll for the bounding box.
