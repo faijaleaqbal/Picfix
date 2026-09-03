@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Button } from './button';
 import { createClient } from '@/lib/supabase/client';
@@ -26,6 +26,7 @@ interface AuthPageProps {
 
 export function AuthPage({ mode = 'login' }: AuthPageProps) {
 	const router = useRouter();
+	const searchParams = useSearchParams();
 	const [isLogin, setIsLogin] = useState(mode === 'login');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -36,6 +37,18 @@ export function AuthPage({ mode = 'login' }: AuthPageProps) {
 	const [signupSuccess, setSignupSuccess] = useState(false);
 
 	const supabase = createClient();
+
+	useEffect(() => {
+		const urlError = searchParams.get('error');
+		if (urlError) {
+			if (urlError === 'auth_callback_failed') {
+				setErrorMsg('The email verification link has expired or was already used. Please try logging in or request a new link.');
+			} else {
+				setErrorMsg(decodeURIComponent(urlError));
+			}
+		}
+	}, [searchParams]);
+
 
 	const handleAuth = async (e: React.FormEvent) => {
 		e.preventDefault();

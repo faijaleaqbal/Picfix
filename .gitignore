@@ -31,7 +31,10 @@ test-assets/stats.log
 test-assets/load_test.py
 test-assets/run_test.sh
 .utim_tmp/
+supabase/.temp/
+.temp/
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
