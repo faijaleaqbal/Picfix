@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Layers } from "lucide-react";
+import Image from "next/image";
 
 export function SiteFooter() {
   return (
@@ -8,16 +8,21 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Brand & Privacy */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="flex size-7 items-center justify-center rounded bg-white/10 text-[#ffeb3b]">
-                <Layers className="size-4" />
-              </div>
+            <div className="flex items-center gap-2.5">
+              <Image
+                src="/logo.png"
+                alt="Picfix Logo"
+                width={32}
+                height={32}
+                className="size-8 rounded-xl shadow object-contain"
+              />
               <span className="text-lg font-bold tracking-tight">PICFIX IMAGE TOOL</span>
             </div>
             <p className="text-xs leading-relaxed text-white/90">
               Rest assured, your images are automatically removed from our server after 30 Mins of compression. Your privacy matters to us at Picfix Image Tool.
             </p>
           </div>
+
 
           {/* Quick Tools */}
           <div>

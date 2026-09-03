@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ChevronDown, ChevronRight, Layers, X, Menu } from "lucide-react";
+import { ChevronDown, ChevronRight, X, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { UserNav } from "@/components/site/user-nav";
 
@@ -47,16 +48,25 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#4956a5] shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
-      <div className="mx-auto flex h-14 sm:h-[58px] max-w-[1240px] items-center justify-between px-3 sm:px-6">
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2 text-white no-underline">
-          <div className="flex size-7 sm:size-8 items-center justify-center rounded bg-white/10 text-[#ffeb3b]">
-            <Layers className="size-4 sm:size-5" />
-          </div>
+    <header className="sticky top-0 z-50 w-full bg-[#4956a5] shadow-md">
+      <div className="mx-auto flex h-14 max-w-[1240px] items-center justify-between px-4 sm:px-6">
+        {/* Brand Logo & Name */}
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <Image
+            src="/logo.png"
+            alt="Picfix Logo"
+            width={36}
+            height={36}
+            className="size-8 sm:size-9 rounded-xl shadow-md transition-transform group-hover:scale-105 object-contain"
+            priority
+          />
           <div className="flex items-baseline gap-1.5">
-            <span className="text-lg sm:text-xl font-extrabold tracking-tight text-white">PICFIX</span>
-            <span className="hidden sm:inline text-xs font-bold uppercase tracking-wider text-white/90">IMAGE TOOL</span>
+            <span className="text-lg sm:text-xl font-extrabold tracking-tight text-white group-hover:text-[#ffeb3b] transition-colors">
+              PICFIX
+            </span>
+            <span className="hidden sm:inline text-xs font-bold uppercase tracking-wider text-white/90">
+              IMAGE TOOL
+            </span>
           </div>
         </Link>
 

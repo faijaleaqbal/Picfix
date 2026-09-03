@@ -76,15 +76,14 @@ export function AddLogoTool() {
   return (
     <div className="relative flex min-h-0 w-full flex-1 flex-col md:h-full md:flex-row md:overflow-hidden">
       {/* Canvas Area */}
-      <div className="relative flex min-h-[260px] max-h-[48vh] w-full flex-1 flex-col items-center justify-center gap-3 overflow-y-auto bg-black/90 p-4 sm:p-6 md:max-h-none md:p-8">
-        {/* Checkerboard background for transparency context */}
+      <div className="relative flex min-h-[300px] max-h-[48vh] w-full flex-1 flex-col items-center justify-center gap-3 overflow-y-auto bg-[#f4f5fa] border-b border-border/60 p-4 sm:p-6 md:max-h-none md:border-b-0 md:border-r md:p-8">
+        {/* Light studio canvas grid background */}
         <div
-          className="absolute inset-0 z-0 opacity-40"
+          className="pointer-events-none absolute inset-0 opacity-40"
           style={{
             backgroundImage:
-              "linear-gradient(45deg, #1c1b1d 25%, transparent 25%), linear-gradient(-45deg, #1c1b1d 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1c1b1d 75%), linear-gradient(-45deg, transparent 75%, #1c1b1d 75%)",
+              "radial-gradient(circle at 1px 1px, #c7cbe0 1px, transparent 0)",
             backgroundSize: "20px 20px",
-            backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
           }}
         />
         {!file ? (
@@ -95,11 +94,13 @@ export function AddLogoTool() {
             onFileSelected={state.selectFile}
             selectedName={state.file?.name ?? null}
             busy={processing}
-            className="relative z-10 max-w-xl"
+            className="relative z-10 max-w-xl shadow-sm"
           />
         ) : (
           <div className="relative z-10 flex max-h-full w-full max-w-3xl flex-col gap-3 overflow-y-auto">
-            <BeforeAfter originalUrl={originalUrl} resultUrl={resultUrl} resultLabel="With Logo" />
+            <div className="overflow-hidden rounded-xl border border-[#d9dcea] bg-white p-2 shadow-sm">
+              <BeforeAfter originalUrl={originalUrl} resultUrl={resultUrl} resultLabel="With Logo" />
+            </div>
             {result ? <ResultMeta result={result} originalSize={file.size} /> : null}
             {processing ? <LoadingIndicator label="Compositing logo onto image…" /> : null}
             {error ? <ProcessError message={error} code={errorCode} onRetry={run} /> : null}
@@ -109,6 +110,7 @@ export function AddLogoTool() {
           </div>
         )}
       </div>
+
 
       {/* Right Tool Panel (Settings) */}
       <ToolPanel

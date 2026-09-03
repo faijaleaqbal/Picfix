@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Button } from './button';
@@ -10,7 +11,6 @@ import { createClient } from '@/lib/supabase/client';
 import {
 	AtSignIcon,
 	ChevronLeftIcon,
-	Layers,
 	Lock,
 	Eye,
 	EyeOff,
@@ -19,6 +19,7 @@ import {
 	CheckCircle2
 } from 'lucide-react';
 import { Input } from './input';
+
 
 interface AuthPageProps {
 	mode?: 'login' | 'signup';
@@ -132,10 +133,15 @@ export function AuthPage({ mode = 'login' }: AuthPageProps) {
 			{/* Left Branding & Animated Visual Column */}
 			<div className="bg-[#1b223c] text-white relative hidden h-full flex-col border-r border-border/20 p-10 lg:flex">
 				<div className="from-[#141a2e] absolute inset-0 z-10 bg-gradient-to-t to-transparent opacity-90" />
-				<div className="z-10 flex items-center gap-2">
-					<div className="flex size-9 items-center justify-center rounded-xl bg-[#4956a5] text-[#ffeb3b] shadow-lg">
-						<Layers className="size-5" />
-					</div>
+				<div className="z-10 flex items-center gap-2.5">
+					<Image
+						src="/logo.png"
+						alt="Picfix Logo"
+						width={40}
+						height={40}
+						className="size-10 rounded-xl shadow-lg object-contain"
+						priority
+					/>
 					<div className="flex items-baseline gap-1.5">
 						<span className="text-xl font-extrabold tracking-tight text-white">PICFIX</span>
 						<span className="text-xs font-bold uppercase tracking-wider text-[#ffeb3b]">SUITE</span>
@@ -174,12 +180,18 @@ export function AuthPage({ mode = 'login' }: AuthPageProps) {
 				</Button>
 
 				<div className="mx-auto w-full max-w-sm space-y-6">
-					<div className="flex items-center gap-2 lg:hidden">
-						<div className="flex size-8 items-center justify-center rounded-lg bg-[#4956a5] text-[#ffeb3b]">
-							<Layers className="size-4" />
-						</div>
+					<div className="flex items-center gap-2.5 lg:hidden">
+						<Image
+							src="/logo.png"
+							alt="Picfix Logo"
+							width={32}
+							height={32}
+							className="size-8 rounded-lg shadow object-contain"
+							priority
+						/>
 						<p className="text-xl font-bold tracking-tight text-primary">Picfix</p>
 					</div>
+
 
 					<div className="flex flex-col space-y-1.5">
 						<h1 className="text-2xl font-bold tracking-tight text-primary">

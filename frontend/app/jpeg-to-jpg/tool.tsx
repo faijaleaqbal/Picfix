@@ -37,8 +37,7 @@ export function JpegToJpgTool() {
   return (
     <div className="grid grid-cols-1 gap-stack-md md:grid-cols-3">
       {/* Upload Area / Preview */}
-      <div className="relative flex min-h-[300px] flex-col overflow-hidden rounded-xl border border-dashed border-border bg-[#09090B] p-stack-lg transition-colors hover:border-accent-lavender/50 md:col-span-2">
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-surface-container-lowest to-surface-container opacity-50" />
+      <div className="relative flex min-h-[300px] flex-col overflow-hidden rounded-xl border border-dashed border-[#9da0d9] bg-white p-stack-lg transition-colors hover:border-[#4449A6] md:col-span-2 shadow-sm">
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center space-y-stack-sm text-center">
           {file ? (
             <div className="flex w-full flex-col gap-stack-sm">
@@ -60,15 +59,15 @@ export function JpegToJpgTool() {
                 if (e.key === "Enter" || e.key === " ")
                   document.getElementById("jpeg-upload-input")?.click();
               }}
-              className="flex cursor-pointer flex-col items-center gap-stack-sm"
+              className="flex cursor-pointer flex-col items-center gap-stack-sm py-8"
             >
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-surface-container-high transition-transform duration-300 group-hover:scale-110">
-                <CloudUpload className="text-3xl text-primary" />
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#eff0fa] text-[#4956a5] transition-transform duration-300 group-hover:scale-110">
+                <CloudUpload className="size-8" />
               </div>
               <div>
-                <p className="font-label-md text-label-md text-primary">Drag &amp; drop files here</p>
-                <p className="mt-1 font-label-sm text-label-sm text-text-secondary">
-                  or click to browse (.jpeg files)
+                <p className="font-bold text-base text-gray-800">Drag &amp; drop JPEG files here</p>
+                <p className="mt-1 text-xs text-gray-500">
+                  or click to browse from your device
                 </p>
               </div>
               <input
@@ -87,16 +86,16 @@ export function JpegToJpgTool() {
       </div>
 
       {/* Settings Panel */}
-      <div className="flex flex-col gap-stack-md rounded-xl border border-border bg-[#09090B] p-stack-md">
-        <h3 className="border-b border-border pb-2 font-headline-md text-headline-md text-primary">
+      <div className="flex flex-col gap-stack-md rounded-xl border border-[#d9dcea] bg-white p-5 shadow-sm">
+        <h3 className="border-b border-gray-200 pb-2 text-base font-bold text-gray-800">
           Settings
         </h3>
 
         {/* Quality Slider */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label htmlFor="jpeg-quality" className="font-label-md text-label-md text-on-surface">Output Quality</label>
-            <span className="rounded-md bg-accent-lavender/10 px-2 py-0.5 font-label-sm text-label-sm text-accent-lavender">
+            <label htmlFor="jpeg-quality" className="text-xs font-bold uppercase tracking-wider text-gray-600">Output Quality</label>
+            <span className="rounded-md bg-[#eff0fa] px-2 py-0.5 text-xs font-bold text-[#4956a5]">
               {quality}%
             </span>
           </div>
@@ -110,7 +109,7 @@ export function JpegToJpgTool() {
             onChange={(e) => setQuality(Number(e.target.value))}
             className="slider-thumb w-full"
           />
-          <div className="flex justify-between text-xs text-text-secondary">
+          <div className="flex justify-between text-xs text-gray-500">
             <span>Smaller File</span>
             <span>Best Quality</span>
           </div>
@@ -120,10 +119,10 @@ export function JpegToJpgTool() {
         <div className="space-y-3 pt-stack-sm">
           <div className="flex items-center justify-between">
             <div>
-              <label className="block font-label-md text-label-md text-on-surface">
+              <label className="block text-sm font-semibold text-gray-800">
                 Strip Metadata
               </label>
-              <span className="font-label-sm text-label-sm text-text-secondary">
+              <span className="text-xs text-gray-500">
                 Remove EXIF data for privacy
               </span>
             </div>
@@ -137,18 +136,19 @@ export function JpegToJpgTool() {
         </div>
 
         {/* Action */}
-        <div className="mt-auto border-t border-border pt-stack-md">
+        <div className="mt-auto border-t border-gray-200 pt-4">
           <button
             type="button"
             disabled={!file || processing}
             onClick={run}
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-surface-container-high py-3 font-label-md text-label-md transition-colors hover:border-outline hover:text-primary disabled:cursor-not-allowed disabled:text-text-secondary disabled:opacity-50"
+            className="flex w-full items-center justify-center gap-2 rounded bg-[#047e73] py-2.5 text-sm font-bold text-white shadow hover:bg-[#036960] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            <Play className="text-[18px]" />
-            {processing ? "Converting…" : "Start Conversion"}
+            <Play className="size-4 fill-current" />
+            {processing ? "Converting…" : "Convert to JPG"}
           </button>
         </div>
       </div>
     </div>
+
   );
 }
